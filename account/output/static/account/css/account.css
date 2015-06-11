@@ -1,0 +1,14 @@
+/* line 4, ../../../../scss/account.scss */
+#grouple .scroll-bg {
+  background: url(/static/account/images/big-bg_01.png) no-repeat;
+  min-height: 700px;
+  min-width: 990px;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+/* line 9, ../../../../scss/account.scss */
+#grouple .scroll-bg .inner {
+  position: relative;
+}

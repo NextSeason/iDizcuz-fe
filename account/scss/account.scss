@@ -1,0 +1,13 @@
+@import "compass/css3";
+
+#grouple {
+    .scroll-bg {
+        background : url( /static/account/images/big-bg_01.png ) no-repeat;
+        min-height : 700px;
+        min-width : 990px;
+        @include background-size( cover );
+        .inner {
+            position : relative;
+        }
+    }
+}

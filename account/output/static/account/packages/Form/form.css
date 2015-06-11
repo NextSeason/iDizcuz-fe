@@ -1,0 +1,39 @@
+/* line 3, ../../../../../packages/Form/form.scss */
+.account-form-area {
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.97);
+  top: 200px;
+  right: 10px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0px 0px 5px #999;
+  -webkit-box-shadow: 0px 0px 5px #999;
+  box-shadow: 0px 0px 5px #999;
+}
+/* line 12, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign {
+  width: 300px;
+  display: block;
+  margin: 0 auto;
+}
+/* line 16, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign input[type=text],
+.account-form-area form.sign input[type=password] {
+  margin-bottom: 15px;
+}
+/* line 20, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .btns {
+  margin-top: 5px;
+}
+/* line 23, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign p {
+  text-align: center;
+}
+/* line 27, ../../../../../packages/Form/form.scss */
+.account-form-area .logo-text {
+  height: 85px;
+  line-height: 85px;
+}

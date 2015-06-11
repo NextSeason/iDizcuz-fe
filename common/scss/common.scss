@@ -1,0 +1,18 @@
+#grouple {
+    min-height : 100%;
+
+    .boxes {
+        .inner {
+            width : 990px;
+            margin : 0 auto;
+            background : #FFF;
+        }
+    }
+    .logo-text { 
+        color : #1476CC;
+        font-size : 24px;
+        font-weight : bold;
+        font-style : italic;
+        font-family : Arial;
+    }
+}
