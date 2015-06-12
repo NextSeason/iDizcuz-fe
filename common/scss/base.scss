@@ -81,7 +81,7 @@ p {
     }
 }
 
-.grouple {
+.brand {
     color : $brandColor;
 }
 
@@ -103,14 +103,12 @@ p {
     color : $normalButtonColor;
     border : solid 1px $brandColor;
     &:hover {
-        background : $normalBackgroundColor;
-        color : $brandColor;
+        background : $highligBrandColor;
+        color : $normalButtonColor;
         text-decoration : none;
     }
     &:active {
-        color : $normalBackgroundColor;
-        background : $highlightBlue;
-        border-color : $highlightBlue;
+        opacity : .6;
     }
     @include border-radius( 3px );
     @include box-sizing( border-box );
@@ -119,6 +117,14 @@ p {
         height : 22px;
         line-height : 22px;
         font-size : 12px;
+    }
+    &.inside-input {
+        width : auto;
+        height : 26px;
+        line-height : 26px;
+        font-size : 12px;
+        margin-top : 7px;
+        padding : 0 10px;
     }
     &.large {
         width : 300px;    

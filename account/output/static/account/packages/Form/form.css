@@ -2,10 +2,10 @@
 .account-form-area {
   position: absolute;
   width: 400px;
-  height: 300px;
   background: rgba(255, 255, 255, 0.97);
-  top: 200px;
+  top: 150px;
   right: 10px;
+  padding-bottom: 30px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -14,25 +14,79 @@
   box-shadow: 0px 0px 5px #999;
 }
 /* line 12, ../../../../../packages/Form/form.scss */
+.account-form-area .logo-text {
+  width: 300px;
+  margin: 0 auto;
+}
+/* line 16, ../../../../../packages/Form/form.scss */
 .account-form-area form.sign {
   width: 300px;
   display: block;
   margin: 0 auto;
+  display: none;
 }
-/* line 16, ../../../../../packages/Form/form.scss */
-.account-form-area form.sign input[type=text],
-.account-form-area form.sign input[type=password] {
-  margin-bottom: 15px;
+/* line 21, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign.signup {
+  display: block;
 }
-/* line 20, ../../../../../packages/Form/form.scss */
-.account-form-area form.sign .btns {
+/* line 24, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .btns.signin-btn,
+.account-form-area form.sign .btns.signup-btn,
+.account-form-area form.sign .btns.reset-btn {
   margin-top: 5px;
 }
-/* line 23, ../../../../../packages/Form/form.scss */
-.account-form-area form.sign p {
-  text-align: center;
+/* line 29, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .line {
+  position: relative;
+  margin-bottom: 15px;
 }
-/* line 27, ../../../../../packages/Form/form.scss */
+/* line 32, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .line .send-vcode {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 40px;
+  padding: 0 10px;
+}
+/* line 38, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .line .send-vcode .resend-btn {
+  display: none;
+}
+/* line 42, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .line .tip {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  display: none;
+  -moz-box-shadow: 0px 0px 10px #999 inset;
+  -webkit-box-shadow: 0px 0px 10px #999 inset;
+  box-shadow: 0px 0px 10px #999 inset;
+}
+/* line 48, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .line .tip.warn {
+  -moz-box-shadow: 0 0 10px #d94521 inset;
+  -webkit-box-shadow: 0 0 10px #d94521 inset;
+  box-shadow: 0 0 10px #d94521 inset;
+  color: #d94521;
+}
+/* line 51, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .line .tip.warn a {
+  color: #333;
+}
+/* line 56, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .line .forget {
+  color: #CCC;
+  font-size: 12px;
+  position: absolute;
+  line-height: 40px;
+  top: 0;
+  right: 10px;
+}
+/* line 63, ../../../../../packages/Form/form.scss */
+.account-form-area form.sign .line .forget:hover {
+  text-decoration: none;
+}
+/* line 69, ../../../../../packages/Form/form.scss */
 .account-form-area .logo-text {
   height: 85px;
   line-height: 85px;

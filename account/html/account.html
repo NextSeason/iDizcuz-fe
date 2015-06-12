@@ -8,23 +8,76 @@
         <link rel="stylesheet" href="@Static::css/account.css" />
     </head>
     <body>
-        <div id="grouple">
+        <div id="idizcuz">
             <div class="scroll-bg boxes">
                 <div class="inner">
                     <div class="account-form-area">
-                        <div class="logo-text">iDizcuz</div>
-                        <form class="sign">
+                        <div class="logo-text brand">iDizcuz</div>
+                        <form class="signup sign">
                             <div class="line">
-                                <input type="text" placeholder="邮箱" />
+                                <input type="text" class="email" placeholder="邮箱" />
                             </div>
                             <div class="line">
-                                <input type="text" placeholder="验证码" />
-                                <span>60s</span>
-                                <a href="###" class="btns small">重新发送</a>
+                                <input type="text" class="uname" placeholder="用户名" />
                             </div>
-                            <a href="###" class="btns large">立即注册</a>
-                            <p>已有<em class="grouple">iDizcuz</em>帐号？点击<a href="###">登录</a></p>
+                            <div class="line">
+                                <input type="password" class="passwd" placeholder="密码" />
+                            </div>
+                            <div class="line">
+                                <input type="text" class="vcode" placeholder="验证码" />
+                                <div class="send-vcode">
+                                    <a href="###" class="btns inside-input send-btn disabled">发验证码到邮箱</a>
+                                    <a href="###" class="btns inside-input resend-btn">重新发送 <b class="timer">60s</b></a>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <p class="tip"></p>
+                            </div>
+                            <div class="line">
+                                <a href="###" class="btns large signup-btn">立即注册</a>
+                            </div>
+                            <p>已有<em class="brand">iDizcuz</em>帐号？点击<a href="###" class="to-signin">登录</a></p>
                         </form>
+                        <form class="signin sign">
+                            <div class="line">
+                                <input type="text" class="email" placeholder="邮箱" />
+                            </div>
+                            <div class="line">
+                                <a href="###" class="forget"><em>忘记密码？</em></a>
+                                <input type="password" class="passwd" placeholder="密码" />
+                            </div>
+                            <div class="line">
+                                <p class="tip"></p>
+                            </div>
+                            <div class="line">
+                                <a href="###" class="btns large signin-btn">登录</a>
+                            </div>
+                            <p>没有<em class="brand">iDizcuz</em>帐号？点击<a href="###" class="to-signup">注册</a></p>
+                        </form>
+                        <form class="forget sign">
+                            <div class="line">
+                                <input type="text" class="email" placeholder="邮箱" />
+                            </div>
+                            <div class="line">
+                                <input type="password" class="passwd" placeholder="密码" />
+                            </div>
+                            <div class="line">
+                                <input type="text" class="vcode" placeholder="验证码" />
+                                <div class="send-vcode">
+                                    <a href="###" class="btns inside-input send-btn disabled">发验证码到邮箱</a>
+                                    <a href="###" class="btns inside-input resend-btn">重新发送 <b class="timer">60s</b></a>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <p class="tip"></p>
+                            </div>
+                            <div class="line">
+                                <a href="###" class="btns large signin-btn">设置新密码</a>
+                            </div>
+                            <p>没有<em class="brand">iDizcuz</em>帐号？点击<a href="###" class="to-signup">注册</a></p>
+                        </form>
+
+
                     </div>
                 </div>
             </div>
@@ -32,11 +85,10 @@
         <script src="@Static::common::js/jquery.js"></script>
         <script src="@Static::common::js/jSwitch.js"></script>
         <script>
-            var grouple = new J();
+            var idizcuz = new J();
 
-            grouple.mount( 'name', '@Package::Form', {
+            idizcuz.mount( 'name', '@Package::Form', {
             } );
         </script>
-        <script src="/static/account/js/account.js"></script>
     </body>
 </html>

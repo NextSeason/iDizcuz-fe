@@ -7,15 +7,17 @@
 
 var path = require( 'path' );
 
-var __MODULE__ = path.basename( __dirname );
+var __MODULE__ = path.basename( __dirname ),
+    __APP__ = 'huati';
 
 module.exports = function( grunt ) {
     grunt.initConfig( {
         pkg : grunt.file.readJSON( 'package.json' ),
-        domain : 'www.grouple.cn',
+        app : __APP__,
+        domain : 'huati.grouple.cn',
         dist : 'output',
         module : __MODULE__,
-        localdeploypath : '/Users/lvchengbin/Projects/Grouple',
+        localdeploypath : '/Users/lvchengbin/Projects/iDizcuz',
         copy : {
             html : {
                 files : [ {

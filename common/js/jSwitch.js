@@ -363,6 +363,27 @@ jSwitch.extend( jSwitch, {
     },
     get : function() {
     },
+
+    byteLen : function( str ){
+        var total = 0,
+            charCode,
+            i = 0,
+            l = str.length;
+
+        for( ; i < l; i += 1 ) {
+            charCode = str.charCodeAt( i );
+            if(charCode <= 0x007f) {
+                total += 1;
+            }else if(charCode <= 0x07ff){
+                total += 2;
+            }else if(charCode <= 0xffff){
+                total += 3;
+            }else{
+                total += 4;
+            }
+        }
+        return total;
+    }
 } );
 
     jSwitch.Event = function( src, props ) {

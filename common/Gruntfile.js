@@ -17,7 +17,7 @@ module.exports = function( grunt ) {
         domain : 'huati.grouple.cn',
         dist : 'output',
         module : __MODULE__,
-        localdeploypath : '/Users/lvchengbin/Projects/Grouple',
+        localdeploypath : '/Users/lvchengbin/Projects/iDizcuz',
         copy : {
             html : {
                 files : [ {
