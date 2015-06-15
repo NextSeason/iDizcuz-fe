@@ -1,0 +1,190 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .boxes {
+        &.top {
+            color : #FFF;
+            .inner {
+                position : relative;
+            }
+            .account {
+                position : absolute;
+                right : 0;
+                top : 0;
+                li {
+                    line-height : 59px;
+                    height : 59px;
+                    width : 150px;
+                    background : $brandColor;
+                    a {
+                        color : #FFF;
+                        display : block;
+                        padding-left : 10px;
+                        &:hover {
+                            text-decoration : none;
+                        }
+                    }
+                    ul {
+                        display : none;
+                        li {
+                            height : 40px;
+                            line-height : 40px;
+                            background : $darkBrandColor;
+                            border-top : solid 1px #a52e11;
+                            &:hover {
+                                background : $highligBrandColor;
+                            }
+                        }
+                    }
+                    &:hover {
+                        background : $darkBrandColor;
+                        ul {
+                            display : block;
+                        }
+                    }
+                }
+            }
+            .sign {
+                position : absolute;
+                right : 0;
+                top : 0;
+                a,
+                span {
+                    color : #FFF;
+                }
+                span {
+                    font-size : 12px;
+                }
+
+            }
+        }
+        &.main {
+            .topic-area {
+                width : 750px;
+                .title-line {
+                    height : 40px;
+                    line-height : 40px;
+                    .data-selector {
+                    }
+                }
+                .point {
+                    padding : 10px;
+                    border : solid 1px #EEE;
+                    background : #FAFAFA;
+                    margin : 15px 0;
+                }
+                .detail-line {
+                    .media {
+                        margin : 5px 10px 5px 0;
+                    }
+                    .desc {
+                        p {
+                            text-indent : 2em;
+                        }
+                    }
+                    
+                }
+                .list-area {
+                    .operate-line {
+                        height : 30px;
+                        line-height : 30px;
+                        border-bottom : solid 1px #EEE; 
+                        padding : 0 10px;
+                        font-size : 12px;
+                        margin : 15px 0 10px;
+                        .count {
+                            i {
+                                color : $brandColor;
+                            }
+                        }
+                        ul {
+                            li {
+                                float : left;
+                                a {
+                                    display : block;
+                                    padding : 0 20px;
+                                    color : #333;
+                                    &:hover {
+                                        text-decoration : none;
+                                    }
+                                    &.focus {
+                                        border : solid 1px #EEE;
+                                        border-bottom : 0;
+                                        color : $brandColor;
+                                        background : #FFF; 
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .post-list {
+                        li.posts {
+                            .data-line {
+                                position : relative;
+                                .operates {
+                                    margin-top : 25px;
+                                    a {
+                                        font-size : 12px;
+                                        color : #666;
+                                        margin-right : 10px;
+                                    }
+                                }
+                                .vote {
+                                    a.btns {
+                                        display : block;
+                                        margin-bottom : 5px;
+                                        font-size : 10px;
+                                        &.against {
+                                            background : #666;
+                                            border-color : #666;
+                                        }
+                                    }
+                                }
+                                .title {
+                                    margin-left : 10px;
+                                    h2 {
+                                        line-height : 27px;
+                                    }
+                                    .uname {
+                                        color : #999;
+                                        line-height : 22px;
+                                        margin-bottom : 5px;
+                                        font-size: 12px;
+                                        span {
+                                            margin-left : 10px;
+                                        }
+                                    }
+                                }
+                            }
+                            .contents {
+                                p {
+                                    text-indent : 2em;
+                                }
+                            }
+                        }
+                    }
+                    .textbox {
+                        margin-top : 20px;
+                        #editor {
+                            width : 100%;
+                            height : 300px;
+                        }
+                    }
+
+                }
+                .submit-line {
+                    margin-top : 15px;
+                    text-align : right;
+                }
+
+            }
+            .sidebar {
+                width : 235px;
+                height : 200px;
+                background : pink;
+            }
+        }
+    }
+}

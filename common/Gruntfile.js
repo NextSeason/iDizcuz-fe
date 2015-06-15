@@ -30,38 +30,44 @@ module.exports = function( grunt ) {
             stc : {
                 files : [ {
                     expand : true,
-                    src : [ 
-                        'js/**/*.js', 'packages/**/*.js',
-                        'images/**/*.png', 'packages/**/*.png',
-                        'images/**/*.gif', 'packages/**/*.gif',
-                        'fonts/**/*.eot', 'packages/**.*.eot'
-                    ],
+                    cwd : 'static/',
+                    src : [ '**/*' ],
                     dest : '<%= dist %>/static/<%= module %>/'
                 } ]
             },
-            deploy : {
+            deployStatic : {
                 files : [ {
                     expand : true,
                     cwd : '<%= dist %>',
                     src : [
-                        'html/**/*',
                         'static/**/*'
                     ],
                     dest : '<%= localdeploypath %>'
                 } ]
+            },
+            deployHTML : {
+                files : [ {
+                    expand : true,
+                    cwd : '<%= dist %>/html',
+                    src : [
+                        '**/*'
+                    ],
+                    dest : '<%= localdeploypath %>/application/views/page/'
+                } ]
             }
+
         },
         compass : {
             scss : {
                 options : {
-                    sassDir : 'scss',
+                    sassDir : 'static/scss',
                     cssDir : '<%= dist %>/static/<%= module %>/css/',
                     relativeAssets : false
                 }
             },
             packages : {
                 options : {
-                    sassDir : 'packages',
+                    sassDir : 'static/packages',
                     cssDir : '<%= dist %>/static/<%= module %>/packages/',
                     relativeAssets : false
                 }
@@ -136,7 +142,8 @@ module.exports = function( grunt ) {
                     expand : true,
                     src : [ 
                         '<%= dist %>/**/*.html',
-                        '<%= dist %>/**/*.js'
+                        '<%= dist %>/**/*.js',
+                        '<%= dist %>/**/*.css'
                     ]
                 } ]
             }
@@ -165,14 +172,10 @@ module.exports = function( grunt ) {
         watch : {
             dev : {
                 files : [ 
-                    'packages/**/*', 
                     'html/**/*', 
-                    'js/**/*', 
-                    'scss/**/*', 
-                    'fonts/**/*',
-                    'images/**/*'
+                    'static/**/*'
                 ],
-                tasks : [ 'default', 'copy:deploy' ]
+                tasks : [ 'default', 'copy:deployStatic', 'copy:deployHTML' ]
             }
         }
     } );
@@ -190,7 +193,7 @@ module.exports = function( grunt ) {
 
     grunt.registerTask( 'base', [ 'remove', 'compass', 'copy:html', 'copy:stc', 'replace' ] );
 
-    grunt.registerTask( 'default', [ 'base', 'copy:deploy' ] );
+    grunt.registerTask( 'default', [ 'base', 'copy:deployStatic', 'copy:deployHTML' ] );
 
     /**
      * online - with different configuration value and compress js&css files
