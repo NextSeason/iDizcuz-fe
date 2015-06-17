@@ -1,0 +1,35 @@
+@import "compass/css3";
+
+html, body {
+    height : 100%;
+}
+
+#idizcuz {
+    height : 100%;
+    padding-top : 0.1px;
+    @include background-image( linear-gradient(
+        left,
+        rgba( 255, 0, 0, .5 ) 0%, rgba( 255, 0, 0, .5 ) 12.5%,
+        rgba( 255, 215, 0, .5 ) 12.5%, rgba( 255, 215, 0, .5 ) 25%,
+        rgba( 20, 118, 204, .5 ) 25%, rgba( 20, 118, 204, .5 ) 37.5%,
+        rgba( 255, 165, 0, .5 ) 37.5%, rgba( 255, 165, 0, .5 ) 50%,
+        rgba( 0, 128, 0, .5 ) 50%, rgba( 0, 128, 0, .5 ) 62.5%,
+        rgba( 150, 110, 24, .5 ) 62.5%, rgba( 150, 110, 24, .5 ) 75%,
+        rgba( 0, 200, 200, .5 ) 75%, rgba( 0, 200, 200, .5 ) 87.5%,
+        rgba( 128, 0, 128, .5 ) 87.5%, rgba( 128, 0, 128, .5 ) 100%
+    ) );
+
+    form {
+        width : 400px;
+        margin : 15% auto 0;
+        input {
+            display : block;
+            width : 100%;
+            margin-top : 20px;
+        }
+        .btns {
+            width : 100%;
+            margin-top : 20px;
+        }
+    }
+}
