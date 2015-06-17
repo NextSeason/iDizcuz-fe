@@ -61,11 +61,21 @@
         }
         &.main {
             .topic-area {
-                width : 750px;
+                width : 765px;
                 .title-line {
                     height : 40px;
                     line-height : 40px;
-                    .data-selector {
+                    .date-selector {
+                        margin-top : 10px;
+                        a {
+                            display : block;
+                            float : left;
+                            height : 22px;
+                            line-height : 22px;
+                            &.date {
+                                margin : 0 5px;
+                            }
+                        }
                     }
                 }
                 .point {
@@ -176,14 +186,40 @@
                 }
                 .submit-line {
                     margin-top : 15px;
-                    text-align : right;
+                    p {
+                        display : block;
+                        float : left;
+                        height : 40px;
+                        line-height : 40px;
+                        &.post-tip {
+                            width : 200px;
+                            color : #999;
+                        }
+                        &.post-warn {
+                            width : 350px;
+                            color : $brandColor;
+                            text-align : right;
+                            padding-right : 15px;
+                        }
+                    }
+                    .public {
+                        float : right;
+                    }
                 }
 
             }
             .sidebar {
-                width : 235px;
-                height : 200px;
-                background : pink;
+                width : 220px;
+                .about-idizcuz,
+                .new-post {
+                    text-align : center;
+                    padding : 10px;
+                    background : #FAFAFA;
+                    .btns {
+                        margin : 0 auto;
+                        display : block;
+                    }
+                }
             }
         }
     }

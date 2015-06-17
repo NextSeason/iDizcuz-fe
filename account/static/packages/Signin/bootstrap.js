@@ -68,7 +68,7 @@ J.Package( {
 
             if( !errno ) {
                 me.setTip( '登录成功，正在为您跳转...' );
-                location.href = '/topic/page/topic';
+                location.href = '/topic';
                 return;
             }
 

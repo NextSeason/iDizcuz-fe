@@ -50,7 +50,7 @@ J.Package( {
 
             $( this ).hide();
             $( 'form.signup .resend-btn' ).css( 'display', 'inline-block' );
-            me.restartTimer( $( 'form.signup .resend-btn' ) );
+            me.restartTimer();
         } );
 
         $( 'form.signup .resend-btn' ).on( 'click', function( e ) {
@@ -58,7 +58,7 @@ J.Package( {
             if( $( this ).hasClass( 'disabled' ) ) return false;
 
             me.sendVcode( 'signup' );
-            me.restartTimer( $( 'form.signup .resend-btn' ) );
+            me.restartTimer();
         } );
 
         $( 'form.signup .signup-btn' ).on( 'click', function( e ) {
@@ -84,13 +84,17 @@ J.Package( {
             }
         } ).done( function() {
             me.setTip( '验证码已发送到您的邮箱，请登录邮箱查收' );
+        } ).fail( function() {
+            me.setTip( '系统错误，请稍候再试', 'warn' );
+            me.restartTimer( '1s' );
         } );
     },
-    restartTimer : function( elem ) {
+    restartTimer : function( start ) {
         var interval = null,
+            elem = $( 'form.signup .resend-btn' ),
             timer = elem.find( '.timer' );
 
-        timer.html( '60s' );
+        timer.html( start || '60s' );
 
         elem.addClass( 'disabled' );
         
@@ -169,6 +173,9 @@ J.Package( {
 
             if( !errno ) {
                 me.setTip( '您已完成注册，请文明参与讨论' );
+                setTimeout( function() {
+                    location.href = '/';
+                }, 1000 );
                 return;
             }
 
@@ -179,12 +186,16 @@ J.Package( {
                     me.setTip( '验证码不正确', 'warn' );
                     break;
                 case 5 : 
-                    me.setTip( '该邮箱已存在，您可以直接<a href="/account/page/signin">登录</a>', 'warn' );
+                    me.setTip( '该邮箱已存在，您可以直接<a href="/signin">登录</a>', 'warn' );
                     break;
                 default :
                     me.setTip( '注册失败，请确认填写信息无误后重新提交', 'warn' );
                     break;
             }
+        } ).fail( function() {
+            me.submiting = false;
+            me.setTip( '系统错误,请稍候再试', 'warn' );
+            me.restartTimer( '1s' );
         } );
     }
 } );

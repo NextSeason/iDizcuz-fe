@@ -9292,7 +9292,7 @@ UM.ui.define('colorpicker', {
 UM.ui.define('modal', {
     tpl: '<div class="edui-modal" tabindex="-1" >' +
         '<div class="edui-modal-header">' +
-        '<div class="edui-close" data-hide="modal"></div>' +
+        '<div class="edui-close" data-hide="modal"><i class="fa fa-times"></i></div>' +
         '<h3 class="edui-title"><%=title%></h3>' +
         '</div>' +
         '<div class="edui-modal-body"  style="<%if(width){%>width:<%=width%>px;<%}%>' +
@@ -9301,8 +9301,8 @@ UM.ui.define('modal', {
         '<% if(cancellabel || oklabel) {%>' +
         '<div class="edui-modal-footer">' +
         '<div class="edui-modal-tip"></div>' +
-        '<%if(oklabel){%><div class="edui-btn edui-btn-primary" data-ok="modal"><%=oklabel%></div><%}%>' +
-        '<%if(cancellabel){%><div class="edui-btn" data-hide="modal"><%=cancellabel%></div><%}%>' +
+        '<%if(oklabel){%><div class="btns normal " data-ok="modal"><%=oklabel%></div><%}%>' +
+        '<%if(cancellabel){%><div class="btns dark normal" data-hide="modal"><%=cancellabel%></div><%}%>' +
         '</div>' +
         '<%}%></div>',
     defaultOpt: {

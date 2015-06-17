@@ -24,6 +24,21 @@ strong,
 .string {
     font-weight : bold;
 }
+.editor,
+.post-contents {
+    b {
+        font-weight : bold;
+    }
+    i {
+        font-style : italic;
+    }
+    ul {
+        list-style : disc inside;
+    }
+    ol {
+        list-style : decimal inside;
+    }
+}
 
 a {
     color : $brandColor;

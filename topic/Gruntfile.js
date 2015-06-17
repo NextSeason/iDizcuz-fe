@@ -146,6 +146,30 @@ module.exports = function( grunt ) {
                         '<%= dist %>/**/*.css'
                     ]
                 } ]
+            },
+            include : {
+                options : {
+                    patterns : [ {
+                        match : /@Include::([\w\.\/]+)(?:::([\w\.\/]+))?/g,
+                        replacement : function() {
+                            /**
+                             * @Include::MODULE::SRC - @Include::common::head.inc.html - <?php include TPL_PATH . '/common/head.inc.html'; ?>
+                             * @Include::SRC - @Include::side.inc.html - <?php include TPL_PATH . '/CURRENT_MODULE/side.inc.html'; ?>
+                             */
+                            var args = arguments;    
+
+                            if( typeof args[ 2 ] === 'undefined' ) {
+                                return '<?php include TPL_PATH . \'' + __MODULE__ + '/' + args[ 1 ] +  '\'; ?>';
+                            }
+
+                            return '<?php include TPL_PATH . \'' + args[ 1 ] + '/' + args[ 2 ] + '\'; ?>';
+                        }
+                    } ]
+                },
+                files : [ {
+                    expand : true,
+                    src : [ '<%= dist %>/html/**/*.html' ]
+                } ]
             }
         },
 
