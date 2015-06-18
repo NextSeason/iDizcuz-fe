@@ -1,0 +1,62 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    #top {
+        height : 80px;;
+        line-height : 80px;
+        background : $brandColor;
+        padding : 0 20px;
+        border-bottom : solid 1px $darkBrandColor;
+        @include box-sizing( border-box );
+        .top-title {
+            font-size : 16px;
+            color : #FFF;
+            margin-left : 20px;
+        }
+    }
+    .main {
+        position : relative;
+        .sidebar {
+            position : fixed;
+            top : 80px;
+            bottom : 0;
+            width : 180px;
+            background : $brandColor;
+            a {
+                color : #FFF;
+                display : block;
+                height : 40px;
+                line-height : 40px;
+                padding-left : 15px;
+                border-bottom : solid 1px $darkBrandColor;
+                &:hover {
+                    text-decoration : none;
+                    background : $darkBrandColor;
+                }
+                &.focus {
+                    color : $brandColor;
+                    background : #FFF;
+                }
+            }
+            li {
+                display : block;
+                a {
+                }
+                ul {
+                    li {
+                        a {
+                            padding-left : 25px;
+                        }
+                    }
+                }
+            }
+            i.flip {
+                @include transform( rotateY( 180deg ) );
+            }
+        }
+        .core {
+            margin-left : 180px;
+        }
+    }
+}

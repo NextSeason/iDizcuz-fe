@@ -189,7 +189,10 @@ p {
 }
 
 input[type=text],
-input[type=password] {
+input[type=password],
+input[type=date],
+input[type=time],
+textarea {
     width : 300px;
     height : 40px;
     font-size : 14px;
@@ -203,5 +206,18 @@ input[type=password] {
         outline : 0px;
         border-color : #1476CC;
     }   
+}
+
+input[type=date] {
+    width : 150px;
+}
+
+input[type=time] {
+    width : 100px;
+}
+
+textarea {
+    width : 400px;
+    height : 150px;
 }
 /** buttons end **/

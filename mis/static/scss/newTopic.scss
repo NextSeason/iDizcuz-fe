@@ -1,0 +1,65 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .core {
+        padding : 20px;
+        .topic-form {
+            label {
+                display : block;
+                margin-bottom : 20px;
+                .s-title {
+                    font-size : 16px;
+                    line-height : 30px;
+                    padding-left : 3px;
+                    color : #666;
+                }
+                input[type=text] {
+                    width : 500px;
+                }
+                .styled-select {
+                    position : relative;
+                    display : inline-block;
+                    &:after {
+                        content : '\f0dd';
+                        font-family : FontAwesome;
+                        position : absolute;
+                        right : 10px;
+                        top : 10px;
+                        color : #666;
+                    }
+                }
+
+                select {
+                    display : inline-block;
+                    padding : 0 30px 0 10px;
+                    height : 40px;
+                    line-height : 40px;
+                    background : #FFF;
+                    border-radius : 2px;
+                    border : solid 1px #B9B9B9;
+                    @include appearance( none );
+                }
+
+                textarea {
+                    width : 600px;
+                }
+            }
+
+            .warn {
+                padding : 20px 5px;
+                color : $brandColor;
+                margin-bottom : 15px;
+                display : none;
+            }
+
+            .line {
+                label {
+                    float : left;
+                    margin-right : 40px;
+                }
+            }
+        }
+    }
+
+}
