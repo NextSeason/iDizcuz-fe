@@ -181,6 +181,15 @@
                             width : 100%;
                             height : 300px;
                         }
+                        .not-login-editor {
+                            border : solid 1px #d4d4d4;
+                            width : 100%;
+                            height : 200px;
+                            text-align : center;
+                            p {
+                                line-height : 200px;
+                            }
+                        }
                     }
 
                 }

@@ -85,6 +85,9 @@ J.Package( {
                     me.setTip( '登录失败，请确认填写信息无误后重新提交', 'warn' );
                     break;
             }
+        } ).fail( function() {
+            me.setTip( '系统错误，请稍候再试' );
+            me.submiting = false;
         } );
     }
 } );
