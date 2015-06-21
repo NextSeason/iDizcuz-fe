@@ -219,5 +219,8 @@ input[type=time] {
 textarea {
     width : 400px;
     height : 150px;
+    &.templates {
+        display : none;
+    }
 }
 /** buttons end **/
