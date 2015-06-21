@@ -25,7 +25,8 @@ J.Package( {
         var start = ( pn - 1 ) * rn + 1;
 
         var data = {
-            topic : this.topic
+            topic : this.topic,
+            _t : +new Date
         };
 
         if( preloadIds.length >= start + pn ) {
@@ -42,7 +43,7 @@ J.Package( {
         } ).done( function( response ) {
             var errno = +response.errno;
 
-            $( '.loading-list' ).hide();
+            $( '.loading-list' ).fadeOut( 'slow' );
 
             if( errno ) return false;
 
@@ -86,6 +87,18 @@ J.Package( {
         $( '.post-list' ).html( html );
     },
 
+    getPost : function( el ) {
+        var postEl = el.closest( 'li.posts' );
+
+        if( !postEl.length ) return null;
+
+        return postEl;
+    },
+
+    getPostId : function( postEl ) {
+        return postEl.attr( 'data-post-id' );
+    },
+
     setCache : function( response ) {
     },
     bindEvent : function() {
@@ -96,6 +109,28 @@ J.Package( {
             $( '.list-area .sort' ).removeClass( 'focus' );
             $( this ).addClass( 'focus' );
             $( '.loading-list.top' ).show();
+        } );
+
+        $( '.list-area' ).on( 'click', '.op-btn', function( e ) {
+            var postEl = me.getPost( $( this ) ),
+                bubbleEl = postEl.find( '.op-bubbles' ),
+                action = $( this ).attr( 'data-action' ),
+                pos = $( this ).position();
+
+            if( action == 'unfav' ) {
+                return;
+            }
+
+            bubbleEl.find( '> .triangle' ).css( 'left', pos.left + $( this ).width() / 2 - 10 );
+            bubbleEl.hide();
+            bubbleEl.find( '.box' ).hide();
+            bubbleEl.find( '.' + action ).show();
+            bubbleEl.show();
+
+        } );
+
+        $( '.list-area' ).on( 'click', '.bubbles .close', function( e ) {
+            $( this ).closest( '.bubbles' ).hide();
         } );
     }
 

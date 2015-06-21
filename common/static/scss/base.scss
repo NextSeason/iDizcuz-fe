@@ -188,6 +188,50 @@ p {
     }
 }
 
+.bubbles {
+    position : relative;
+    border : solid 1px #EEE;
+    .close {
+        position : absolute;
+        color : #999;
+        top : 10px;
+        right : 10px;
+        &:hover {
+            color : $brandColor;
+            text-decoration : none;
+        }
+    }
+    .triangle {
+        position : absolute;
+        border : solid 10px transparent;
+        border-bottom-color : #EEE;
+        top : -21px;
+        .triangle {
+            border-bottom-color : #FFF;
+            bottom : -11px;
+            right : -10px;
+        }
+    }
+    .inner {
+        padding : 10px;
+    }
+}
+
+.share-btn-boxes {
+    .share-btns {
+        width : 36px;
+        height : 36px;
+        line-height : 36px;
+        display : inline-block;
+        padding : 0;
+        margin : 0;
+        font-size : 20px;
+        text-align : center;
+        background : none;
+        color : #999;
+    }
+}
+
 input[type=text],
 input[type=password],
 input[type=date],
