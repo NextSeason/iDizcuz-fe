@@ -76,6 +76,8 @@ J.Package( {
 
         for( ; i < l; i += 1 ) {
             data[ i ].title = this.getTitle( data[ i ].content );
+            data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
+            data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
         }
 
         return data;
@@ -112,26 +114,75 @@ J.Package( {
         } );
 
         $( '.list-area' ).on( 'click', '.op-btn', function( e ) {
-            var postEl = me.getPost( $( this ) ),
-                bubbleEl = postEl.find( '.op-bubbles' ),
-                action = $( this ).attr( 'data-action' ),
-                pos = $( this ).position();
-
-            if( action == 'unfav' ) {
-                return;
-            }
-
-            bubbleEl.find( '> .triangle' ).css( 'left', pos.left + $( this ).width() / 2 - 10 );
-            bubbleEl.hide();
-            bubbleEl.find( '.box' ).hide();
-            bubbleEl.find( '.' + action ).show();
-            bubbleEl.show();
-
+            var action = $( this ).attr( 'data-action' );
+            me[ action + 'Action' ]( $( this ) );
         } );
 
         $( '.list-area' ).on( 'click', '.bubbles .close', function( e ) {
             $( this ).closest( '.bubbles' ).hide();
         } );
-    }
+    },
 
+    agreeAction : function( el ) {
+        
+    },
+
+    markAction : function( el ) {
+        var me = this,
+            postEl = this.getPost( el ),
+            postId = postEl.attr( 'data-post-id' ),
+            markId = +el.attr( 'data-mark-id' ),
+            data = {
+                post_id : postId,
+                act : +!markId,
+                mark_id : markId
+            };
+
+        if( markId ) {
+            el.removeClass( 'op-unmark' ).addClass( 'op-mark' ).attr( 'data-mark-id', 0 );
+            el.html( '<i class="fa fa-star-o"></i> 收藏' );
+            if( me.showingBubble( el ) == 'mark' ) me.hideBubble( el );
+        }
+
+        $.ajax( {
+            url : '/topic/interface/mark',
+            method : 'POST',
+            data : data
+        } ).done( function( response ) {
+            var errno = +response.errno,
+                data = response.data || {};
+
+            if( errno ) {
+            }
+
+            if( +data.mark ) {
+                el.removeClass( 'op-mark' ).addClass( 'op-unmark' ).attr( 'data-mark-id', data.mark );
+                el.html( '<i class="fa fa-star"></i> 取消收藏' );
+
+                me.showBubble( el );
+            }
+        } );
+
+    },
+    showingBubble : function( el ) {
+        return this.getPost( el ).find( '.op-bubbles' ).attr( 'data-showing' );
+    },
+    showBubble : function( el ) {
+        var postEl = this.getPost( el ),
+            bubbleEl = postEl.find( '.op-bubbles' ),
+            action = el.attr( 'data-action' ),
+            pos = el.position();
+
+        bubbleEl.attr( 'data-showing', action );
+     
+        bubbleEl.find( '> .triangle' ).css( 'left', pos.left + el.width() / 2 - 10 );
+        bubbleEl.hide();
+        bubbleEl.find( '.box' ).hide();
+        bubbleEl.find( '.' + action ).show();
+        bubbleEl.show();
+    },
+
+    hideBubble : function( el ) {
+        this.getPost( el ).find( '.op-bubbles' ).hide();
+    }
 } );
