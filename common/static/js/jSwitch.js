@@ -383,6 +383,15 @@ jSwitch.extend( jSwitch, {
             }
         }
         return total;
+    },
+    parseJson : function( str ) {
+        return ( new Function( "return (" + str + ")" ) )();
+    },
+    formatString : function( str, data ) { 
+        return str.replace( /{#([\w.]+)}/g, function( m, n ) { 
+            val = jSwitch.extract( n, data );
+            return typeof val === 'undefined' ? '' : val;
+        } );
     }
 } );
 

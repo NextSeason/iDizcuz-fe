@@ -26,6 +26,7 @@ J.Package( {
 
         var data = {
             topic : this.topic,
+            order : order,
             _t : +new Date
         };
 
@@ -106,7 +107,7 @@ J.Package( {
     bindEvent : function() {
         var me = this;
         $( '.list-area .sort' ).on( 'click', function( e ) {
-            var order = $( this ).attr( 'data-order-type' );
+            var order = $( this ).attr( 'data-order' );
             me.load( order, 0 );
             $( '.list-area .sort' ).removeClass( 'focus' );
             $( this ).addClass( 'focus' );
@@ -124,7 +125,30 @@ J.Package( {
     },
 
     agreeAction : function( el ) {
-        
+        var postEl = this.getPost( el ),
+            postId = postEl.attr( 'data-post-id' ),
+            opinion = el.attr( 'data-intent' );
+
+        $.ajax( {
+            url : '/topic/interface/vote',
+            method : 'POST',
+            data : {
+                post_id : postId,
+                opinion : opinion,
+                type : 0,
+                value : 1
+            }
+        } ).done( function( response ) {
+            var errno = +response.errno,
+                o;
+
+            if( errno ) { return false; }
+
+            o = +el.find( 'b' ).html();
+
+            el.find( 'b' ).html( o + 1 );
+
+        } );
     },
 
     markAction : function( el ) {
@@ -163,6 +187,13 @@ J.Package( {
             }
         } );
 
+    },
+    shareAction : function( el ) {
+        this.showBubble( el );
+    },
+
+    reportAction : function( el ) {
+        this.showBubble( el );
     },
     showingBubble : function( el ) {
         return this.getPost( el ).find( '.op-bubbles' ).attr( 'data-showing' );
