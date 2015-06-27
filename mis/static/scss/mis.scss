@@ -7,7 +7,12 @@
         line-height : 80px;
         background : $brandColor;
         padding : 0 20px;
+        position : fixed;
+        top : 0;
+        left : 0;
+        width : 100%;
         border-bottom : solid 1px $darkBrandColor;
+        z-index : 10;
         @include box-sizing( border-box );
         .top-title {
             font-size : 16px;
@@ -17,12 +22,14 @@
     }
     .main {
         position : relative;
+        margin-top : 80px;
         .sidebar {
             position : fixed;
             top : 80px;
             bottom : 0;
             width : 180px;
             background : $brandColor;
+            overflow : auto;
             a {
                 color : #FFF;
                 display : block;

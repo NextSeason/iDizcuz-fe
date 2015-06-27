@@ -1,0 +1,28 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .core {
+        padding : 20px;
+        .event-form {
+            label {
+                display : block;
+                margin-bottom : 20px;
+                .s-title {
+                    font-size : 16px;
+                    line-height : 30px;
+                    padding-left : 3px;
+                    color : #666;
+                }
+                input[type=text] {
+                    width : 800px;
+                }
+
+                textarea {
+                    width : 800px;
+                    height : 800px;
+                }
+            }
+        }
+    }
+}

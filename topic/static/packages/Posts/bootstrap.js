@@ -50,7 +50,7 @@ J.Package( {
 
             var posts = me.formatData( response.data.posts );
             
-            me.render( order, response.data.posts );
+            me.render( response.data.posts );
 
             me.setCache( response );
         } );
@@ -84,10 +84,10 @@ J.Package( {
         return data;
     },
 
-    render : function( order, posts ) {
+    render : function( posts ) {
         var html = this.compiledTpl( { data : posts } );
         console.log( 'posts', posts );
-        $( '.post-list' ).html( html );
+        $( '.post-list' ).append( html );
     },
 
     getPost : function( el ) {
@@ -108,6 +108,7 @@ J.Package( {
         var me = this;
         $( '.list-area .sort' ).on( 'click', function( e ) {
             var order = $( this ).attr( 'data-order' );
+            $( '.post-list' ).html( '' );
             me.load( order, 0 );
             $( '.list-area .sort' ).removeClass( 'focus' );
             $( this ).addClass( 'focus' );
@@ -121,6 +122,59 @@ J.Package( {
 
         $( '.list-area' ).on( 'click', '.bubbles .close', function( e ) {
             $( this ).closest( '.bubbles' ).hide();
+        } );
+
+        $( '.list-area' ).on( 'click', '.report-submit', function( e ) {
+            me.submitReport( $( this ) );
+        } );
+    },
+
+    submitReport : function( el ) {
+        var postEl = this.getPost( el ),
+            postId = postEl.attr( 'data-post-id' ),
+            reportEl = el.closest( '.report' ),
+            tipEl = el.parent().find( '.tip' );
+
+        var checked = reportEl.find( 'input[type=radio]:checked' );
+
+        if( !checked.length ) {
+            tipEl.html( '请选择投诉原因' ).addClass( 'err' ); 
+            return;
+        }
+
+        var reason = checked.val();
+
+        var desc = $.trim( reportEl.find( 'textarea.desc' ).val() );
+
+        $.ajax( {
+            url : '/topic/interface/report',
+            method : 'POST',
+            data : {
+                post_id : postId,
+                reason : reason,
+                desc : desc
+            }
+        } ).done( function( response ) {
+            var errno = +response.errno;
+
+            if( !errno ) {
+                tipEl.removeClass( 'err' ).html( '您的投诉已经提交，我们会尽快为您处理。感谢您的支持' ); 
+
+                return;
+            }
+            switch( errno ) {
+                case 3 : 
+                    // not login
+                    break;
+                case 14 : 
+                    tipEl.html( '您已经提交过投诉，我们会尽快为您处理' ).addClass( 'err' ); 
+                    break;
+                default :
+                    tipEl.html( '系统错误，请稍候再试' ).addClass( 'err' ); 
+                    break;
+                
+            }
+
         } );
     },
 

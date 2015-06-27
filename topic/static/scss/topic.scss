@@ -260,6 +260,14 @@
                                             text-align : right;
                                         }
                                     }
+                                    .tip {
+                                        font-size : 12px;
+                                        padding-right : 10px;
+                                        color : #666;
+                                        &.err {
+                                            color : $brandColor;
+                                        }
+                                    }
                                 }
                             }
                             .contents {
@@ -275,6 +283,16 @@
                                 .comments {
                                     margin-left : 5px;
                                     color : #999;
+                                }
+                            }
+                            &.new-post {
+                                opacity : 0;
+                                @include transition( ease-in-out 1.5s opacity );
+                                .op-bubbles {
+                                    display : block;
+                                    .share {
+                                        display : block;
+                                    }
                                 }
                             }
                         }
