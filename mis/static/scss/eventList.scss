@@ -12,22 +12,22 @@
                 border : solid 1px #EEE;
                 line-height : 40px;
                 padding : 0 10px;
+                .op {
+                    margin : 0 15px;
+                }
             }
             .event-content {
-                padding : 15px;
-                border : solid 1px #EEE;
-            }
-
-            .event-info {
-                border : solid 1px #EEE;
-                border-top : 0;
-                padding : 15px;
-                line-height : 25px;
-            }
-            .btn-line {
-                padding : 15px;
-                border : solid 1px #EEE;
-                border-top : 0;
+                display : none;
+                .content {
+                    padding : 15px;
+                    border : solid 1px #EEE;
+                }
+                .event-info {
+                    border : solid 1px #EEE;
+                    border-top : 0;
+                    padding : 15px;
+                    line-height : 25px;
+                }
             }
         }
     }

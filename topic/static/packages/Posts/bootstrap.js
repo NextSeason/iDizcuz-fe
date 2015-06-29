@@ -5,6 +5,8 @@ J.Package( {
             posts : {}
         };
 
+        this.getTargetPost();
+
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
 
         this.currentOrder = 0;
@@ -14,6 +16,45 @@ J.Package( {
 
         this.bindEvent();
         this.load( 0, 0 );
+    },
+
+    getTargetPost : function() {
+        var me = this;
+        var matches = window.location.search.substr( 1 ).match( /(^|&)post=([^&]*)(&|$)/ ),
+            postId;
+        if( matches == null ) {
+            return false;
+        }
+        postId = matches[ 2 ];
+
+        $.ajax( {
+            url : '/topic/interface/getpost',
+            data : {
+                id : postId
+            }
+        } ).done( function( response ) {
+            var errno = +response.errno,
+                post;
+
+            if( errno ) return false;
+
+            post = response.data.post;
+
+            if( post.topic_id != me.topic ) return false;
+
+            posts = me.formatData( [ post ] );
+
+            console.log( 'target post' , posts );
+
+            var html = me.compiledTpl( { data : posts } ),
+                targetPostTpl = $( '#target-post-tpl' ).val(),
+                targetPostNode = $( targetPostTpl );;
+
+            targetPostNode.find( '.post-detail' ).html( html );
+
+            targetPostNode.insertBefore( $( '.topic-area .title-line' ) );
+        } );
+
     },
 
     load : function( order, pn, rn ) {
@@ -90,7 +131,7 @@ J.Package( {
         $( '.post-list' ).append( html );
     },
 
-    getPost : function( el ) {
+    getPostEl : function( el ) {
         var postEl = el.closest( 'li.posts' );
 
         if( !postEl.length ) return null;
@@ -106,7 +147,7 @@ J.Package( {
     },
     bindEvent : function() {
         var me = this;
-        $( '.list-area .sort' ).on( 'click', function( e ) {
+        $( '.topic-area .sort' ).on( 'click', function( e ) {
             var order = $( this ).attr( 'data-order' );
             $( '.post-list' ).html( '' );
             me.load( order, 0 );
@@ -115,22 +156,22 @@ J.Package( {
             $( '.loading-list.top' ).show();
         } );
 
-        $( '.list-area' ).on( 'click', '.op-btn', function( e ) {
+        $( '.topic-area' ).on( 'click', '.op-btn', function( e ) {
             var action = $( this ).attr( 'data-action' );
             me[ action + 'Action' ]( $( this ) );
         } );
 
-        $( '.list-area' ).on( 'click', '.bubbles .close', function( e ) {
+        $( '.topic-area' ).on( 'click', '.bubbles .close', function( e ) {
             $( this ).closest( '.bubbles' ).hide();
         } );
 
-        $( '.list-area' ).on( 'click', '.report-submit', function( e ) {
+        $( '.topic-area' ).on( 'click', '.report-submit', function( e ) {
             me.submitReport( $( this ) );
         } );
     },
 
     submitReport : function( el ) {
-        var postEl = this.getPost( el ),
+        var postEl = this.getPostEl( el ),
             postId = postEl.attr( 'data-post-id' ),
             reportEl = el.closest( '.report' ),
             tipEl = el.parent().find( '.tip' );
@@ -179,7 +220,7 @@ J.Package( {
     },
 
     agreeAction : function( el ) {
-        var postEl = this.getPost( el ),
+        var postEl = this.getPostEl( el ),
             postId = postEl.attr( 'data-post-id' ),
             opinion = el.attr( 'data-intent' );
 
@@ -207,7 +248,7 @@ J.Package( {
 
     markAction : function( el ) {
         var me = this,
-            postEl = this.getPost( el ),
+            postEl = this.getPostEl( el ),
             postId = postEl.attr( 'data-post-id' ),
             markId = +el.attr( 'data-mark-id' ),
             data = {
@@ -250,10 +291,10 @@ J.Package( {
         this.showBubble( el );
     },
     showingBubble : function( el ) {
-        return this.getPost( el ).find( '.op-bubbles' ).attr( 'data-showing' );
+        return this.getPostEl( el ).find( '.op-bubbles' ).attr( 'data-showing' );
     },
     showBubble : function( el ) {
-        var postEl = this.getPost( el ),
+        var postEl = this.getPostEl( el ),
             bubbleEl = postEl.find( '.op-bubbles' ),
             action = el.attr( 'data-action' ),
             pos = el.position();
@@ -268,6 +309,6 @@ J.Package( {
     },
 
     hideBubble : function( el ) {
-        this.getPost( el ).find( '.op-bubbles' ).hide();
+        this.getPostEl( el ).find( '.op-bubbles' ).hide();
     }
 } );

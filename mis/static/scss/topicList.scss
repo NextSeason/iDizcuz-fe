@@ -12,6 +12,15 @@
                 color : #333;
                 border : solid 1px #EEE;
                 padding : 0 10px;
+                .op {
+                    margin : 0 15px;
+                }
+            }
+            .topic-content {
+                display : none;
+                border : solid 1px #EEE;
+                border-top : 0;
+                padding : 15px;
             }
         }
     }
