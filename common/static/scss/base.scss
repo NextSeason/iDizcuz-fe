@@ -254,6 +254,9 @@ textarea {
         outline : 0px;
         border-color : #1476CC;
     }   
+    &.small {
+        width : 100px;
+    }
 }
 
 input[type=date] {

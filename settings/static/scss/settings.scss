@@ -1,0 +1,26 @@
+@import "compass/css3";
+
+#idizcuz {
+    .nav {
+        margin-top : 20px;
+        border-bottom : solid 1px #DDD;
+        padding-left : 20px;
+        li {
+            float : left;
+            a {
+                display : block;
+                height : 35px;
+                line-height : 35px;
+                text-align : center;
+                padding : 0 30px;
+                background : #FFF;
+                position : relative;
+                top : 1px;
+                &.focus {
+                    border : solid 1px #DDD;
+                    border-bottom : 0;
+                }
+            }
+        }
+    }
+}

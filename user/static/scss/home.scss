@@ -5,19 +5,56 @@
     .boxes {
         &.account {
             margin-top : 15px;
-            .id-card {
+            .user-card {
                 border : solid 1px $brandColor;
                 height : 200px;
+                
                 .avatar {
                     width : 160px;
                     height : 160px;
-                    background : $brandColor;
+                    background : #EEE;
+                    border : solid 1px #CCC;
+                    margin : 20px;
                     display : inline-block;
+                    float : left;
+                    @include border-radius( 3px );
                     img {
                         width : 100%;
                         height : 100%;
                     }
                 }
+            }
+            .user-info {
+                width : 500px;
+                padding : 20px;
+                float : left;
+                position : relative;
+                .edit {
+                    position : absolute;
+                    top : 20px;
+                    right : 10px;
+                }
+                .uname {
+                    font-size : 16px;
+                    font-weight : bold;
+                    color : #666;
+                    &:hover {
+                        text-decoration : none;
+                    }
+                }
+                .desc {
+                    font-size : 14px;
+                    color : #999;
+                }
+            }
+            .sp {
+                height : 160px;
+                border-left : solid 1px #EEE;
+                font-size : 0;
+                float : left;
+                margin-top : 20px;
+                line-height : 0;
+
             }
         }
 

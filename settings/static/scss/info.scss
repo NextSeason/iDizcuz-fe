@@ -1,0 +1,71 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .info-form {
+        .select-helper {
+            border : solid 1px #B9B9B9;
+            display : inline-block;
+            @include border-radius( 2px );
+            select {
+                border : 0;
+                min-width : 200px;
+                background : none;
+                padding : 10px;
+                height : 40px;
+                outline : 0;
+                cursor : pointer;
+                font-size : 13px;
+                margin : 0;
+            }
+            &:hover {
+                background : #FCFCFC;
+            }
+        }
+        .parts {
+            border-bottom : solid 1px #DDD;
+            color : #666;
+            padding : 25px 15px;
+            .s-title {
+                line-height : 40px;
+                width : 160px;
+                text-align : right;
+                padding-right : 10px;
+                font-size : 16px;
+                @include box-sizing( border-box );
+            }
+            .sex-area {
+                line-height : 40px;
+            }
+            .s-main {
+                padding-left : 20px;
+                width : 600px;
+            }
+
+            img.avatar {
+                float : left;
+                border : solid 1px #EEE;
+            }
+
+            .upload-btn {
+                margin-left : 20px;
+                float : left;
+                position : relative;
+                input[type=file] {
+                    width : 80px;
+                    height : 28px;
+                    outline : 0;
+                    position : absolute;
+                    top : 0;
+                    left : 0;
+                    cursor : pointer;
+                    @include opacity( 0 );
+                }
+            }
+
+            label {
+                cursor : pointer;
+            }
+        }
+    }
+}
