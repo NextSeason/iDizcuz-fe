@@ -15,10 +15,63 @@
             line-height : 59px;
             background : $brandColor;
             border-bottom : solid 1px #CCC;
+            color : #FFF;
             & > .inner {
                 background : $brandColor;
                 height : 59px;
                 line-height : 59px;
+                position : relative;
+                .account {
+                    position : absolute;
+                    right : 0;
+                    top : 0;
+                    li {
+                        line-height : 59px;
+                        height : 59px;
+                        width : 150px;
+                        background : $brandColor;
+                        a {
+                            color : #FFF;
+                            display : block;
+                            padding-left : 10px;
+                            &:hover {
+                                text-decoration : none;
+                            }
+                        }
+                        ul {
+                            display : none;
+                            li {
+                                height : 40px;
+                                line-height : 40px;
+                                background : $darkBrandColor;
+                                border-top : solid 1px #a52e11;
+                                &:hover {
+                                    background : $highlightBrandColor;
+                                }
+                            }
+                        }
+                        &:hover {
+                            background : $darkBrandColor;
+                            ul {
+                                display : block;
+                            }
+                        }
+                    }
+                }
+                .sign {
+                    position : absolute;
+                    right : 0;
+                    top : 0;
+                    a,
+                    span {
+                        color : #FFF;
+                    }
+                    span {
+                        font-size : 12px;
+                    }
+    
+                }
+
             }
         }
         &.main {

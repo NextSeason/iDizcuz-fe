@@ -45,7 +45,7 @@ a {
     text-decoration : none;
     &:hover,
     &:active {
-        color : $highligBrandColor;
+        color : $highlightBrandColor;
         text-decoration : underline;
     }
 }
@@ -119,7 +119,7 @@ p {
     color : $normalButtonColor;
     border : solid 1px $brandColor;
     &:hover {
-        background : $highligBrandColor;
+        background : $highlightBrandColor;
         color : $normalButtonColor;
         text-decoration : none;
     }

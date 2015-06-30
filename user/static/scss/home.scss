@@ -1,0 +1,63 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .boxes {
+        &.account {
+            margin-top : 15px;
+            .id-card {
+                border : solid 1px $brandColor;
+                height : 200px;
+                .avatar {
+                    width : 160px;
+                    height : 160px;
+                    background : $brandColor;
+                    display : inline-block;
+                    img {
+                        width : 100%;
+                        height : 100%;
+                    }
+                }
+            }
+        }
+
+        &.main {
+            height : 200px;
+            .main-area {
+                width : 800px;
+                ul.nav {
+                    display : inline-block;
+                    border : solid 1px #EEE;
+                    @include box-sizing( border-box );
+                    li {
+                        background : #FFF;
+                        float : left;
+                        a {
+                            padding : 0 20px;
+                            text-align : center;
+                            display : block;
+                            height : 40px;
+                            line-height : 40px;
+                            color : #999;
+                            font-weight : bold;
+                            border-right : solid 1px #DDD;
+                            &:hover {
+                                background : #F7F7F7;
+                                text-decoration : none;
+                            }
+                            &.focus {
+                                color : #333;
+                                background : #F7F7F7;
+                            }
+                        }
+                        &:last-child {
+                            a {
+                                border-right : 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
