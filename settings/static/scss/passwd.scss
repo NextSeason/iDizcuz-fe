@@ -1,0 +1,27 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+
+    form.passwd {
+        padding : 30px;
+        label {
+            line-height : 40px;
+            display : block;
+            margin-top : 20px;
+            span {
+                display : inline-block;
+                width : 90px;
+            }
+            .submit {
+                margin-left : 90px;
+            }
+            .tip {
+                padding-left : 10px;
+                color : $brandColor;
+                font-size : 12px;
+                width : 200px;
+            }
+        }
+    }
+}
