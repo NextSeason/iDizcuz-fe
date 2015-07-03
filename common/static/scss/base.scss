@@ -206,6 +206,7 @@ p {
         border : solid 10px transparent;
         border-bottom-color : #EEE;
         top : -21px;
+        @include transition( left ease-in-out .5s );
         .triangle {
             border-bottom-color : #FFF;
             bottom : -11px;
@@ -275,3 +276,8 @@ textarea {
     }
 }
 /** buttons end **/
+
+.loading {
+    background : url( @Static::images/loading.gif ) no-repeat center;
+    height : 80px;
+}
