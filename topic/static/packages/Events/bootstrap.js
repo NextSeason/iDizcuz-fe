@@ -85,15 +85,15 @@ J.Package( {
                 left = parseInt( tip.width() );
             } 
             me.timeout && clearTimeout( me.timeout ); 
-            tip.fadeIn();
+            tip.show();
             tip.find( '.text' ).html( me._events[id].tip );
             tip.find( '> .triangle' ).css( 'left', left );
 
         } );
         $( '.events' ).on( 'mouseout', '.events-nav', function( e ) {
             me.timeout = setTimeout( function() {
-                $( '.events-tip' ).fadeOut();
-            }, 500 );
+                $( '.events-tip' ).hide();
+            }, 200 );
         } );
 
         $( '.scroll' ).on( 'mousedown', function( e ) {

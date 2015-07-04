@@ -6,6 +6,11 @@
         &.main {
             .topic-area {
                 width : 765px;
+                .empty {
+                    line-height : 80px;
+                    color : #999;
+                    text-align : center;
+                }
                 .posts {
                     padding : 10px 0;
                     border-bottom : solid 1px #eee;
@@ -180,19 +185,18 @@
                     }
                 }
                 .title-line {
-                    height : 40px;
                     line-height : 40px;
-                    .date-selector {
-                        margin-top : 10px;
-                        a {
-                            display : block;
-                            float : left;
-                            height : 22px;
-                            line-height : 22px;
-                            &.date {
-                                margin : 0 5px;
-                            }
+                    a.more {
+                        display : block;
+                        float : left;
+                        height : 22px;
+                        line-height : 22px;
+                        &.date {
+                            margin : 0 5px;
                         }
+                    }
+                    h1 {
+                        height : 40px;
                     }
                 }
                 .desc {
@@ -216,10 +220,6 @@
                 .events {
                     position : relative;
                     display : none;
-                    .loading {
-                        text-align : center;
-                        line-height : 80px;
-                    }
                     .ctrl-bar {
                         border : solid 1px #EEE;
                         border-bottom : 0;
@@ -341,13 +341,6 @@
                                 }
                             }
                         }
-                    }
-
-                    .loading-list {
-                        height : 40px;
-                        line-height : 40px;
-                        text-align : center;
-                        color : $brandColor;
                     }
 
                     .textbox {

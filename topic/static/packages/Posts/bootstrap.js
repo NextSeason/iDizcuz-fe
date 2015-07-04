@@ -85,7 +85,7 @@ J.Package( {
         } ).done( function( response ) {
             var errno = +response.errno;
 
-            $( '.loading-list' ).fadeOut( 'slow' );
+            $( '.loading.list-top' ).fadeOut( 'slow' );
 
             if( errno ) return false;
 
@@ -153,7 +153,7 @@ J.Package( {
             me.load( order, 0 );
             $( '.list-area .sort' ).removeClass( 'focus' );
             $( this ).addClass( 'focus' );
-            $( '.loading-list.top' ).show();
+            $( '.loading.list-top' ).show();
         } );
 
         $( '.topic-area' ).on( 'click', '.op-btn', function( e ) {
