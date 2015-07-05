@@ -44,6 +44,7 @@ J.Package( {
             var events = $( this ).attr( 'data-events-ids' );
 
             $( '.events' ).show();
+            $( '.show-events' ).remove();
 
             $.ajax( {
                 url : '/topic/interface/getevents',
@@ -58,7 +59,6 @@ J.Package( {
 
                 me.renderEventsList( data.events );
                 $( '.events .loading' ).fadeOut();
-                $( '.show-events' ).fadeOut( 2000 );
 
                 me._events = me.formatData( data.events );
                 
@@ -108,7 +108,7 @@ J.Package( {
     },
     startScroll : function( direction ) {
         var me = this,
-            box = $( '.list-area' ),
+            box = $( '.list-box' ),
             list = box.find( '> ul' ),
             w = list.width(),
             d = w - parseInt( box.width() );

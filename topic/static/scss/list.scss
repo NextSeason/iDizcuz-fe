@@ -1,0 +1,59 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .main {
+        .list-area {
+            width : 765px;
+            .select-type {
+                border-bottom : solid 1px #EEE;
+                ul {
+                    margin-right : 20px;
+                    li {
+                        float : left;
+                        a {
+                            color : #333;
+                            display : block;
+                            line-height : 30px;
+                            text-align : center;
+                            width : 80px;
+                            background : #FFF;
+                            position : relative;
+                            top : 1px;
+                            font-size : 12px;
+                            &:hover {
+                                text-decoration : none;
+                            }
+                            &.focus {
+                                border : solid 1px #EEE;
+                                border-bottom : 0;
+                                color : $brandColor;
+                            }
+                        }
+                    }
+                }
+            }
+            ul.topic-list {
+                > li {
+                    padding : 20px 0;
+                    border-bottom : dashed 1px #EEE;
+                    .data {
+                        line-height : 30px;
+                        color : #999;
+                        span {
+                            margin-right : 15px;
+                            &:first-child {
+                                margin-right : 0;
+                            }
+                        }
+                    }
+                    .desc {
+                        padding : 10px;
+                        background : #FAFAFA;
+                        border : solid 1px #EEE;
+                    }
+                }
+            }
+        }
+    }
+}

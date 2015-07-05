@@ -17,6 +17,7 @@
                     margin : 20px;
                     display : inline-block;
                     float : left;
+                    @include box-sizing( border-box );
                     @include border-radius( 3px );
                     img {
                         width : 100%;
@@ -25,10 +26,13 @@
                 }
             }
             .user-info {
-                width : 500px;
+                width : 565px;
                 padding : 20px;
                 float : left;
                 position : relative;
+                color : #666;
+                font-size : 13px;
+                @include box-sizing( border-box );
                 .edit {
                     position : absolute;
                     top : 20px;
@@ -42,54 +46,50 @@
                         text-decoration : none;
                     }
                 }
-                .desc {
-                    font-size : 14px;
-                    color : #999;
-                }
             }
             .sp {
                 height : 160px;
                 border-left : solid 1px #EEE;
                 font-size : 0;
-                float : left;
                 margin-top : 20px;
                 line-height : 0;
 
+            }
+            .user-data {
+                padding : 20px;
+                .line {
+                    margin-bottom : 10px;
+                    color : #666;
+                }
             }
         }
 
         &.main {
             height : 200px;
             .main-area {
-                width : 800px;
-                ul.nav {
-                    display : inline-block;
-                    border : solid 1px #EEE;
-                    @include box-sizing( border-box );
-                    li {
-                        background : #FFF;
-                        float : left;
-                        a {
-                            padding : 0 20px;
-                            text-align : center;
-                            display : block;
-                            height : 40px;
-                            line-height : 40px;
-                            color : #999;
-                            font-weight : bold;
-                            border-right : solid 1px #DDD;
-                            &:hover {
-                                background : #F7F7F7;
-                                text-decoration : none;
-                            }
-                            &.focus {
-                                color : #333;
-                                background : #F7F7F7;
-                            }
-                        }
-                        &:last-child {
+                width : 765px;
+                .nav-box {
+                    border-bottom : solid 1px #EEE;
+                    ul.nav {
+                        li {
+                            float : left;
                             a {
-                                border-right : 0;
+                                display : block;
+                                padding : 0 20px;
+                                color : #666;
+                                line-height : 30px;
+                                position : relative;
+                                top : 1px;
+                                font-size : 13px;
+                                &:hover {
+                                    text-decoration : none;
+                                }
+                                &.focus {
+                                    border : solid 1px #EEE;
+                                    border-bottom : 0;
+                                    color : $brandColor;
+                                    background : #FFF;
+                                }
                             }
                         }
                     }
