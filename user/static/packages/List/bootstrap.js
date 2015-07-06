@@ -7,39 +7,38 @@ J.Package( {
 
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
 
-        this.currentOrder = 0;
+        this.page = $( 'ul.nav .focus' ).attr( 'data-page' );
+        this.account = $( '#idizcuz' ).attr( 'data-account-id' );
 
-        this.rn = 20;
-        this.topic = $( '.topic-area' ).attr( 'data-topic-id' );
+        this.urls = {
+            posts : '/user/interface/userposts',
+            agree : '/user/interface/votedposts?opinion=1',
+            disagree : '/user/interface/votedposts?opinion=0',
+            mark : '/user/interface/markedposts'
+        };
 
         this.bindEvent();
-        this.load( 0, 0 );
+
+        this.load( 1 );
     },
 
-    load : function( order, pn, rn ) {
-        if( J.isUndefined( rn ) ) rn = this.rn;
+    load : function( pn ) {
 
         var me = this,
+            rn = 20,
             preloadIds = this._cache.preloadIds;
 
-        var start = ( pn - 1 ) * rn + 1;
+        var start = ( pn - 1 ) * rn;
 
         var data = {
-            topic : this.topic,
-            order : order,
+            account : this.account,
+            start : start,
+            rn : rn,
             _t : +new Date
         };
 
-        if( preloadIds.length >= start + pn ) {
-            data.posts = preloadIds.slice( start ).join( ',' );
-        } else {
-            data.s = start;
-            data.l = rn;
-            data.order = order;
-        }
-
         $.ajax( {
-            url : '/topic/interface/getposts',
+            url : this.urls[ this.page ],
             data : data
         } ).done( function( response ) {
             var errno = +response.errno;
@@ -87,7 +86,7 @@ J.Package( {
     render : function( posts ) {
         var html = this.compiledTpl( { data : posts } );
         console.log( 'posts', posts );
-        $( '.post-list' ).append( html );
+        $( '.post-list' ).html( html );
     },
 
     getPostEl : function( el ) {
