@@ -83,17 +83,39 @@
         bottom : 0;
         right : 0;
         background : rgba( 0, 0, 0, .2 );
+        -webkit-user-select : none;
         > .inner {
             width : 300px;
             height : 380px;
             background : #FFF;
             margin : 10% auto 0;
+            position : relative;
             border-top : solid 3px $brandColor;
             @include box-sizing( border-box );
             .img-area {
-                height : 280px;
-                background : #EEE;
-                margin : 10px;
+                width : 300px;
+                height : 300px;
+                overflow : hidden;
+                .inner {
+                    width : 240px;
+                    heigth : 240px;
+                    margin : 30px;
+                    position : relative;
+                }
+                img {
+                    position : absolute;
+                }
+            }
+            .img-cover {
+                position : absolute;
+                cursor : move;
+                top : 0;
+                left : 0;
+                width : 300px;
+                height : 300px;
+                border : solid 30px rgba( 255, 255, 255, .8 );
+                @include box-sizing( border-box );
+                @include box-shadow( 0 0 15px rgba(0,0,0,.5) inset );
                 /*
                 .progress {
                     text-align : center;
@@ -102,6 +124,21 @@
                     color : $brandColor;
                 }
                 */
+            }
+            .line {
+                font-size : 0;
+                line-height : 0;
+                border-top : solid 1px #EEE;
+            }
+            .resize-area {
+                width : 220px;
+                margin : 10px auto;
+                text-align : center;
+                input[type=range] {
+                    width : 180px; 
+                    cursor : pointer;
+                    outline : 0;
+                }
             }
             .ft {
                 text-align : center;
