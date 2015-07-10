@@ -10,6 +10,7 @@
                     line-height : 80px;
                     color : #999;
                     text-align : center;
+                    margin-bottom : 100px;
                 }
                 .posts {
                     padding : 10px 0;
@@ -146,9 +147,15 @@
                     }
                     .contents {
                         margin : 15px 0;
+                        word-wrap : break-word;
                         p {
                             text-indent : 2em;
                         }
+                    }
+                    .to-area {
+                        line-height : 30px;
+                        font-size : 13px;
+                        margin-bottom : 10px;
                     }
                     .bottom-line {
                         color : #999;
@@ -164,6 +171,9 @@
                         @include transition( ease-in-out 1.5s opacity );
                         .op-bubbles {
                             display : block;
+                            > .triangle {
+                                left : 733px;
+                            }
                             .share {
                                 display : block;
                             }
@@ -343,9 +353,7 @@
                         }
                     }
                     .editor-area {
-
                         .line {
-                            margin-top : 20px;
                             span, input, a {
                                 display : block;
                                 float : left;
@@ -358,12 +366,15 @@
                                 &.title {
                                     width : 500px;
                                 }
-                                &.for {
+                                &.to {
                                     width : 500px;
                                 }
                             }
                             a {
                                 margin-left : 10px;
+                            }
+                            &.to-line {
+                                display : none;
                             }
                         }
                         .textbox {
@@ -384,7 +395,7 @@
                         }
                     }
                     .submit-line {
-                        margin-top : 20px;
+                        margin-top : 10px;
                         p {
                             display : block;
                             float : left;

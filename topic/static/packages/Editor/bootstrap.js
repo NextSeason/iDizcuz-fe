@@ -37,8 +37,36 @@ J.Package( {
                 editor.focus();
             }
         } );
+
+        editor.addListener( 'beforepaste', function( name, data ) {
+            var node = $( data.html );
+            data.html = node.text();
+            node = null;
+        } );
+
+        editor.addListener( 'blur', function( e ) {
+            var title = $.trim( $( 'input.title' ).val() );
+            if( title.length ) return;
+            $('input.title').val( me.getTitle( editor.getContent() ) );
+        } );
+
+        $( 'a.get-title' ).on( 'click', function( e ) {
+            if( $.trim( editor.getContentTxt() ) == me.placeholder ) return;
+            $( 'input.title' ).val( me.getTitle( editor.getContent() ) );
+        } );
+
+        $( 'a.remove-to' ).on( 'click', function( e ) {
+            e.preventDefault();
+            $( 'a.to-title' ).html( '' );
+            $( 'input.to' ).val( '' );
+            $( '.to-line' ).fadeOut( 'slow' );
+        } );
+
         $( '.submit-line .public' ).on( 'click', function( e ) {
-            var content = editor.getContent(),
+            var to= $( 'input.to' ).val(),
+                toTitle,
+                title = $.trim( $( 'input.title' ).val() ),
+                content = editor.getContent(),
                 contentTxt = editor.getContentTxt();
 
             if( contentTxt == me.placeholder || !contentTxt.length ) {
@@ -46,8 +74,8 @@ J.Package( {
                 return false;
             }
 
-            if( contentTxt.length < 20 ) {
-                me.setWarn( '您发布的文字内容不能少于20个字' );
+            if( contentTxt.length < 10 ) {
+                me.setWarn( '您发布的文字内容不能少于10个字' );
                 return false;
             }
 
@@ -55,12 +83,26 @@ J.Package( {
                 me.setWarn( '您发布的文字内容不能大于20000个字' );
                 return false;
             }
+
+            if( !title.length ) {
+                title = me.getTitle( content );
+                $( 'input.title' ).val( title );
+            }
+
+            if( !to.length && !/^\d+$/.test( to ) ) {
+                to = 0;
+            } else {
+                toTitle = $( 'a.to-title' ).html();
+            }
+
             $.ajax( {
                 url : '/topic/interface/post',
                 method : 'POST',
                 data : {
                     content : content,
-                    topic_id : $( '.topic-area' ).attr( 'data-topic-id' )
+                    topic_id : $( '.topic-area' ).attr( 'data-topic-id' ),
+                    title : title,
+                    to : to
                 }
             } ).done( function( response ) {
                 var errno = +response.errno,
@@ -72,16 +114,24 @@ J.Package( {
                     compiled = J.template( me.tpl );
                     data = {
                         id : response.data.id,
-                        title : me.getTitle( content ),
-                        content : content
+                        title : title,
+                        content : content,
+                        to : null
                     };
+
+                    if( to.length && to != 0 ) {
+                        data.to = {
+                            id : to,
+                            title : toTitle
+                        };
+                    }
+
                     node = $( compiled( { data : data } ) );
-
-
 
                     $( '.post-list' ).append( node );
                     window.scrollTo( 0, node.position().top );
                     me.editor.setContent( '' );
+                    $( 'input.title' ).val( '' );
                     node.css( 'opacity', 1 );
                     return ;
                 }

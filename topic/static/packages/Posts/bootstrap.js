@@ -98,26 +98,11 @@ J.Package( {
 
     },
 
-    getTitle : function( content ) {
-        var node = $( '<div>' ),
-            title;
-        node.append( content );
-
-        title = node.find( 'p' ).eq( 0 ).text();
-
-        if( title.length < 3 ) {
-            title = node.text();
-        }
-
-        return title.substr( 0, 20 );
-    },
-
     formatData : function( data ) {
         var i = 0,
             l = data.length;
 
         for( ; i < l; i += 1 ) {
-            data[ i ].title = this.getTitle( data[ i ].content );
             data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
             data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
         }
@@ -167,6 +152,19 @@ J.Package( {
 
         $( '.topic-area' ).on( 'click', '.report-submit', function( e ) {
             me.submitReport( $( this ) );
+        } );
+
+        $( '.topic-area' ).on( 'click', '.reply-to', function( e ) {
+            e.preventDefault();
+            var postEl = me.getPostEl( $( this ) ),
+                postId = postEl.attr( 'data-post-id' );
+
+            $( '.to-line' ).show();
+            $( 'input.to' ).val( postId );
+            $( '.to-title' ).html( postEl.find( 'h2' ).html() );
+
+            window.scrollTo( 0, $( '.editor-area' ).position().top - 20 );
+
         } );
     },
 
@@ -277,7 +275,6 @@ J.Package( {
             if( +data.mark ) {
                 el.removeClass( 'op-mark' ).addClass( 'op-unmark' ).attr( 'data-mark-id', data.mark );
                 el.html( '<i class="fa fa-star"></i> 取消收藏' );
-
                 me.showBubble( el );
             }
         } );

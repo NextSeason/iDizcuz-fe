@@ -237,6 +237,7 @@
         // 是否允许粘贴QQ截屏，上传并插入,默认true
         //,pasteImageEnabled:true
 
+        ,pasteplain : true
         //autoHeightEnabled
         // 是否自动长高,默认true
         //,autoHeightEnabled:true
