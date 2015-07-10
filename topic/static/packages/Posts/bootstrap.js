@@ -11,6 +11,8 @@ J.Package( {
 
         this.currentOrder = 0;
 
+        this.accountId = $( '#idizcuz' ).attr( 'data-account-id' );
+
         this.rn = 20;
         this.topic = $( '.topic-area' ).attr( 'data-topic-id' );
 
@@ -105,6 +107,7 @@ J.Package( {
         for( ; i < l; i += 1 ) {
             data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
             data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
+            data[ i ].isMine = data[ i ].account.id == this.accountId;
         }
 
         return data;
@@ -161,7 +164,7 @@ J.Package( {
 
             $( '.to-line' ).show();
             $( 'input.to' ).val( postId );
-            $( '.to-title' ).html( postEl.find( 'h2' ).html() );
+            $( '.to-title' ).html( postEl.find( 'h2 a' ).html() );
 
             window.scrollTo( 0, $( '.editor-area' ).position().top - 20 );
 

@@ -41,6 +41,12 @@
                             margin-left : 10px;
                             h2 {
                                 line-height : 27px;
+                                a {
+                                    color : #333;
+                                    &:hover {
+                                        color : $brandColor;
+                                    }
+                                }
                             }
                             .uname {
                                 color : #999;
