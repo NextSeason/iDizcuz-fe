@@ -64,11 +64,18 @@ J.Package( {
                 passwd : passwd
             }
         } ).done( function( response ) {
-            var errno = +response.errno;
+            var errno = +response.errno,
+                referrer = document.referrer;
 
             if( !errno ) {
                 me.setTip( '登录成功，正在为您跳转...' );
-                location.href = '/topic';
+
+                if( /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
+                    location.href = referrer;
+                    return;
+                }
+                 
+                location.href = '/';
                 return;
             }
 

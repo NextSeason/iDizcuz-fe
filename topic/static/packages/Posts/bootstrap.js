@@ -136,6 +136,7 @@ J.Package( {
     bindEvent : function() {
         var me = this;
         $( '.topic-area .sort' ).on( 'click', function( e ) {
+            e.preventDefault();
             var order = $( this ).attr( 'data-order' );
             $( '.post-list' ).html( '' );
             me.load( order, 0 );
@@ -146,14 +147,26 @@ J.Package( {
 
         $( '.topic-area' ).on( 'click', '.op-btn', function( e ) {
             var action = $( this ).attr( 'data-action' );
+            e.preventDefault();
+
+            if( !+me.accountId ) {
+                location.href = '/signup';
+                return false;
+            }
             me[ action + 'Action' ]( $( this ) );
         } );
 
         $( '.topic-area' ).on( 'click', '.bubbles .close', function( e ) {
+            e.preventDefault();
             $( this ).closest( '.bubbles' ).hide();
         } );
 
         $( '.topic-area' ).on( 'click', '.report-submit', function( e ) {
+            e.preventDefault();
+            if( !me.accountId ) {
+                location.href = '/signup';
+                return false;
+            }
             me.submitReport( $( this ) );
         } );
 
@@ -206,7 +219,10 @@ J.Package( {
             }
             switch( errno ) {
                 case 3 : 
-                    // not login
+                    tipEl.html( '您需要登录之后才可以进行举报' ).addClass( 'err' ); 
+                    setTimeout( function() {
+                        location.href = '/signup';
+                    }, 1000 );
                     break;
                 case 14 : 
                     tipEl.html( '您已经提交过投诉，我们会尽快为您处理' ).addClass( 'err' ); 
@@ -238,7 +254,14 @@ J.Package( {
             var errno = +response.errno,
                 o;
 
-            if( errno ) { return false; }
+            
+
+            if( errno ) { 
+                if( errno == 3 ) {
+                    location.href = 'signup';
+                }
+                return false; 
+            }
 
             o = +el.find( 'b' ).html();
 

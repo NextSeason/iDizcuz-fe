@@ -33,7 +33,7 @@ J.Package( {
             me.setTip( '输入验证码，若一分钟内未收到，可点击重新发送' );
         } );
 
-        $( 'form.signup input.email' ).on( 'input propertychange', function( e ) {
+        $( 'form.signup input.email' ).on( 'blur input propertychange', function( e ) {
             var email = $.trim( $( this ).val() );
             me.reg.email.test( email ) ? $( 'form.signup .send-btn' ).removeClass( 'disabled' ) : $( 'form.signup .send-btn' ).addClass( 'disabled' );
 
@@ -169,11 +169,16 @@ J.Package( {
                 vcode : vcode
             }
         } ).done( function( response ) {
-            var errno = +response.errno;
+            var errno = +response.errno,
+                referrer = document.referrer;
 
             if( !errno ) {
                 me.setTip( '您已完成注册，请文明参与讨论' );
                 setTimeout( function() {
+                    if( /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
+                        loaction.href = referrer;
+                        return;
+                    }
                     location.href = '/';
                 }, 1000 );
                 return;

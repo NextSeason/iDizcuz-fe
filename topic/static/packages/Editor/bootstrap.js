@@ -51,6 +51,7 @@ J.Package( {
         } );
 
         $( 'a.get-title' ).on( 'click', function( e ) {
+            e.preventDefault();
             if( $.trim( editor.getContentTxt() ) == me.placeholder ) return;
             $( 'input.title' ).val( me.getTitle( editor.getContent() ) );
         } );
@@ -169,6 +170,8 @@ J.Package( {
         if( title.length < 3 ) {
             title = node.text();
         }
+
+        title = $.trim( title.substr( 0, 50 ) );
 
         return title.substr( 0, 20 );
     }

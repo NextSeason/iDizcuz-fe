@@ -17,6 +17,7 @@ J.Package( {
         var me = this;
 
         $( '.submit' ).on( 'click', function( e ) {
+            e.preventDefault();
             if( me.submiting ) return false;
 
             var employment = $.trim( $( '.employment' ).val() ),
@@ -60,7 +61,8 @@ J.Package( {
                 }
             } ).done( function( response ) {
                 me.submiting = false;
-            } ).failed( function() {
+                me.showTip( '保存成功' );
+            } ).fail( function() {
                 me.submiting = false;
                 me.showError( '数据提交失败，请稍候再试' );
             } );
