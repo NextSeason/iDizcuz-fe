@@ -367,27 +367,18 @@
         currentDialog = null;
 
     UM.registerWidget('image', {
-        tpl: "<link rel=\"stylesheet\" type=\"text/css\" href=\"<%=image_url%>image.css\">" +
-            "<div class=\"edui-image-wrapper\">" +
-            "<ul class=\"edui-tab-nav\">" +
-            "<li class=\"edui-tab-item edui-active\"><a data-context=\".edui-image-local\" class=\"edui-tab-text\"><%=lang_tab_local%></a></li>" +
-            "<li  class=\"edui-tab-item\"><a data-context=\".edui-image-JimgSearch\" class=\"edui-tab-text\"><%=lang_tab_imgSearch%></a></li>" +
-            "</ul>" +
-            "<div class=\"edui-tab-content\">" +
-            "<div class=\"edui-image-local edui-tab-pane edui-active\">" +
-            "<div class=\"edui-image-content\"></div>" +
-            "<div class=\"edui-image-mask\"></div>" +
-            "<div class=\"edui-image-dragTip\"><%=lang_input_dragTip%></div>" +
-            "</div>" +
-            "<div class=\"edui-image-JimgSearch edui-tab-pane\">" +
-            "<div class=\"edui-image-searchBar\">" +
-            "<table><tr><td><input class=\"edui-image-searchTxt\" type=\"text\"></td>" +
-            "<td><div class=\"edui-image-searchAdd\"><%=lang_btn_add%></div></td></tr></table>" +
-            "</div>" +
-            "<div class=\"edui-image-searchRes\"></div>" +
-            "</div>" +
-            "</div>" +
-            "</div>",
+        tpl: [
+            '<link rel="stylesheet" type="text/css" href="<%=image_url%>image.css" />',
+            '<div class="edui-image-wrapper">',
+                '<div class="edui-tab-content">',
+                    '<div class="edui-image-local edui-tab-pane edui-active">',
+                        '<div class="edui-image-content"></div>',
+                        '<div class="edui-image-mask"></div>',
+                        '<div class="edui-image-dragTip"><%=lang_input_dragTip%></div>',
+                    '</div>',
+                '</div>',
+            '</div>'
+        ].join( '' ),
         initContent: function (editor, $dialog) {
             var lang = editor.getLang('image')["static"],
                 opt = $.extend({}, lang, {
@@ -437,7 +428,7 @@
             'cancel': {}
         },
         width: 700,
-        height: 408
+        height: 340
     }, function (editor, $w, url, state) {
         Base.callback(editor, $w, url, state)
     })

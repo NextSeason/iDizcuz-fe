@@ -9290,21 +9290,20 @@ UM.ui.define('colorpicker', {
 
 /*modal 类*/
 UM.ui.define('modal', {
-    tpl: '<div class="edui-modal" tabindex="-1" >' +
-        '<div class="edui-modal-header">' +
-        '<div class="edui-close" data-hide="modal"><i class="fa fa-times"></i></div>' +
-        '<h3 class="edui-title"><%=title%></h3>' +
-        '</div>' +
-        '<div class="edui-modal-body"  style="<%if(width){%>width:<%=width%>px;<%}%>' +
-        '<%if(height){%>height:<%=height%>px;<%}%>">' +
-        ' </div>' +
-        '<% if(cancellabel || oklabel) {%>' +
-        '<div class="edui-modal-footer">' +
-        '<div class="edui-modal-tip"></div>' +
-        '<%if(oklabel){%><div class="btns normal " data-ok="modal"><%=oklabel%></div><%}%>' +
-        '<%if(cancellabel){%><div class="btns dark normal" data-hide="modal"><%=cancellabel%></div><%}%>' +
-        '</div>' +
-        '<%}%></div>',
+    tpl: [
+        '<div class="edui-modal" tabindex="-1" >',
+            '<div class="edui-modal-body"  style="<%if(width){%>width:<%=width%>px;<%}%>',
+                '<%if(height){%>height:<%=height%>px;<%}%>">',
+            ' </div>',
+            '<% if(cancellabel || oklabel) {%>',
+                '<div class="edui-modal-footer">',
+                    '<div class="edui-modal-tip"></div>',
+                    '<%if(oklabel){%><div class="btns normal " data-ok="modal"><%=oklabel%></div><%}%>',
+                    '<%if(cancellabel){%><div class="btns dark normal" data-hide="modal"><%=cancellabel%></div><%}%>',
+                '</div>',
+            '<%}%>',
+        '</div>'
+    ].join( '' ),
     defaultOpt: {
         title: "",
         cancellabel: "",

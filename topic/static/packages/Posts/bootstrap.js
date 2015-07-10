@@ -307,7 +307,13 @@ J.Package( {
 
     },
     shareAction : function( el ) {
+        var postEl = this.getPostEl( el );
         this.showBubble( el );
+        new QRCode( postEl.find( '.qrcode' ).get( 0 ), {
+            text : postEl.find( '.share-post-link' ).attr( 'href' ),
+            width : 110,
+            height : 110
+        } );
     },
 
     reportAction : function( el ) {
