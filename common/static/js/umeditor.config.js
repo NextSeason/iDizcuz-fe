@@ -137,7 +137,7 @@
 
         //图片上传配置区
         ,imageUrl: '/topic/interface/uploadimages'             //图片上传提交地址
-        ,imagePath:URL + "php/"                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
+        ,imagePath: ''                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
         ,imageFieldName : 'image'                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
 
 
@@ -179,7 +179,7 @@
         //,initialContent:'欢迎使用UMEDITOR!'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
 
         //,initialFrameWidth:500 //初始化编辑器宽度,默认500
-        //,initialFrameHeight:500  //初始化编辑器高度,默认500
+        ,initialFrameHeight : 300  //初始化编辑器高度,默认500
 
         //,autoClearinitialContent:true //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
 
@@ -227,7 +227,7 @@
 
         //imageScaleEnabled
         // 是否允许点击文件拖拽改变大小,默认true
-        //,imageScaleEnabled:true
+        ,imageScaleEnabled : false
 
         //dropFileEnabled
         // 是否允许拖放图片到编辑区域，上传并插入,默认true
@@ -240,7 +240,7 @@
         ,pasteplain : true
         //autoHeightEnabled
         // 是否自动长高,默认true
-        //,autoHeightEnabled:true
+        ,autoHeightEnabled:true
 
         //autoFloatEnabled
         //是否保持toolbar的位置不动,默认true

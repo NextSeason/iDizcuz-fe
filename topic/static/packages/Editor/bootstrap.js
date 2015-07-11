@@ -117,10 +117,10 @@ J.Package( {
                         id : response.data.id,
                         title : title,
                         content : content,
-                        to : null
+                        to : 0
                     };
 
-                    if( to.length && to != 0 ) {
+                    if( to != 0 ) {
                         data.to = {
                             id : to,
                             title : toTitle
@@ -128,6 +128,12 @@ J.Package( {
                     }
 
                     node = $( compiled( { data : data } ) );
+
+                    new QRCode( node.find( '.qrcode' ).get( 0 ), {
+                        text : node.find( '.share-post-link' ).attr( 'href' ),
+                        width : 110,
+                        height : 110
+                    } );
 
                     $( '.post-list' ).append( node );
                     window.scrollTo( 0, node.position().top );

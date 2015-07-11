@@ -176,7 +176,7 @@ J.Package( {
                 me.setTip( '您已完成注册，请文明参与讨论' );
                 setTimeout( function() {
                     if( /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
-                        loaction.href = referrer;
+                        location.href = referrer;
                         return;
                     }
                     location.href = '/';

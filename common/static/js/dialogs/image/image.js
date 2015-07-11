@@ -101,7 +101,7 @@
             if (state == "SUCCESS") {
                 //显示图片计数+1
                 Upload.showCount++;
-                var $img = $("<img src='" + editor.options.imagePath + url + "' class='edui-image-pic' />"),
+                var $img = $("<img src='" + url + "' class='edui-image-pic' />"),
                     $item = $("<div class='edui-image-item edui-image-upload-item'><div class='edui-image-close'></div></div>").append($img);
 
                 if ($(".edui-image-upload2", $w).length < 1) {
@@ -141,7 +141,7 @@
         uploadTpl: '<div class="edui-image-upload%%">' +
             '<span class="edui-image-icon"></span>' +
             '<form class="edui-image-form" method="post" enctype="multipart/form-data" target="up">' +
-            '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="upfile" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp"/>' +
+            '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="image" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp"/>' +
             '</form>' +
 
             '</div>',
@@ -196,7 +196,7 @@
         submit: function (callback) {
 
             var me = this,
-                input = $( '<input style="filter: alpha(opacity=0);" class="edui-image-file" type="file" hidefocus="" name="upfile" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp">'),
+                input = $( '<input style="filter: alpha(opacity=0);" class="edui-image-file" type="file" hidefocus="" name="image" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp">'),
                 input = input[0];
 
             $(me.dialog).delegate( ".edui-image-file", "change", function ( e ) {
@@ -409,20 +409,10 @@
         buttons: {
             'ok': {
                 exec: function (editor, $w) {
-                    var sel = "",
-                        index = $tab.activate();
+                    var sel = ".edui-image-content .edui-image-pic",
+                        list = Base.getAllPic(sel, $w, editor);
 
-                    if (index == 0) {
-                        sel = ".edui-image-content .edui-image-pic";
-                    } else if (index == 1) {
-                        sel = ".edui-image-searchRes .edui-image-pic";
-                    }
-
-                    var list = Base.getAllPic(sel, $w, editor);
-
-                    if (index != -1) {
-                        editor.execCommand('insertimage', list);
-                    }
+                    editor.execCommand('insertimage', list);
                 }
             },
             'cancel': {}

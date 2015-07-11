@@ -3477,10 +3477,6 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                 if(this.options.autoHeightEnabled){
                     container.style.minHeight = height +'px';
                     container.style.height = '';
-                    if(browser.ie && browser.version <= 6){
-                        container.style.height = height ;
-                        container.style.setExpression('height', 'this.scrollHeight <= ' + height + ' ? "' + height + 'px" : "auto"');
-                    }
                 }else{
                     $(container).height(height)
                 }
@@ -3616,10 +3612,6 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                 $(this.body).css({
                     'min-height':height + 'px'
                 });
-                if(browser.ie && browser.version <= 6 && this.container){
-                    this.container.style.height = height ;
-                    this.container.style.setExpression('height', 'this.scrollHeight <= ' + height + ' ? "' + height + 'px" : "auto"');
-                }
             }else{
                 $(this.body).height(height)
             }

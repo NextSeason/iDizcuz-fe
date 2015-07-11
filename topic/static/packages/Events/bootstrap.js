@@ -22,6 +22,8 @@ J.Package( {
         var compiled = J.template( this.eventContentTpl ),
             html = compiled( { data : this._events[ id ] } );
 
+        console.log( this._events[id] );
+
         $( '.events' ).append( html );
     },
 
