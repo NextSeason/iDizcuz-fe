@@ -119,12 +119,11 @@ J.Package( {
         $( '.post-list' ).append( html );
     },
 
+    getCommentEl : function( el ) {
+        return el.closest( '.comments-item' );
+    },
     getPostEl : function( el ) {
-        var postEl = el.closest( 'li.posts' );
-
-        if( !postEl.length ) return null;
-
-        return postEl;
+        return el.closest( 'li.posts' );
     },
 
     getPostId : function( postEl ) {
@@ -182,6 +181,65 @@ J.Package( {
             window.scrollTo( 0, $( '.editor-area' ).position().top - 20 );
 
         } );
+
+        $( '.topic-area' ).on( 'click', '.comments', function( e ) {
+            e.preventDefault();
+            me.commentsAction( $( this ) );
+        } );
+
+        $( '.topic-area' ).on( 'click', 'a.reply', function( e ) {
+            e.preventDefault();
+            var el = me.getCommentEl( $( this ) );
+            el.find( '.reply-form' ).toggle();
+        } );
+
+        $( '.topic-area' ).on( 'click', 'a.complaint', function( e ) {
+            e.preventDefault();
+            var pos = $( this ).position();
+            $( '#complain-box' )
+                .css( 'left', pos.left )
+                .css( 'top', pos.top + 20 )
+                .show()
+                .find( 'input.comment_id' ).val( me.getCommentEl( $( this ) ).attr( 'data-comment-id' ) );
+
+        } );
+
+        $( '.topic-area' ).on( 'click', '.comments-form .submit', function( e ) {
+            e.preventDefault();
+            me.submitComment( $( this ) );
+        } );
+        $( '#complain-box .cancel' ).on( 'click', function( e ) {
+            $( '#complain-box' ).hide().find( 'textarea' ).val('');
+        } );
+    },
+
+    submitComment : function( el ) {
+        var postEl = this.getPostEl( el ),
+            postId = postEl.attr( 'data-post-id' ),
+            commentId = el.attr( 'data-comment-id' ),
+            accountId = el.attr( 'data-account-id' ),
+            content = el.parent().find( 'input.comment' ).val(),
+            data = {};
+
+        if( !content.length ) {
+            return false;
+        }
+
+        data.content = content;
+        data.post_id = postId;
+
+        if( accountId && commentId ) {
+            data.account_id = accountId;
+            data.comment_id = commentId;
+        }
+
+        $.ajax( {
+            url : '/topic/interface/comment',
+            method : 'POST',
+            data : data
+        } ).done( function( response ) {
+        } );
+
     },
 
     submitReport : function( el ) {
@@ -234,6 +292,12 @@ J.Package( {
             }
 
         } );
+    },
+
+    commentsAction : function( el ) {
+        var postEl = this.getPostEl( el );
+
+        postEl.find( '.comments-box' ).toggle();
     },
 
     agreeAction : function( el ) {

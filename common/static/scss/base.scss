@@ -253,7 +253,7 @@ textarea {
     @include box-sizing( border-box );
     &:focus {
         outline : 0px;
-        border-color : #1476CC;
+        border-color : $brandColor;
     }   
     &.small {
         width : 100px;

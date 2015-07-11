@@ -68,6 +68,7 @@ J.Package( {
         } );
 
         $( '.events' ).on( 'click', '.events-nav', function( e ) {
+            e.preventDefault();
             var id = $( this ).attr( 'data-event-id' );
 
             $( '.events' ).find( '.event-content' ).remove();;

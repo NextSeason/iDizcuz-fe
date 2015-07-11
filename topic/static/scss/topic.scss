@@ -176,6 +176,53 @@
                             color : #999;
                         }
                     }
+                    .comments-box {
+                        display : none;
+                        padding : 20px;
+                        background : #FAFAFA;
+                        border : solid 1px #EEE;
+                        margin : 20px 0 10px;
+                        @include box-sizing( border-box );
+                        @include border-radius( 3px );
+                        ul li {
+                            margin : 10px;
+                            border-bottom : solid 1px #EEE;
+                            padding-bottom : 10px;
+                        }
+                        .comments-text {
+                            color : #666;
+                            margin : 5px;
+                        }
+                        .op-line {
+                            font-size : 12px;
+                            color : #999;
+                            a {
+                                color : #999;
+                                margin-left : 10px;
+                                &:hover {
+                                    text-decoration : none;
+                                }
+                            }
+                        }
+                        .comments-form {
+                            margin-top : 20px;
+                            &.reply-form {
+                                display : none;
+                                input.comment {
+                                    width : 600px;
+                                }
+                            }
+                            input.comment {
+                                display : block;
+                                width : 625px; 
+                            }
+                            a.submit {
+                                margin-left : 15px;
+                                height : 40px;
+                                line-height : 40px;
+                            }
+                        }
+                    }
                     &.new-post {
                         opacity : 0;
                         @include transition( ease-in-out 1.5s opacity );
@@ -285,7 +332,6 @@
                                     width : 135px;
                                     height : 80px;
                                     display : block;
-                                    background : green;
                                     margin-right : 6px;
                                     img {
                                         width : 100%;
@@ -442,4 +488,36 @@
             }
         }
     }
+    
 }
+#complain-box {
+    display : none;
+    position : absolute;
+    background : #FFF;
+    top : 0;
+    left : 0;
+    padding : 10px;
+    border : solid 1px #EEE;
+    @include border-radius( 3px );
+    @include box-shadow( 0 1px 2px #DDD );
+    label {
+        display : block;
+        line-height : 26px;
+        font-size : 12px;
+        cursor : pointer;
+    }
+    textarea {
+        display : block;
+        width : 240px;
+        height : 80px;
+    }
+    .op-line {
+        margin-top : 10px;
+        text-align : right;
+        a.cancel {
+            margin-right : 10px;
+            color : #999;
+        }
+    }
+}
+
