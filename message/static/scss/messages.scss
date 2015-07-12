@@ -1,0 +1,63 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .nav {
+        border-bottom : solid 1px #DDD;
+        padding-left : 20px;
+        li {
+            float : left;
+            a {
+                display : block;
+                height : 35px;
+                line-height : 35px;
+                text-align : center;
+                padding : 0 30px;
+                background : #FFF;
+                position : relative;
+                top : 1px;
+                color : #666;
+                text-decoration : none;
+                &.focus {
+                    border : solid 1px #DDD;
+                    border-bottom : 0;
+                    color : $brandColor;
+                }
+            }
+        }
+    }
+    .content-box {
+        float : left;
+        width : 765px;
+    }
+    .messages-list {
+        margin-top : 20px;
+        li {
+            border-bottom : solid 1px #EEE;
+            padding : 20px;
+            &.empty {
+                text-align : center;
+                color : #999;
+                line-height : 80px;
+            }
+            .remove {
+                font-size : 13px;
+                color : #999;
+            }
+            .flag {
+                color : $brandColor;
+                font-size : 10px;
+                margin-right : 10px;
+            }
+            .time {
+                color : #999;
+                margin-right : 20px;
+                font-size : 13px;
+            }
+            .content {
+                margin-top : 20px;
+                display : none;
+            }
+        }
+    }
+}
