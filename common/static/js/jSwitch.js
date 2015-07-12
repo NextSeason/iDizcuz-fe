@@ -271,6 +271,9 @@ jSwitch.extend( jSwitch, {
 
         return null;
     },
+    encodeHTML : function( source ) {
+        return String( source ).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    },
     template : function( text ) {
         var settings = {
             evaluate : /<%([\s\S]+?)%>/g,
@@ -285,11 +288,22 @@ jSwitch.extend( jSwitch, {
 
         // Certain characters need to be escaped so that they can be put into a
         // string literal.
-        var escapes = {
+
+        var escapeMap = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;',
+            '`': '&#x60;'
+        };
+
+        var escapes = { 
             "'" : "'",
             '\\' : '\\',
             '\r' : 'r',
             '\n' : 'n',
+            '\t' : 't',
             '\u2028' : 'u2028',
             '\u2029' : 'u2029'
         };
@@ -315,7 +329,7 @@ jSwitch.extend( jSwitch, {
             index = offset + match.length;
 
             if( escape ) {
-                source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
+                source += "'+\n((__t=(" + escape + "))==null?'':jSwitch.encodeHTML(__t))+\n'";
             } else if( interpolate ) {
                 source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
             } else if( evaluate ) {

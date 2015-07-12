@@ -117,7 +117,9 @@ J.Package( {
                         id : response.data.id,
                         title : title,
                         content : content,
-                        to : 0
+                        to : 0,
+                        ctime : '刚刚'
+
                     };
 
                     if( to != 0 ) {
