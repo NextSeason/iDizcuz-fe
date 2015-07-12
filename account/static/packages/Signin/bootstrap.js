@@ -29,6 +29,13 @@ J.Package( {
             me.signin();
         } );
 
+        $( '.redirect' ).on( 'click', function( e ) {
+            var r = J.getQuery( 'r' ),
+                href = $( this ).attr( 'href' );
+
+            r && $( this ).attr( 'href', href + '?r=' + encodeURIComponent( r ) );
+        } );
+
     },
     signin : function() {
         var me = this,
@@ -64,18 +71,11 @@ J.Package( {
                 passwd : passwd
             }
         } ).done( function( response ) {
-            var errno = +response.errno,
-                referrer = document.referrer;
+            var errno = +response.errno;
 
             if( !errno ) {
                 me.setTip( '登录成功，正在为您跳转...' );
-
-                if( /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
-                    location.href = referrer;
-                    return;
-                }
-                 
-                location.href = '/';
+                me.redirect();
                 return;
             }
 
@@ -96,5 +96,25 @@ J.Package( {
             me.setTip( '系统错误，请稍候再试' );
             me.submiting = false;
         } );
+    },
+    redirect : function() {
+        var r = J.getQuery( 'r' ),
+            referrer = document.referrer;
+
+            if( r && /^https?\:\/\/www.idizcuz.com/.test( r ) ) {
+                location.href = r;
+                return;
+            }
+
+            if( referrer && /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
+                if( !/\/(signin|signup|forget)/.test( referrer ) ) {
+                    location.href = referrer;
+                    return;
+                }
+            }
+                 
+            location.href = '/';
+ 
+        }
     }
 } );

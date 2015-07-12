@@ -5,6 +5,8 @@ J.Package( {
             posts : {}
         };
 
+        this.targetPostId = J.getQuery( 'post' ),
+
         this.getTargetPost();
 
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
@@ -23,12 +25,9 @@ J.Package( {
 
     getTargetPost : function() {
         var me = this;
-        var matches = window.location.search.substr( 1 ).match( /(^|&)post=([^&]*)(&|$)/ ),
-            postId;
-        if( matches == null ) {
-            return false;
-        }
-        postId = matches[ 2 ];
+            postId = this.targetPostId;
+
+        if( !postId ) return false;
 
         $.ajax( {
             url : '/topic/interface/getpost',
@@ -45,7 +44,7 @@ J.Package( {
 
             if( post.topic_id != me.topic ) return false;
 
-            posts = me.formatData( [ post ] );
+            posts = me.formatData( [ post ], 'istarget' );
 
             console.log( 'target post' , posts );
 
@@ -101,7 +100,7 @@ J.Package( {
 
     },
 
-    formatData : function( data ) {
+    formatData : function( data, istarget ) {
         var i = 0,
             l = data.length;
 
@@ -109,6 +108,9 @@ J.Package( {
             data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
             data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
             data[ i ].isMine = data[ i ].account.id == this.accountId;
+            if( !istarget && data[ i ].id == this.targetPostId ) {
+                data[ i ].hide = true;
+            }
         }
 
         return data;
@@ -146,8 +148,8 @@ J.Package( {
             var action = $( this ).attr( 'data-action' );
             e.preventDefault();
 
-            if( !+me.accountId ) {
-                location.href = '/signup';
+            if( !+me.accountId && action != 'share' ) {
+                me.redirect( 'signup' );
                 return false;
             }
             me[ action + 'Action' ]( $( this ) );
@@ -161,7 +163,7 @@ J.Package( {
         $( '.topic-area' ).on( 'click', '.report-submit', function( e ) {
             e.preventDefault();
             if( !me.accountId ) {
-                location.href = '/signup';
+                me.redirect( 'signup' );
                 return false;
             }
             me.submitReport( $( this ) );
@@ -219,7 +221,7 @@ J.Package( {
                 case 3 : 
                     tipEl.html( '您需要登录之后才可以进行举报' ).addClass( 'err' ); 
                     setTimeout( function() {
-                        location.href = '/signup';
+                        me.redirect( 'signup' );
                     }, 1000 );
                     break;
                 case 14 : 
@@ -252,11 +254,9 @@ J.Package( {
             var errno = +response.errno,
                 o;
 
-            
-
             if( errno ) { 
                 if( errno == 3 ) {
-                    location.href = 'signup';
+                    me.redirect( 'signup' );
                 }
                 return false; 
             }
@@ -337,5 +337,15 @@ J.Package( {
 
     hideBubble : function( el ) {
         this.getPostEl( el ).find( '.op-bubbles' ).hide();
+    },
+    redirect : function( page ) {
+        switch( page ) {
+            case 'signup' :
+                location.href = '/signup?r=' + encodeURIComponent( location.href );
+                break;
+            default :
+                break;
+        }
     }
+
 } );

@@ -73,6 +73,13 @@ J.Package( {
             me.setTip( '正在提交注册信息...', 'signup' );
             me.signup();
         } );
+
+        $( '.redirect' ).on( 'click', function( e ) {
+            var r = J.getQuery( 'r' ),
+                href = $( this ).attr( 'href' );
+
+            r && $( this ).attr( 'href', href + '?r=' + encodeURIComponent( r ) );
+        } );
     },
     sendVcode : function( type ) {
         var me = this;

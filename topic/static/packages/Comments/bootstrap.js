@@ -37,6 +37,7 @@ J.Package( {
             me.submitComment( $( this ) );
         } );
         $( '#complain-box .cancel' ).on( 'click', function( e ) {
+            e.preventDefault();
             $( '#complain-box' ).hide().find( 'textarea' ).val('');
         } );
     },
@@ -126,7 +127,7 @@ J.Package( {
             if( errno ) {
                 switch( errno ) {
                     case 3 :
-                        location.href = '/signin';
+                        location.href = '/signin?r=' + encodeURIComponent( location.href );
                         break;
                     default :
                         break;
