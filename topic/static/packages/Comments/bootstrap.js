@@ -22,6 +22,14 @@ J.Package( {
             el.find( '.reply-form' ).toggle();
         } );
 
+        $( '.topic-area' ).on( 'click', 'a.remove-comment', function( e ) {
+            e.preventDefault();
+            var commentEl = me.getCommentEl( $( this ) ),
+                id = commentEl.attr( 'data-comment-id' );
+
+            me.removeComment( id );
+        } );
+
         $( '.topic-area' ).on( 'click', 'a.complaint', function( e ) {
             e.preventDefault();
             var pos = $( this ).position();
@@ -36,9 +44,21 @@ J.Package( {
             e.preventDefault();
             me.submitComment( $( this ) );
         } );
+
         $( '#complain-box .cancel' ).on( 'click', function( e ) {
             e.preventDefault();
             $( '#complain-box' ).hide().find( 'textarea' ).val('');
+        } );
+    },
+    removeComment : function( id ) {
+        $.ajax( {
+            url : '/topic/interface/removecomment',
+            method : 'POST',
+            data : {
+                id : id
+            }
+        } ).done( function( response ) {
+            $( '#comment-' + id ).remove();
         } );
     },
     commentsAction : function( el ) {

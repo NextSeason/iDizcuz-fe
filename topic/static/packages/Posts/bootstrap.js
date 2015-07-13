@@ -5,6 +5,8 @@ J.Package( {
             posts : {}
         };
 
+        this.removePostDialog = $( '#remove-post-dialog' );
+
         this.targetPostId = J.getQuery( 'post' ),
 
         this.getTargetPost();
@@ -182,6 +184,60 @@ J.Package( {
 
         } );
 
+        $( '.topic-area' ).on( 'click', '.remove-post', function( e ) {
+            e.preventDefault();
+            me.removePostDialog.show().find( 'input.post-id' ).val( me.getPostEl( $( this ) ).attr( 'data-post-id' ) );
+        } );
+
+        me.removePostDialog.find( '.cancel' ).on( 'click', function( e ) {
+            e.preventDefault();
+            me.hideRemovePostDialog();
+        } );
+
+        me.removePostDialog.find( '.confirm' ).on( 'click', function( e ) {
+            e.preventDefault();
+            var id = me.removePostDialog.find( 'input.post-id' ).val();
+            me.removePost( id );
+        } );
+    },
+
+    removePost : function( id ) {
+        var me = this;
+
+        $.ajax( {
+            url : '/topic/interface/removepost',
+            method : 'POST',
+            data : {
+                id : id
+            }
+        } ).done( function( response ) {
+            var errno = +response.errno;
+
+            if( errno > 0 ) {
+                me.removePostDialog.find( '.tip, .success' ).hide();
+                me.removePostDialog.find( '.fail' ).show();
+                return false;
+            }
+
+            me.removePostDialog.find( '.tip, .fail' ).hide();
+            me.removePostDialog.find( '.success' ).show();
+
+            setTimeout( function() {
+                me.hideRemovePostDialog();
+                $( '#post-' + id ).fadeOut( 'slow', function() {
+                    $( this ).remove();
+                } );
+
+            }, 3000 );
+             
+        } );
+    },
+
+    hideRemovePostDialog : function() {
+        this.removePostDialog.find( '.success, .fail' ).hide();
+        this.removePostDialog.find( '.tip' ).show();
+        this.removePostDialog.find( 'input.post-id' ).val( '' );
+        this.removePostDialog.hide();
     },
 
     submitReport : function( el ) {

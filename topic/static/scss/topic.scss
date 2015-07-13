@@ -171,7 +171,8 @@
                         color : #999;
                         font-size : 12px;
                         .mtime,
-                        .comments {
+                        .comments,
+                        .remove-post {
                             margin-left : 5px;
                             color : #999;
                         }
@@ -526,4 +527,29 @@
     top : -999px;
     left : -999px;
     outline : 0;
+}
+#remove-post-dialog {
+    > .inner {
+        height : 190px;
+        .text {
+            height : 110px;
+            padding : 15px;
+            p:first-child {
+                font-size : 18px;
+                line-height : 30px;
+            }
+            p.success,
+            p.fail {
+                display : none;
+            }
+        }
+    }
+}
+#editor-dialog {
+    display : block;
+    > .inner {
+        margin-top : 20px;
+        width : 1000px;
+        height : 600px;
+    }
 }

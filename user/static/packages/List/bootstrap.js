@@ -9,7 +9,8 @@ J.Package( {
             posts : '/user/interface/userposts',
             agree : '/user/interface/votedposts?opinion=1',
             disagree : '/user/interface/votedposts?opinion=0',
-            mark : '/user/interface/markedposts'
+            mark : '/user/interface/markedposts',
+            removed : '/user/interface/removedposts'
         };
 
         this.bindEvent();

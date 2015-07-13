@@ -76,22 +76,10 @@
         }
     }
     #upload-dialog {
-        display : none;
-        position : fixed;
-        top : 0;
-        left : 0;
-        bottom : 0;
-        right : 0;
-        background : rgba( 0, 0, 0, .2 );
         -webkit-user-select : none;
         > .inner {
             width : 300px;
             height : 380px;
-            background : #FFF;
-            margin : 10% auto 0;
-            position : relative;
-            border-top : solid 3px $brandColor;
-            @include box-sizing( border-box );
             .img-area {
                 width : 300px;
                 height : 300px;
@@ -138,12 +126,6 @@
                     width : 180px; 
                     cursor : pointer;
                     outline : 0;
-                }
-            }
-            .ft {
-                text-align : center;
-                .btns {
-                    margin : 0 10px;
                 }
             }
         }
