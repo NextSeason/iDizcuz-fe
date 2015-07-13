@@ -9,6 +9,10 @@ html {
 
 body {
     margin : auto;
+    &.fixed {
+        width : 100%;
+        position : fixed;
+    }
 }
 
 img {
@@ -299,6 +303,13 @@ textarea {
         position : relative;
         border-top : solid 3px $brandColor;
         @include box-sizing( border-box );
+        .close, 
+        .minus {
+            position : absolute;
+            right : 13px;
+            top : 10px;
+            font-size : 18px;
+        }
         .ft {
             text-align : center;
             .btns {

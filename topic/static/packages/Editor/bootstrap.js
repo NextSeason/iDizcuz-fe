@@ -32,7 +32,7 @@ J.Package( {
         editor.addListener( 'click', function() {
             var contentTxt = editor.getContentTxt();
             if( contentTxt == me.placeholder ) {
-                editor.setContent( '' );
+                editor.setContent( editor.getContent().replace( me.placeholder, '' ) );
                 editor.blur();
                 editor.focus();
             }
@@ -64,6 +64,7 @@ J.Package( {
         } );
 
         $( '.submit-line .public' ).on( 'click', function( e ) {
+            e.preventDefault();
             var to= $( 'input.to' ).val(),
                 toTitle,
                 title = $.trim( $( 'input.title' ).val() ),
@@ -71,7 +72,7 @@ J.Package( {
                 contentTxt = editor.getContentTxt();
 
             if( contentTxt == me.placeholder || !contentTxt.length ) {
-                me.setWarn( '发布内容不能为空' );
+                me.setWarn( '发布内容至少需要10个字符' );
                 return false;
             }
 
@@ -119,7 +120,6 @@ J.Package( {
                         content : content,
                         to : 0,
                         ctime : '刚刚'
-
                     };
 
                     if( to != 0 ) {
@@ -137,11 +137,15 @@ J.Package( {
                         height : 110
                     } );
 
+                    hideEditorDialog();
                     $( '.post-list' ).append( node );
                     window.scrollTo( 0, node.position().top );
                     me.editor.setContent( '' );
                     $( 'input.title' ).val( '' );
                     node.css( 'opacity', 1 );
+                    $( 'a.to-title' ).html( '' );
+                    $( 'input.to' ).val( '' );
+                    $( '.to-line' ).fadeOut( 'slow' );
                     return ;
                 }
 
@@ -167,6 +171,10 @@ J.Package( {
             } );
         } );
 
+        $( '#editor-dialog .minus' ).on( 'click', function( e ) {
+            e.preventDefault();
+            hideEditorDialog();
+        } );
     },
     getTitle : function( content ) {
         var node = $( '<div>' ),

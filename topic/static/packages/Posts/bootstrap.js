@@ -15,7 +15,7 @@ J.Package( {
 
         this.currentOrder = 0;
 
-        this.accountId = $( '#idizcuz' ).attr( 'data-account-id' );
+        this.accountId = +$( '#idizcuz' ).attr( 'data-account-id' );
         this.accountUname = $( '#idizcuz' ).attr( 'data-account-uname' );
 
         this.rn = 20;
@@ -173,6 +173,10 @@ J.Package( {
 
         $( '.topic-area' ).on( 'click', '.reply-to', function( e ) {
             e.preventDefault();
+            if( !me.accountId ) {
+                me.redirect( 'signin' );
+                return false;
+            }
             var postEl = me.getPostEl( $( this ) ),
                 postId = postEl.attr( 'data-post-id' );
 
@@ -180,7 +184,7 @@ J.Package( {
             $( 'input.to' ).val( postId );
             $( '.to-title' ).html( postEl.find( 'h2 a' ).html() );
 
-            window.scrollTo( 0, $( '.editor-area' ).position().top - 20 );
+            showEditorDialog();
 
         } );
 
@@ -214,27 +218,22 @@ J.Package( {
             var errno = +response.errno;
 
             if( errno > 0 ) {
-                me.removePostDialog.find( '.tip, .success' ).hide();
+                me.removePostDialog.find( '.tip' ).hide();
                 me.removePostDialog.find( '.fail' ).show();
                 return false;
             }
 
             me.removePostDialog.find( '.tip, .fail' ).hide();
-            me.removePostDialog.find( '.success' ).show();
 
-            setTimeout( function() {
-                me.hideRemovePostDialog();
-                $( '#post-' + id ).fadeOut( 'slow', function() {
-                    $( this ).remove();
-                } );
-
-            }, 3000 );
-             
+            me.hideRemovePostDialog();
+            $( '#post-' + id ).fadeOut( 'slow', function() {
+                $( this ).remove();
+            } );
         } );
     },
 
     hideRemovePostDialog : function() {
-        this.removePostDialog.find( '.success, .fail' ).hide();
+        this.removePostDialog.find( '.fail' ).hide();
         this.removePostDialog.find( '.tip' ).show();
         this.removePostDialog.find( 'input.post-id' ).val( '' );
         this.removePostDialog.hide();
@@ -363,11 +362,15 @@ J.Package( {
     shareAction : function( el ) {
         var postEl = this.getPostEl( el );
         this.showBubble( el );
-        new QRCode( postEl.find( '.qrcode' ).get( 0 ), {
-            text : postEl.find( '.share-post-link' ).attr( 'href' ),
-            width : 110,
-            height : 110
-        } );
+        if( !el.attr( 'data-has-qrcode' ) ) {
+            new QRCode( postEl.find( '.qrcode' ).get( 0 ), {
+                text : postEl.find( '.share-post-link' ).attr( 'href' ),
+                width : 110,
+                height : 110
+            } );
+
+            el.attr( 'data-has-qrcode', 1 );
+        }
     },
 
     reportAction : function( el ) {
@@ -398,6 +401,9 @@ J.Package( {
         switch( page ) {
             case 'signup' :
                 location.href = '/signup?r=' + encodeURIComponent( location.href );
+                break;
+            case 'signin' :
+                location.href = '/signin?r=' + encodeURIComponent( location.href );
                 break;
             default :
                 break;
