@@ -30,6 +30,20 @@
                         height : 59px;
                         width : 150px;
                         background : $brandColor;
+                        i.unread-msg-remind {
+                            display : inline-block;
+                            height : 14px;
+                            padding : 0 5px;
+                            line-height : 14px;
+                            text-align : center;
+                            background : #FFF;
+                            position : relative;
+                            font-size : 10px;
+                            top : -8px;
+                            color : red;
+                            font-weight : bold;
+                            @include border-radius( 10px );
+                        }
                         a {
                             color : #FFF;
                             display : block;
