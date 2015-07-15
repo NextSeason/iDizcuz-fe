@@ -20,6 +20,7 @@ J.Package( {
             e.preventDefault();
             var el = me.getCommentEl( $( this ) );
             el.find( '.reply-form' ).toggle();
+            el.find( '.reply-form .comment' ).focus();
         } );
 
         $( '.topic-area' ).on( 'click', 'a.remove-comment', function( e ) {
@@ -40,7 +41,7 @@ J.Package( {
                 .find( 'input.comment_id' ).val( me.getCommentEl( $( this ) ).attr( 'data-comment-id' ) );
         } );
 
-        $( '.topic-area' ).on( 'click', '.comments-form .submit', function( e ) {
+        $( '.topic-area' ).on( 'submit', '.comments-form', function( e ) {
             e.preventDefault();
             me.submitComment( $( this ) );
         } );
@@ -119,9 +120,9 @@ J.Package( {
 
         var postEl = this.getPostEl( el ),
             postId = postEl.attr( 'data-post-id' ),
-            commentId = el.attr( 'data-comment-id' ),
             accountId = el.attr( 'data-account-id' ),
-            content = el.parent().find( 'input.comment' ).val(),
+            commentId = el.attr( 'data-comment-id' ),
+            content = el.find( 'input.comment' ).val(),
             data = {};
 
         if( !content.length ) {
@@ -131,10 +132,7 @@ J.Package( {
         data.content = content;
         data.post_id = postId;
 
-        if( accountId && commentId ) {
-            data.account_id = accountId;
-            data.comment_id = commentId;
-        }
+        commentId && ( data.comment_id = commentId );
 
         $.ajax( {
             url : '/topic/interface/comment',
@@ -168,7 +166,7 @@ J.Package( {
                 }
             };
 
-            if( accountId ) {
+            if( commentId ) {
                 data.reply_account = {
                     id : accountId,
                     uname : me.getCommentEl( el ).find( '.u-link' ).text()
@@ -177,8 +175,8 @@ J.Package( {
 
             me.renderComments( postId, [ data ] );
 
-            el.parent().find( '.comment' ).val( '' );
-            accountId && el.parent().hide();
+            el.find( '.comment' ).val( '' );
+            accountId && el.hide();
 
         } ).fail( function() {
             alert( '系统错误，请稍候再试' ); 

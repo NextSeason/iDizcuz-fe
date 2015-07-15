@@ -61,11 +61,6 @@ J.Package( {
             me.restartTimer();
         } );
 
-        $( 'form.signup .signup-btn' ).on( 'click', function( e ) {
-            e.preventDefault();
-            $( 'form.signup' ).submit();
-        } );
-
         $( 'form.signup' ).on( 'submit', function( e ) {
             e.preventDefault();
             if( me.submiting ) return false;
@@ -211,21 +206,18 @@ J.Package( {
         var r = J.getQuery( 'r' ),
             referrer = document.referrer;
 
-            if( r && /^https?\:\/\/www.idizcuz.com/.test( r ) ) {
-                location.href = r;
+        if( r && /^https?\:\/\/www.idizcuz.com/.test( r ) ) {
+            location.href = r;
+            return;
+        }
+
+        if( referrer && /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
+            if( !/\/(signin|signup|forget)/.test( referrer ) ) {
+                location.href = referrer;
                 return;
             }
-
-            if( referrer && /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
-                if( !/\/(signin|signup|forget)/.test( referrer ) ) {
-                    location.href = referrer;
-                    return;
-                }
-            }
-                 
-            location.href = '/';
- 
         }
+                 
+        location.href = '/';
     }
-
 } );

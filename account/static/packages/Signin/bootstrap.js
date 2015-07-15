@@ -17,11 +17,6 @@ J.Package( {
     bindEvent : function() {
         var me = this;
 
-        $( 'form.signin .signin-btn' ).on( 'click', function( e ) {
-            e.preventDefault();
-            $( 'form.signin' ).submit();
-        } );
-
         $( 'form.signin' ).on( 'submit', function( e ) {
             e.preventDefault();
 
@@ -101,20 +96,18 @@ J.Package( {
         var r = J.getQuery( 'r' ),
             referrer = document.referrer;
 
-            if( r && /^https?\:\/\/www.idizcuz.com/.test( r ) ) {
-                location.href = r;
+        if( r && /^https?\:\/\/www.idizcuz.com/.test( r ) ) {
+            location.href = r;
+            return;
+        }
+
+        if( referrer && /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
+            if( !/\/(signin|signup|forget)/.test( referrer ) ) {
+                location.href = referrer;
                 return;
             }
-
-            if( referrer && /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
-                if( !/\/(signin|signup|forget)/.test( referrer ) ) {
-                    location.href = referrer;
-                    return;
-                }
-            }
-                 
-            location.href = '/';
- 
         }
+                 
+        location.href = '/';
     }
 } );

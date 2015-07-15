@@ -158,9 +158,6 @@
                     .contents {
                         margin : 15px 0;
                         word-wrap : break-word;
-                        p {
-                            text-indent : 2em;
-                        }
                     }
                     .to-area {
                         line-height : 30px;
@@ -217,7 +214,7 @@
                                 display : block;
                                 width : 625px; 
                             }
-                            a.submit {
+                            input.submit {
                                 margin-left : 15px;
                                 height : 40px;
                                 line-height : 40px;
@@ -410,6 +407,11 @@
                         }
                     }
                 }
+                .pagination {
+                    display : none;
+                    border-bottom : solid 1px #EEE;
+                    padding-bottom : 20px;
+                }
             }
             .sidebar {
                 width : 220px;
@@ -496,9 +498,14 @@
             }
             #editor {
                 height : 370px!important;
+                width : 900px!important;
+                @include box-sizing( border-box );
             }
         }
     }
+}
+#editor-inflow-box {
+    margin-top : 20px;
 }
 #editor-area {
     .line {

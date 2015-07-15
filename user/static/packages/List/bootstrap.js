@@ -49,26 +49,11 @@ J.Package( {
 
     },
 
-    getTitle : function( content ) {
-        var node = $( '<div>' ),
-            title;
-        node.append( content );
-
-        title = node.find( 'p' ).eq( 0 ).text();
-
-        if( title.length < 3 ) {
-            title = node.text();
-        }
-
-        return title.substr( 0, 20 );
-    },
-
     formatData : function( data ) {
         var i = 0,
             l = data.length;
 
         for( ; i < l; i += 1 ) {
-            data[ i ].title = this.getTitle( data[ i ].content );
             data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
             data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
         }

@@ -29,18 +29,17 @@ J.Package( {
         var me = this
             editor = this.editor;
 
-        editor.addListener( 'click', function() {
+        editor.addListener( 'focus', function() {
             var contentTxt = editor.getContentTxt();
             if( contentTxt == me.placeholder ) {
-                editor.setContent( editor.getContent().replace( me.placeholder, '' ) );
-                editor.blur();
-                editor.focus();
+                editor.setContent( '' ); 
             }
         } );
 
         editor.addListener( 'beforepaste', function( name, data ) {
-            var node = $( data.html );
-            data.html = node.text();
+            var node = $( '<helper>' + data.html + '</helper>' );
+            
+            data.html = J.encodeHTML( node.text() );
             node = null;
         } );
 

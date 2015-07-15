@@ -1,28 +1,34 @@
 J.Package( {
     initialize : function( options ) {
-        this._cache = {
-            preloadIds : [],
-            posts : {}
-        };
-
-        this.removePostDialog = $( '#remove-post-dialog' );
-
         this.targetPostId = J.getQuery( 'post' ),
 
         this.getTargetPost();
 
-        this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
-
-        this.currentOrder = 0;
-
-        this.accountId = +$( '#idizcuz' ).attr( 'data-account-id' );
-        this.accountUname = $( '#idizcuz' ).attr( 'data-account-uname' );
-
-        this.rn = 20;
         this.topic = $( '.topic-area' ).attr( 'data-topic-id' );
 
+        this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
+
+        this.paginationCompiledTpl = J.template( $( '#post-pagination-tpl' ).val() );
+
+        this.list = [];
+
+        this.order = 0;
+
+        this.status = 0;
+
+        this.index = 0;
+
+        this.rn = 100;
+
+        this.slice = 20;
+
+        this.pn = 1;
+
+        this.total = 0;
+
         this.bindEvent();
-        this.load( 0, 0 );
+
+        this.getlist( 1 );
     },
 
     getTargetPost : function() {
@@ -48,8 +54,6 @@ J.Package( {
 
             posts = me.formatData( [ post ], 'istarget' );
 
-            console.log( 'target post' , posts );
-
             var html = me.compiledTpl( { data : posts } ),
                 targetPostTpl = $( '#target-post-tpl' ).val(),
                 targetPostNode = $( targetPostTpl );;
@@ -58,48 +62,106 @@ J.Package( {
 
             targetPostNode.insertBefore( $( '.topic-area .title-line' ) );
         } );
-
     },
 
-    load : function( order, pn, rn ) {
-        if( J.isUndefined( rn ) ) rn = this.rn;
-
+    getlist : function( pn ) {
         var me = this,
-            preloadIds = this._cache.preloadIds;
+            order = this.order,
+            start = ( pn - 1 ) * this.rn;
 
-        var start = ( pn - 1 ) * rn + 1;
+        this.pn = pn;
 
-        var data = {
-            topic : this.topic,
-            order : order,
-            _t : +new Date
-        };
+        $( '.pagination' ).hide();
+        $( '.post-list' ).html( '' );
 
-        if( preloadIds.length >= start + pn ) {
-            data.posts = preloadIds.slice( start ).join( ',' );
-        } else {
-            data.s = start;
-            data.l = rn;
-            data.order = order;
-        }
+        $( '.loading.list-bottom' ).show();
 
         $.ajax( {
             url : '/topic/interface/getposts',
-            data : data
+            method : 'GET',
+            data : {
+                topic : this.topic,
+                order : order,
+                start : start,
+                rn  : this.rn
+            }
         } ).done( function( response ) {
             var errno = +response.errno;
 
-            $( '.loading.list-top' ).fadeOut( 'slow' );
+            if( errno > 0 ) {
+            }
+
+            me.list = response.data.posts;
+
+            me.index = 0;
+            me.status = 0;
+            me.total = response.data.total;
+
+            me.load();
+        } );
+    },
+
+    load : function() {
+        var me = this;
+        this.status = 1;
+
+        if( !this.list.length ) return;
+
+        $.ajax( {
+            url : '/topic/interface/postlist',
+            method : 'GET',
+            data : {
+                ids : this.list.slice( this.index, this.index + this.slice ).join( ',' )
+            }
+        } ).done( function( response ) {
+            var errno = +response.errno;
 
             if( errno ) return false;
 
-            var posts = me.formatData( response.data.posts );
-            
-            me.render( response.data.posts );
+            me.render( me.formatData( response.data.posts ) );
+            me.index += me.slice;
 
-            me.setCache( response );
+            if( me.index >= me.list.length ) {
+                $( '.loading.list-bottom' ).hide();
+                me.renderPagination();
+            }
+            me.status = 0;
         } );
+    },
 
+    renderPagination : function() {
+        var totalPage = Math.ceil( this.total / this.rn ),
+            i,
+            list = [];
+
+        if( totalPage == 1 ) return;
+
+        var first = this.pn - 5,
+            last = first + 9;
+
+        if( first < 1 ) {
+            last = Math.min( ( 1 - first ) + last, totalPage );
+            first = 1;
+        } else if( last > totalPage ) {
+            first = Math.max( 1, first - ( last - totalPage ) );
+            last = totalPage;
+        }
+
+        for( i = first; i <= last; i += 1 ) {
+            list.push( { pn : i } );
+        }
+
+        var data = {
+            current : this.pn,
+            list : list,
+            total : totalPage
+        };
+
+        console.log( 'data', data );
+
+        var html = this.paginationCompiledTpl( { data : data } );
+
+        $( '.pagination' ).html( html ).show();
     },
 
     formatData : function( data, istarget ) {
@@ -109,7 +171,6 @@ J.Package( {
         for( ; i < l; i += 1 ) {
             data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
             data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
-            data[ i ].isMine = data[ i ].account.id == this.accountId;
             if( !istarget && data[ i ].id == this.targetPostId ) {
                 data[ i ].hide = true;
             }
@@ -120,294 +181,41 @@ J.Package( {
 
     render : function( posts ) {
         var html = this.compiledTpl( { data : posts } );
-        console.log( 'posts', posts );
         $( '.post-list' ).append( html );
     },
 
-    getPostEl : function( el ) {
-        return el.closest( 'li.posts' );
-    },
-
-    getPostId : function( postEl ) {
-        return postEl.attr( 'data-post-id' );
-    },
-
-    setCache : function( response ) {
-    },
     bindEvent : function() {
         var me = this;
         $( '.topic-area .sort' ).on( 'click', function( e ) {
             e.preventDefault();
-            var order = $( this ).attr( 'data-order' );
-            $( '.post-list' ).html( '' );
-            me.load( order, 0 );
+
+            me.order = $( this ).attr( 'data-order' );
+
             $( '.list-area .sort' ).removeClass( 'focus' );
             $( this ).addClass( 'focus' );
-            $( '.loading.list-top' ).show();
+
+            me.getlist( 1 );
         } );
 
-        $( '.topic-area' ).on( 'click', '.op-btn', function( e ) {
-            var action = $( this ).attr( 'data-action' );
+        $( window ).on( 'scroll', function() {
+            var top;
+
+            if( me.index >= me.list.length ) return;
+            
+            top = $( '.loading.list-bottom' ).position().top;
+
+            if( me.status == 1 ) return;
+
+            if( top - $( window ).scrollTop() < 1000 ) {
+                me.load();
+            }
+        } );
+
+        $( '.pagination' ).on( 'click', 'a', function( e ) {
             e.preventDefault();
-
-            if( !+me.accountId && action != 'share' ) {
-                me.redirect( 'signup' );
-                return false;
-            }
-            me[ action + 'Action' ]( $( this ) );
+            me.getlist( $( this ).attr( 'data-pn' ) );
+            window.scroll( 0, $( '.list-area' ).position().top );
         } );
-
-        $( '.topic-area' ).on( 'click', '.bubbles .close', function( e ) {
-            e.preventDefault();
-            $( this ).closest( '.bubbles' ).hide();
-        } );
-
-        $( '.topic-area' ).on( 'click', '.report-submit', function( e ) {
-            e.preventDefault();
-            if( !me.accountId ) {
-                me.redirect( 'signup' );
-                return false;
-            }
-            me.submitReport( $( this ) );
-        } );
-
-        $( '.topic-area' ).on( 'click', '.reply-to', function( e ) {
-            e.preventDefault();
-            if( !me.accountId ) {
-                me.redirect( 'signin' );
-                return false;
-            }
-            var postEl = me.getPostEl( $( this ) ),
-                postId = postEl.attr( 'data-post-id' );
-
-            $( '.to-line' ).show();
-            $( 'input.to' ).val( postId );
-            $( '.to-title' ).html( postEl.find( 'h2 a' ).html() );
-
-            showEditorDialog();
-
-        } );
-
-        $( '.topic-area' ).on( 'click', '.remove-post', function( e ) {
-            e.preventDefault();
-            me.removePostDialog.show().find( 'input.post-id' ).val( me.getPostEl( $( this ) ).attr( 'data-post-id' ) );
-        } );
-
-        me.removePostDialog.find( '.cancel' ).on( 'click', function( e ) {
-            e.preventDefault();
-            me.hideRemovePostDialog();
-        } );
-
-        me.removePostDialog.find( '.confirm' ).on( 'click', function( e ) {
-            e.preventDefault();
-            var id = me.removePostDialog.find( 'input.post-id' ).val();
-            me.removePost( id );
-        } );
-    },
-
-    removePost : function( id ) {
-        var me = this;
-
-        $.ajax( {
-            url : '/topic/interface/removepost',
-            method : 'POST',
-            data : {
-                id : id
-            }
-        } ).done( function( response ) {
-            var errno = +response.errno;
-
-            if( errno > 0 ) {
-                me.removePostDialog.find( '.tip' ).hide();
-                me.removePostDialog.find( '.fail' ).show();
-                return false;
-            }
-
-            me.removePostDialog.find( '.tip, .fail' ).hide();
-
-            me.hideRemovePostDialog();
-            $( '#post-' + id ).fadeOut( 'slow', function() {
-                $( this ).remove();
-            } );
-        } );
-    },
-
-    hideRemovePostDialog : function() {
-        this.removePostDialog.find( '.fail' ).hide();
-        this.removePostDialog.find( '.tip' ).show();
-        this.removePostDialog.find( 'input.post-id' ).val( '' );
-        this.removePostDialog.hide();
-    },
-
-    submitReport : function( el ) {
-        var postEl = this.getPostEl( el ),
-            postId = postEl.attr( 'data-post-id' ),
-            reportEl = el.closest( '.report' ),
-            tipEl = el.parent().find( '.tip' );
-
-        var checked = reportEl.find( 'input[type=radio]:checked' );
-
-        if( !checked.length ) {
-            tipEl.html( '请选择投诉原因' ).addClass( 'err' ); 
-            return;
-        }
-
-        var reason = checked.val();
-
-        var desc = $.trim( reportEl.find( 'textarea.desc' ).val() );
-
-        $.ajax( {
-            url : '/topic/interface/report',
-            method : 'POST',
-            data : {
-                post_id : postId,
-                reason : reason,
-                desc : desc
-            }
-        } ).done( function( response ) {
-            var errno = +response.errno;
-
-            if( !errno ) {
-                tipEl.removeClass( 'err' ).html( '您的投诉已经提交，我们会尽快为您处理。感谢您的支持' ); 
-
-                return;
-            }
-            switch( errno ) {
-                case 3 : 
-                    tipEl.html( '您需要登录之后才可以进行举报' ).addClass( 'err' ); 
-                    setTimeout( function() {
-                        me.redirect( 'signup' );
-                    }, 1000 );
-                    break;
-                case 14 : 
-                    tipEl.html( '您已经提交过投诉，我们会尽快为您处理' ).addClass( 'err' ); 
-                    break;
-                default :
-                    tipEl.html( '系统错误，请稍候再试' ).addClass( 'err' ); 
-                    break;
-                
-            }
-
-        } );
-    },
-
-    agreeAction : function( el ) {
-        var postEl = this.getPostEl( el ),
-            postId = postEl.attr( 'data-post-id' ),
-            opinion = el.attr( 'data-intent' );
-
-        $.ajax( {
-            url : '/topic/interface/vote',
-            method : 'POST',
-            data : {
-                post_id : postId,
-                opinion : opinion,
-                type : 0,
-                value : 1
-            }
-        } ).done( function( response ) {
-            var errno = +response.errno,
-                o;
-
-            if( errno ) { 
-                if( errno == 3 ) {
-                    me.redirect( 'signup' );
-                }
-                return false; 
-            }
-
-            o = +el.find( 'b' ).html();
-
-            el.find( 'b' ).html( o + 1 );
-
-        } );
-    },
-
-    markAction : function( el ) {
-        var me = this,
-            postEl = this.getPostEl( el ),
-            postId = postEl.attr( 'data-post-id' ),
-            markId = +el.attr( 'data-mark-id' ),
-            data = {
-                post_id : postId,
-                act : +!markId,
-                mark_id : markId
-            };
-
-        if( markId ) {
-            el.removeClass( 'op-unmark' ).addClass( 'op-mark' ).attr( 'data-mark-id', 0 );
-            el.html( '<i class="fa fa-star-o"></i> 收藏' );
-            if( me.showingBubble( el ) == 'mark' ) me.hideBubble( el );
-        }
-
-        $.ajax( {
-            url : '/topic/interface/mark',
-            method : 'POST',
-            data : data
-        } ).done( function( response ) {
-            var errno = +response.errno,
-                data = response.data || {};
-
-            if( errno ) {
-            }
-
-            if( +data.mark ) {
-                el.removeClass( 'op-mark' ).addClass( 'op-unmark' ).attr( 'data-mark-id', data.mark );
-                el.html( '<i class="fa fa-star"></i> 取消收藏' );
-                me.showBubble( el );
-            }
-        } );
-
-    },
-    shareAction : function( el ) {
-        var postEl = this.getPostEl( el );
-        this.showBubble( el );
-        if( !el.attr( 'data-has-qrcode' ) ) {
-            new QRCode( postEl.find( '.qrcode' ).get( 0 ), {
-                text : postEl.find( '.share-post-link' ).attr( 'href' ),
-                width : 110,
-                height : 110
-            } );
-
-            el.attr( 'data-has-qrcode', 1 );
-        }
-    },
-
-    reportAction : function( el ) {
-        this.showBubble( el );
-    },
-    showingBubble : function( el ) {
-        return this.getPostEl( el ).find( '.op-bubbles' ).attr( 'data-showing' );
-    },
-    showBubble : function( el ) {
-        var postEl = this.getPostEl( el ),
-            bubbleEl = postEl.find( '.op-bubbles' ),
-            action = el.attr( 'data-action' ),
-            pos = el.position();
-
-        bubbleEl.attr( 'data-showing', action );
-     
-        bubbleEl.find( '> .triangle' ).css( 'left', pos.left + el.width() / 2 - 10 );
-        bubbleEl.hide();
-        bubbleEl.find( '.box' ).hide();
-        bubbleEl.find( '.' + action ).show();
-        bubbleEl.show();
-    },
-
-    hideBubble : function( el ) {
-        this.getPostEl( el ).find( '.op-bubbles' ).hide();
-    },
-    redirect : function( page ) {
-        switch( page ) {
-            case 'signup' :
-                location.href = '/signup?r=' + encodeURIComponent( location.href );
-                break;
-            case 'signin' :
-                location.href = '/signin?r=' + encodeURIComponent( location.href );
-                break;
-            default :
-                break;
-        }
     }
-
+    
 } );
