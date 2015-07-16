@@ -14,16 +14,13 @@ J.Package( {
         };
 
         this.bindEvent();
-
         this.load( 1 );
     },
 
     load : function( pn ) {
-
         var me = this,
-            rn = 20;
-
-        var start = ( pn - 1 ) * rn;
+            rn = 20,
+            start = ( pn - 1 ) * rn;
 
         var data = {
             account : this.account,
@@ -43,10 +40,9 @@ J.Package( {
             if( errno ) return false;
 
             var posts = me.formatData( response.data.posts );
-            
             me.render( posts );
+            //me.render
         } );
-
     },
 
     formatData : function( data ) {
@@ -57,7 +53,6 @@ J.Package( {
             data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
             data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
         }
-
         return data;
     },
 

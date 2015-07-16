@@ -13,65 +13,8 @@
             <div class="boxes main">
                 <div class="inner clearfix">
                     <div class="main-area l">
-                        <div class="user-card clearfix">
-                            <a href="/user" class="avatar">
-                                <img src="@Static::common::images/thinker.png" />
-                            </a>
-                            <div class="user-info">
-                                <?php if( $self == 1 ) { ?>
-                                    <a href="/settings" class="btns small dark edit">编辑</a>
-                                <?php } ?>
-                                <p>
-                                    <a href="/user" class="uname"><?php echo $user['uname']; ?></a>
-                                </p>
-                                <p class="situation">
-                                    <span><?php echo $user['info']['employment']; ?></span>
-                                    <span><?php echo $user['info']['position']; ?></span>
-                                </p>
-                                <?php if( $user['info']['industry'] != '0' ) { ?>
-                                    <p class="industry">
-                                        <span>从事行业：</span>
-                                        <span><?php echo $user['info']['industry']; ?></span>
-                                    </p>
-                                <?php } ?>
-                                <p class="desc">
-                                    <span>个人简介：</span>
-                                    <?php echo $user['info']['desc']; ?>
-                                </p>
-                            </div>
-                            <div class="sp l"></div>
-                            <div class="user-data l">
-                                <div class="line">
-                                    <span>注册时间：<?php echo substr( $user['ctime'], 0, -9 ); ?></span>
-                                </div>
-                                <div class="line">
-                                    <span>发表论述：<?php echo $user['data']['post_cnt']; ?></span>
-                                </div>
-                                <div class="line">
-                                    <span>获得支持：<?php echo $user['data']['agree']; ?></span>
-                                </div>
-                                <div class="line">
-                                    <span>获得反对：<?php echo $user['data']['disagree']; ?></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="nav-box clearfix">
-                            <ul class="nav clearfix r">
-                                <li><a href="/user/posts?u=<?php echo $user['id']; ?>" data-page="posts" <?php if( $page == 'posts' ) { echo 'class="focus"'; } ?>>发表的论述</a></li>
-                                <?php if( $self == 1 ) { ?>
-                                    <li><a href="/user/agree?u=<?php echo $user['id']; ?>" data-page="agree" <?php if( $page == 'agree' ) { echo 'class="focus"'; } ?>>我支持的</a></li>
-                                    <li><a href="/user/disagree?u=<?php echo $user['id']; ?>" data-page="disagree" <?php if( $page == 'disagree' ) { echo 'class="focus"'; } ?>>我反对的</a></li>
-                                <?php } else { ?>
-                                    <li><a href="/user/agree?u=<?php echo $user['id']; ?>" data-page="agree" <?php if( $page == 'agree' ) { echo 'class="focus"'; } ?>>TA支持的</a></li>
-                                    <li><a href="/user/disagree?u=<?php echo $user['id']; ?>" data-page="disagree" <?php if( $page == 'disagree' ) { echo 'class="focus"'; } ?>>TA反对的</a></li>
-                                <?php } ?>
-                                <li><a href="/user/mark?u=<?php echo $user['id']; ?>" data-page="mark" <?php if( $page == 'mark' ) { echo 'class="focus"'; } ?>>收藏</a></li>
-                                <?php if( $self === 'aaa' ) { ?>
-                                    <li><a href="/user/removed" data-page="removed" <?php if( $page == 'removed' ) { echo 'class="focus"'; } ?>>已删除的</a></li>
-                                <?php } ?>
-                            </ul>
-                        </div>
                         <ul class="post-list">
+                            <!--
                             <li class="posts" data-post-id="<%=post.id %>">
                                 <div class="data-line clearfix">
                                     <div class="operates r">
@@ -96,7 +39,9 @@
                                     <a href="<%=postUrl %>" target="_blank" class="comments"><%=post.data.comments_cnt %>条短评</a>
                                 </div>
                             </li>
+                            -->
                         </ul>
+                        <div id="#list-pagination" class="pagination"></div>
                     </div>
                     <div class="sidebar">
                     </div>
@@ -155,4 +100,3 @@
         @Include::common::foot.inc.html
     </body>
 </html>
- 

@@ -2,9 +2,10 @@ J.Package( {
 
     initialize : function( options ) {
         this.compiledTpl = J.template( $( '#comments-list-tpl' ).val() );
+        this.paginationCompiledTpl = J.template( $( '#post-pagination-tpl' ).val() );
         this.accountId = $( '#idizcuz' ).attr( 'data-account-id' );
         this.accountUname = $( '#idizcuz' ).attr( 'data-account-uname' );
-        this.rn = 20;
+        this.rn = 10;
 
         this.bindEvent();
     },
@@ -50,6 +51,13 @@ J.Package( {
             e.preventDefault();
             $( '#complain-box' ).hide().find( 'textarea' ).val('');
         } );
+
+        $( '.topic-area' ).on( 'click', '.comment-pagination a', function( e ) {
+            e.preventDefault();
+            var postEl = me.getPostEl( $( this ) );
+            me.getComments( postEl.attr( 'data-post-id' ), $( this ).attr( 'data-pn' ) );  
+            window.scrollTo( 0, postEl.find( '.comments-box' ).position().top );
+        } );
     },
     removeComment : function( id ) {
         $.ajax( {
@@ -90,10 +98,45 @@ J.Package( {
             if( errno ) {
                 return;
             }
+            $( '#post-' + postId ).find( '.comments-list' ).html('');
 
             me.renderComments( postId, response.data.comments );
 
+            me.renderPagination( postId, pn, response.data.total );
+
         } );
+    },
+
+    renderPagination : function( postId, pn, total ) {
+        var totalPage = Math.ceil( total / this.rn ),
+            i, list = [];
+
+        if( totalPage == 1 ) return;
+
+        var first = pn - 5,
+            last = first + 9;
+
+        if( first < 1 ) {
+            last = Math.min( ( 1 - first ) + last, totalPage );
+            first = 1;
+        } else if( last > totalPage ) {
+            first = Math.max( 1, first - ( last - totalPage ) );
+            last = totalPage;
+        }
+
+        for( i = first; i <= last; i += 1 ) {
+            list.push( { pn : i } );
+        }
+
+        var data = {
+            current : pn,
+            list : list,
+            total : totalPage
+        };
+
+        var html = this.paginationCompiledTpl( { data : data } );
+
+        $( '#post-' + postId ).find( '.comment-pagination' ).html( html ).show();
     },
 
     renderComments : function( postId, data ) {
@@ -107,11 +150,10 @@ J.Package( {
             data[i].isSelf = ( data[i].account_id == this.accountId );
         }
 
-
         html = this.compiledTpl( { data : data } );
 
         postEl.find( '.comments-list' ).append( html );
-        postEl.find( '.comments-box .loading' ).fadeOut( 'slow' );
+        postEl.find( '.comments-box .loading' ).fadeOut();
     },
 
 

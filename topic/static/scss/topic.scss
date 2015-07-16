@@ -202,6 +202,16 @@
                                 }
                             }
                         }
+                        .comment-pagination {
+                            margin-top : 20px;
+                            padding-left : 10px;
+                            a, span {
+                                min-width : 26px;
+                                height : 26px;
+                                line-height : 26px;
+                                font-size : 12px;
+                            }
+                        }
                         .comments-form {
                             margin-top : 20px;
                             &.reply-form {

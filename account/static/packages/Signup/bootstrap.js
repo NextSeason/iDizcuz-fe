@@ -85,7 +85,21 @@ J.Package( {
                 'do' : type,
                 'to' : $.trim( $( 'form.signup input.email' ).val() )
             }
-        } ).done( function() {
+        } ).done( function( response ) {
+            var errno = +response.errno;
+
+            if( errno ) {
+                switch( errno ) {
+                    case 5 :
+                        me.setTip( '该邮箱已存在，请直接 <a href="/signin">登录</a>', 'warn' );
+                        break;
+                    default :
+                        me.setTip( '系统错误，请稍候再试', 'warn' );
+                        break;
+                }
+                return;
+            }
+
             me.setTip( '验证码已发送到您的邮箱，请登录邮箱查收' );
         } ).fail( function() {
             me.setTip( '系统错误，请稍候再试', 'warn' );

@@ -17,61 +17,51 @@ J.Package( {
     bindEvent : function() {
         var me = this;
 
-        $( 'form.signup input.email' ).on( 'focus', function( e ) {
-            me.setTip( '邮箱一经注册，不可修改', 'signup' );
+        $( 'form.forget input.email' ).on( 'focus', function( e ) {
+            me.setTip( '填写注册时使用的邮箱' );
         } );
 
-        $( 'form.signup input.uname' ).on( 'focus', function( e ) {
-            me.setTip( '用户名长度为1~6个字(三个字母等于一个字)', 'signup' );
+        $( 'form.forget input.vcode' ).on( 'focus', function( e ) {
+            me.setTip( '输入验证码，若一分钟内未收到，可点击重新发送' );
         } );
 
-        $( 'form.signup input.passwd' ).on( 'focus', function( e ) {
-            me.setTip( '密码长度为6~20字符', 'signup' );
-        } );
-
-        $( 'form.signup input.vcode' ).on( 'focus', function( e ) {
-            me.setTip( '输入验证码，若一分钟内未收到，可点击重新发送', 'signup' );
-        } );
-
-        $( 'form.signup input.email' ).on( 'input propertychange', function( e ) {
+        $( 'form.forget input.email' ).on( 'input propertychange', function( e ) {
             var email = $.trim( $( this ).val() );
-            this.reg.email.test( email ) ? $( 'form.signup .send-btn' ).removeClass( 'disabled' ) : $( 'form.signup .send-btn' ).addClass( 'disabled' );
+            me.reg.email.test( email ) ? $( 'form.forget .send-btn' ).removeClass( 'disabled' ) : $( 'form.forget .send-btn' ).addClass( 'disabled' );
 
-            $( 'form.signup .send-btn' ).show();
-            $( 'form.signup .resend-btn' ).hide();
+            $( 'form.forget .send-btn' ).show();
+            $( 'form.forget .resend-btn' ).hide();
         } );
 
-        $( 'form.signup .send-btn' ).on( 'click', function( e ) {
+        $( 'form.forget .send-btn' ).on( 'click', function( e ) {
             e.preventDefault();
 
             if( $( this ).hasClass( 'disabled' ) ) return;
 
-            me.sendVcode( 'signup' ); 
+            me.sendVcode( 'forget' ); 
 
             $( this ).hide();
-            $( 'form.signup .resend-btn' ).css( 'display', 'inline-block' );
-            me.restartTimer( $( 'form.signup .resend-btn' ) );
+            $( 'form.forget .resend-btn' ).css( 'display', 'inline-block' );
+            me.restartTimer( $( 'form.forget .resend-btn' ) );
         } );
 
-        $( 'form.signup .resend-btn' ).on( 'click', function( e ) {
+        $( 'form.forget .resend-btn' ).on( 'click', function( e ) {
             e.preventDefault();
             if( $( this ).hasClass( 'disabled' ) ) return false;
 
-            me.sendVcode( 'signup' );
-            me.restartTimer( $( 'form.signup .resend-btn' ) );
+            me.sendVcode( 'forget' );
+            me.restartTimer( $( 'form.forget .resend-btn' ) );
         } );
 
-        $( 'form.signup .signup-btn' ).on( 'click', function( e ) {
+        $( 'form.forget .forget-btn' ).on( 'click', function( e ) {
             e.preventDefault();
-            $( 'form.signup' ).submit();
+            $( 'form.forget' ).submit();
         } );
 
-        $( 'form.signup' ).on( 'submit', function( e ) {
+        $( 'form.forget' ).on( 'submit', function( e ) {
             e.preventDefault();
-            if( me.submitingSignup ) return false;
-            me.submitingSignup = true;
-            me.setTip( '正在提交注册信息...', 'signup' );
-            me.signup();
+            if( me.submiting ) return false;
+            me.forget();
         } );
 
         $( '.redirect' ).on( 'click', function( e ) {
@@ -86,13 +76,29 @@ J.Package( {
 
         $.ajax( {
             method : 'POST',
-            url : '/account/vcode/getVcode',
+            url : '/account/interface/sendVcode',
             data : {
                 'do' : type,
-                'to' : $.trim( $( 'form.signup input.email' ).val() )
+                'to' : $.trim( $( 'form.forget input.email' ).val() )
             }
-        } ).done( function() {
-            me.setTip( '验证码已发送到您的邮箱，请登录邮箱查收', 'signup' );
+        } ).done( function( response ) {
+            var errno = +response.errno;
+
+            if( errno ) {
+                switch( errno ) {
+                    case 6 :
+                        me.setTip( '该邮箱尚未注册使用', 'warn' );
+                        break;
+                    default :
+                        me.setTip( '系统错误', 'warn' );
+                        break;
+                }
+                return false;
+            }
+            me.setTip( '验证码已发送到您的邮箱，请登录邮箱查收' );
+        } ).fail( function() {
+            me.setTip( '系统错误，请稍候再试', 'warn' );
+            me.restartTimer( '1s' );
         } );
     },
     restartTimer : function( elem ) {
@@ -115,79 +121,62 @@ J.Package( {
             timer.html( n + 's' );
         }, 1000 );
     },
-    signup : function() {
+    forget : function() {
         var me = this,
-            form = $( 'form.signup' );
+            form = $( 'form.forget' );
         var email = $.trim( form.find( '.email' ).val() );
         
         if( !this.reg.email.test( email ) ) {
-            me.setTip( '请输入正确的邮箱地址', 'signup', 'warn' ); 
-            return false;
-        }
-
-        var uname = $.trim( form.find( '.uname' ).val() );
-
-        if( !uname.length ) {
-            me.setTip( '请输入用户名', 'signup', 'warn' ); 
-            return false;
-        }
-
-        if( J.byteLen( uname ) > 18 ) {
-            me.setTip( '用户名长度为1~6个字(三个字母等于一个字)', 'signup', 'warn' ); 
-            return false;
-        }
-
-        var passwd = form.find( '.passwd' ).val();
-
-        if( !passwd.length ) {
-            me.setTip( '请输入密码', 'signup', 'warn' );
-            return false;
-        }
-
-        if( passwd.length > 20 || passwd.length < 6 ) {
-            me.setTip( '密码长度需要在6~20字符之间', 'signup', 'warn' );
+            this.setTip( '请输入正确的邮箱地址', 'warn' ); 
             return false;
         }
 
         var vcode = $.trim( form.find( '.vcode' ).val() );
 
         if( !vcode.length ) {
-            me.setTip( '请输入验证码，若未收到验证码，请点击重新发送', 'signup', 'warn' );
+            this.setTip( '请输入验证码，若未收到验证码，请点击重新发送', 'warn' );
             return false;
         }
 
         if( !/^\d{6}$/.test( vcode ) ) {
-            me.setTip( '验证码不正确', 'signup', 'warn' );
+            this.setTip( '验证码不正确', 'warn' );
             return false;
         }
 
+        this.setTip( '正在提交...' );
+        this.submiting = true;
+
         $.ajax( {
             method : 'POST',
-            url : '/account/index/signup',
+            url : '/account/interface/forget',
             data : {
                 email : email,
-                uname : uname,
-                passwd : passwd,
                 vcode : vcode
             }
         } ).done( function( response ) {
             var errno = +response.errno;
 
             if( !errno ) {
-                me.setTip( '您已完成注册，请文明参与讨论', 'signup' );
+                me.setTip( '验证成功，页面即将跳转' );
+                setTimeout( function() {
+                    location.href = '/account/page/forgetreset?token=' + response.data.token;
+                }, 2000 );
                 return;
             }
 
-            me.submitingSignup = false;
+            me.submiting = false;
 
             switch( errno ) {
                 case 4 :
-                    me.setTip( '验证码不正确', 'signup', 'warn' );
+                    me.setTip( '验证码不正确', 'warn' );
                     break;
                 default :
-                    me.setTip( '注册失败，请确认填写信息无误后重新提交', 'signup', 'warn' );
+                    me.setTip( '系统错误', 'warn' );
                     break;
             }
+        } ).fail( function() {
+            me.submiting = false;
+            me.setTip( '系统错误，请稍候再试', 'warn' );
         } );
     }
 } );

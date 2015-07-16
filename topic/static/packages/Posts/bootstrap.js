@@ -5,29 +5,19 @@ J.Package( {
         this.getTargetPost();
 
         this.topic = $( '.topic-area' ).attr( 'data-topic-id' );
-
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
-
         this.paginationCompiledTpl = J.template( $( '#post-pagination-tpl' ).val() );
 
         this.list = [];
-
         this.order = 0;
-
         this.status = 0;
-
         this.index = 0;
-
-        this.rn = 100;
-
-        this.slice = 20;
-
+        this.rn = 2;
+        this.slice = 1;
         this.pn = 1;
-
         this.total = 0;
 
         this.bindEvent();
-
         this.getlist( 1 );
     },
 
@@ -71,7 +61,7 @@ J.Package( {
 
         this.pn = pn;
 
-        $( '.pagination' ).hide();
+        $( '#post-pagination' ).hide();
         $( '.post-list' ).html( '' );
 
         $( '.loading.list-bottom' ).show();
@@ -157,11 +147,9 @@ J.Package( {
             total : totalPage
         };
 
-        console.log( 'data', data );
-
         var html = this.paginationCompiledTpl( { data : data } );
 
-        $( '.pagination' ).html( html ).show();
+        $( '#post-pagination' ).html( html ).show();
     },
 
     formatData : function( data, istarget ) {
@@ -211,7 +199,7 @@ J.Package( {
             }
         } );
 
-        $( '.pagination' ).on( 'click', 'a', function( e ) {
+        $( '#post-pagination' ).on( 'click', 'a', function( e ) {
             e.preventDefault();
             me.getlist( $( this ).attr( 'data-pn' ) );
             window.scroll( 0, $( '.list-area' ).position().top );
