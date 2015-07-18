@@ -229,6 +229,6 @@ J.Package( {
         return el.closest( '.comments-item' );
     },
     getPostEl : function( el ) {
-        return el.closest( 'li.posts' );
+        return el.closest( '.posts' );
     }
 } );

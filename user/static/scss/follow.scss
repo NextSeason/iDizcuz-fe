@@ -1,0 +1,38 @@
+#idizcuz {
+    .account-list {
+        > li { 
+            border-bottom : solid 1px #EEE;
+            padding : 20px;
+            .unfollow,
+            .follow {
+                margin-top : 5px;
+            }
+        }
+        .info-box {
+            padding : 3px 0;
+            margin-left : 20px;
+            .uname {
+                font-size : 16px;
+                color : #333;
+                font-weight : 700;
+                &:hover {
+                    text-decoration : none;
+                }
+            }
+            .num-part,
+            .info-part,
+            .desc-part {
+                margin-top : 8px;
+                font-size : 12px;
+                span.sp {
+                    margin : 0 5px;
+                    font-size : 10px;
+                    color : #CCC;
+                    position : relative;
+                    top : -2px;
+                }
+            }
+
+        }
+    }
+}

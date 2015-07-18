@@ -256,7 +256,7 @@ J.Package( {
         } );
     },
     getPostEl : function( el ) {
-        return el.closest( 'li.posts' );
+        return el.closest( '.posts' );
     },
 
     getPostId : function( postEl ) {

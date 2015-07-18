@@ -246,6 +246,12 @@
                     }
                 }
                 .target-post {
+                    .removed {
+                        border-top : solid 3px $brandColor;
+                        line-height : 260px;
+                        text-align : center;
+                        color : #999;
+                    }
                     .bridge {
                         height : 60px;
                         line-height : 60px;

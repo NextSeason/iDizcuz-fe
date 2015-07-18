@@ -1,9 +1,5 @@
 J.Package( {
     initialize : function( options ) {
-        this.targetPostId = J.getQuery( 'post' ),
-
-        this.getTargetPost();
-
         this.topic = $( '.topic-area' ).attr( 'data-topic-id' );
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
         this.paginationCompiledTpl = J.template( $( '#post-pagination-tpl' ).val() );
@@ -19,39 +15,6 @@ J.Package( {
 
         this.bindEvent();
         this.getlist( 1 );
-    },
-
-    getTargetPost : function() {
-        var me = this;
-            postId = this.targetPostId;
-
-        if( !postId ) return false;
-
-        $.ajax( {
-            url : '/topic/interface/getpost',
-            data : {
-                id : postId
-            }
-        } ).done( function( response ) {
-            var errno = +response.errno,
-                post;
-
-            if( errno ) return false;
-
-            post = response.data.post;
-
-            if( post.topic_id != me.topic ) return false;
-
-            posts = me.formatData( [ post ], 'istarget' );
-
-            var html = me.compiledTpl( { data : posts } ),
-                targetPostTpl = $( '#target-post-tpl' ).val(),
-                targetPostNode = $( targetPostTpl );;
-
-            targetPostNode.find( '.post-detail' ).html( html );
-
-            targetPostNode.insertBefore( $( '.topic-area .title-line' ) );
-        } );
     },
 
     getlist : function( pn ) {
@@ -82,6 +45,12 @@ J.Package( {
             }
 
             me.list = response.data.posts;
+
+            if( !me.list.length ) {
+                me.render([]);
+                $( '.loading' ).hide();
+                return;
+            }
 
             me.index = 0;
             me.status = 0;
@@ -152,14 +121,14 @@ J.Package( {
         $( '#post-pagination' ).html( html ).show();
     },
 
-    formatData : function( data, istarget ) {
+    formatData : function( data ) {
         var i = 0,
             l = data.length;
 
         for( ; i < l; i += 1 ) {
             data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
             data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
-            if( !istarget && data[ i ].id == this.targetPostId ) {
+            if( $( '#post-' + data[i].id ).length ) {
                 data[ i ].hide = true;
             }
         }
