@@ -1,0 +1,44 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .home-head {
+        .inner { 
+            background : transparent;
+        }
+        background-color : $brandColor;
+        height : 260px;
+        @include background-image( linear-gradient(
+            top,
+            $brandColor 220px,
+            $darkBrandColor 100%
+        ) );
+        .brand-area {
+            text-align : center;
+            padding-top : 95px;
+            .logo-text {
+                color : #FFF;
+                font-size : 36px;
+                @include text-shadow( 1px 1px 5px #333 );
+            }
+            .slogan {
+                font-size : 14px;
+                margin-top : 25px;
+                color : #FFF;
+                .text {
+                    padding : 0 10px;
+                }
+                .ll, .rl {
+                    display : inline-block;
+                    vertical-align : middle;
+                    opacity : .6;
+                    width : 150px;
+                    line-height : 0;
+                    font-size : 0;
+                    height : 1px;
+                    background : #FFF;
+                }
+            }
+        }
+    }
+}
