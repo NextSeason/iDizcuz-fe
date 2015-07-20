@@ -2,7 +2,7 @@
 @import "variables";
 
 #idizcuz {
-    .home-head {
+    .boxes.home-head {
         .inner { 
             background : transparent;
         }
@@ -37,6 +37,68 @@
                     font-size : 0;
                     height : 1px;
                     background : #FFF;
+                }
+            }
+        }
+    }
+    .boxes.banner {
+        margin-top : 15px;
+        .slide-area {
+            border-top : solid 3px $brandColor;
+            li {
+                width : 765px;
+                height : 225px;
+                background : #EEE;
+                a {
+                    display : block;
+                    height : 100%;
+                }
+            }
+        }
+        .account-area {
+            .join-btn {
+                width : 220px;
+                height : 40px;
+                line-height : 40px;
+                font-size : 14px;
+            }
+            .sign-box {
+                border-top : solid 3px $brandColor;
+                margin-top : 15px;
+                @include box-sizing( border-box );
+            }
+            form.signin {
+                padding : 10px 0;
+                width : 220px;
+                height : 235px;
+                border : solid 1px #EEE;
+                @include box-sizing( border-box );
+                .tt {
+                    padding : 0 10px;
+                    margin-bottom : 10px;
+                    font-size : 14px;
+                }
+                .line { 
+                    margin-bottom : 15px;
+                    padding : 0 10px;
+                    input[type=text],
+                    input[type=password],
+                    input[type=submit] {
+                        width : 200px;
+                        height : 36px;
+                        line-height : 36px;
+                    }
+                    .redirect {
+                        font-size : 12px;
+                        color : #999;
+                    }
+                    .sp {
+                        font-size : 12px;
+                        color : #CCC;
+                        position : relative;
+                        top : -2px;
+                        margin : 0 5px;
+                    }
                 }
             }
         }

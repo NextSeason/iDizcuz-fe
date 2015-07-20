@@ -1,21 +1,21 @@
 @import "compass/css3";
 @import "variables";
 
+body {
+    font-size : 14px;
+}
 #idizcuz {
     min-height : 100%;
-
     .boxes {
         & > .inner {
             width : 1000px;
             margin : 0 auto;
-            background : $normalBackgroundColor;
         }
         &.top {
             height : 59px;
             line-height : 59px;
-            background : $brandColor;
             border-bottom : solid 1px #CCC;
-            color : #FFF;
+            background : #FFF;
             & > .inner {
                 background : transparent; 
                 height : 59px;
@@ -26,27 +26,29 @@
                     right : 0;
                     top : 0;
                     font-size : 12px;
+                    border : solid 1px transparent;
+                    border-top : 0;
+                    &:hover {
+                        border-color : #EEE;
+                    }
                     li {
                         line-height : 59px;
-                        height : 59px;
                         width : 150px;
-                        background : $brandColor;
+                        background : #FFF;
                         i.unread-msg-remind {
                             display : inline-block;
                             height : 14px;
                             padding : 0 5px;
                             line-height : 14px;
                             text-align : center;
-                            background : #FFF;
+                            background : $brandColor;
                             position : relative;
                             font-size : 10px;
                             top : -8px;
-                            color : red;
-                            font-weight : bold;
+                            color : #FFF;
                             @include border-radius( 10px );
                         }
                         a {
-                            color : #FFF;
                             display : block;
                             padding-left : 10px;
                             &:hover {
@@ -58,15 +60,12 @@
                             li {
                                 height : 40px;
                                 line-height : 40px;
-                                background : $darkBrandColor;
-                                border-top : solid 1px #a52e11;
                                 &:hover {
-                                    background : $highlightBrandColor;
+                                    background : #FAFAFA;
                                 }
                             }
                         }
                         &:hover {
-                            background : $darkBrandColor;
                             ul {
                                 display : block;
                             }
@@ -79,7 +78,7 @@
                     top : 0;
                     a,
                     span {
-                        color : #FFF;
+                        color : $brandColor;
                         font-size : 12px;
                     }
                     span {
@@ -87,9 +86,28 @@
                         position : relative;
                         top : -1px;
                     }
-    
                 }
 
+            }
+        }
+        &.top-nav {
+            height : 50px;
+            line-height : 50px;
+            background : $brandColor;
+            ul li {
+                float : left;
+                a {
+                    color : #FFF;
+                    display : block;
+                    padding : 0 20px;
+                    font-size : 14px;
+                    &.focus {
+                        background : $darkBrandColor;
+                    }
+                    &:hover {
+                        text-decoration : none;
+                    }
+                }
             }
         }
         &.main {
@@ -105,15 +123,14 @@
         font-size : 26px;
         font-style : italic;
         font-family : Arial;
-        &.light {
-            color : $normalBackgroundColor;
-        }
+        font-weight : bold;
+        -webkit-user-select : none;
         &:hover {
             text-decoration : none;
         }
     }
 
-     .rich-text {
+    .rich-text {
         img {
             max-width : 100%; 
         }   
@@ -132,6 +149,104 @@
             margin-right : 5px;
             padding : 0 5px;
             @include box-sizing( border-box );
+        }
+    }
+    .user-card {
+        width : 220px;
+        padding : 10px 0;
+        text-align : center;
+        border : solid 1px #EEE;
+        border-top : solid 3px $brandColor;
+        @include box-sizing( border-box );
+        .avatar {
+            display : inline-block;
+            overflow : hidden;
+            @include border-radius( 50% );
+        }
+        .btns-part {
+            margin-top : 15px;
+            .btns {
+                width : 180px;
+            }
+        }
+        .user-info {
+            text-align : center;
+            .uname {
+                font-weight : bold;
+                line-height : 30px;
+            }
+            .num-part {
+                div {
+                    display : block;
+                    text-align : center;
+                    width : 72px;
+                    height : 50px;
+                    line-height : 25px;
+                    &.m {
+                        border : solid 1px #EEE;
+                        border-top : 0;
+                        border-bottom : 0;
+                    }
+                    &:hover a {
+                        color : $brandColor;
+                    }
+                    b, a {
+                        display : block;
+                        width : 100%;
+                        color : #999;
+                        text-align : center;
+                        font-size : 13px;
+                    }
+                    b {
+                        font-weight : bold;
+                        color : #333;
+                        font-size : 14px;
+                    }
+                }
+                &.l2 div {
+                    width : 108px;
+                    &:first-child {
+                        border-right : solid 1px #EEE;
+                    }
+                }
+            }
+            .info-part {
+                margin : 15px 0;
+                .lines {
+                    background : #FAFAFA;
+                    line-height : 30px;
+                }
+            }
+        }
+    }
+
+    .sub-nav {
+        margin-top : 20px;
+        border-bottom : solid 1px #EEE;
+        ul.nav {
+            float : right;
+            margin-right : 20px;
+            li {
+                float : left;
+                a {
+                    display : block;
+                    padding : 0 20px;
+                    color : #666;
+                    line-height : 30px;
+                    position : relative;
+                    top : 1px;
+                    font-size : 13px;
+                    &:hover {
+                        text-decoration : none;
+                    }
+                    &.focus {
+                        border : solid 1px #EEE;
+                        border-bottom : 0;
+                        color : $brandColor;
+                        background : #FFF;
+                    }
+                }
+            }
         }
     }
 }

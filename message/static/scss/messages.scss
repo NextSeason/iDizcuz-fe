@@ -2,30 +2,6 @@
 @import "variables";
 
 #idizcuz {
-    .nav {
-        border-bottom : solid 1px #DDD;
-        padding-left : 20px;
-        li {
-            float : left;
-            a {
-                display : block;
-                height : 35px;
-                line-height : 35px;
-                text-align : center;
-                padding : 0 30px;
-                background : #FFF;
-                position : relative;
-                top : 1px;
-                color : #666;
-                text-decoration : none;
-                &.focus {
-                    border : solid 1px #DDD;
-                    border-bottom : 0;
-                    color : $brandColor;
-                }
-            }
-        }
-    }
     .content-box {
         float : left;
         width : 765px;

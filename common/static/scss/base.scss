@@ -165,11 +165,10 @@ p {
     &.dark {
         background : $normalBackgroundColor;
         color : $normalColorGray;
-        border-color : $normalBackgroundGray;
+        border-color : #EEE;
         &:hover,
         &:active {
             background : $normalBackgroundGray;
-            color : $normalBackgroundColor;
         }
     }
 
@@ -330,6 +329,8 @@ textarea {
     height : 120px;
     overflow : hidden;
     border : solid 1px #EEE;
+    background : url( @Static::images/avatar.png ) no-repeat center center #EEE;
+    @include background-size( contain );
     &.radius {
         border : 0;
         @include border-radius( 50% );
@@ -341,8 +342,5 @@ textarea {
     &.big {
         width : 160px;
         height : 160px;
-    }
-    &.empty {
-        background : $brandColor;
     }
 }
