@@ -75,14 +75,6 @@ J.Package( {
     },
 
     formatData : function( data ) {
-        var i = 0,
-            l = data.length;
-
-        for( ; i < l; i += 1 ) {
-            data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
-            data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
-        }
-
         return data;
     },
 

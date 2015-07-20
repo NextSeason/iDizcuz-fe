@@ -111,7 +111,7 @@ J.Package( {
         var totalPage = Math.ceil( total / this.rn ),
             i, list = [];
 
-        if( totalPage == 1 ) return;
+        if( totalPage < 2 ) return;
 
         var first = pn - 5,
             last = first + 9;
@@ -153,7 +153,7 @@ J.Package( {
         html = this.compiledTpl( { data : data } );
 
         postEl.find( '.comments-list' ).append( html );
-        postEl.find( '.comments-box .loading' ).fadeOut();
+        postEl.find( '.comments-box .loading' ).hide();
     },
 
 
