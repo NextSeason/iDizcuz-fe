@@ -9,6 +9,7 @@ html {
 
 body {
     margin : auto;
+    color : $paragraphColor;
     &.fixed {
         width : 100%;
         position : fixed;
@@ -75,7 +76,6 @@ h3, h4, h5, h6 {
 p {
     font-size : $paragraphFontSize;
     line-height : $paragraphLineHeight;
-    color : $paragraphColor;
     &.large {
         font-size : $largeParagraphFontSize;
     }
@@ -278,6 +278,9 @@ input[type=time] {
 textarea {
     width : 400px;
     height : 150px;
+    font-size : 13px;
+    line-height : 1.4em;
+    padding : 10px;
     &.templates {
         display : none;
     }

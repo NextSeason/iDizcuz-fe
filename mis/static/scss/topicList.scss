@@ -1,26 +1,38 @@
 @import "compass/css3";
+@import "variables";
 
 #idizcuz {
     .topics-list {
         padding : 20px;
         li {
+            border : solid 1px #EEE;
+            border-left : solid 3px $brandColor;
             margin-bottom : 15px;
+            &:hover {
+                background : #FAFAFA;
+            }
             .topline {
                 height : 40px;
                 line-height : 40px;
-                background : #EEE;
                 color : #333;
-                border : solid 1px #EEE;
                 padding : 0 10px;
+                h3 {
+                    font-size : 14px;
+                }
                 .op {
                     margin : 0 15px;
+                    float : right;
+                }
+                .ctime {
+                    font-size : 12px;
+                    color : #999;
                 }
             }
             .topic-content {
                 display : none;
-                border : solid 1px #EEE;
-                border-top : 0;
+                border-top : solid 1px #EEE;
                 padding : 15px;
+                line-height : 1.4em;
             }
         }
     }

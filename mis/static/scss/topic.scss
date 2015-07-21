@@ -4,7 +4,41 @@
 #idizcuz {
     .core {
         padding : 20px;
+        > h1 {
+            line-height : 40px;
+            border-left : solid 3px $brandColor;
+            padding-left : 10px;
+        }
         .topic-form {
+            margin-top : 15px;
+            padding : 10px;
+            border-left : solid 3px $brandColor;
+            .important-tip {
+                padding : 10px;
+                color : $brandColor;
+                font-size : 14px;
+                h3 {
+                    color : $brandColor;
+                }
+            }
+            .point-area {
+                display : none;
+                padding : 10px 20px;
+                border : solid 1px #EEE;
+                ul {
+                    li {
+                        padding : 10px;
+                        border : solid 1px #EEE;
+                        background : #FAFAFA;
+                        margin-bottom : 10px;
+                        .op {
+                            float : right;
+                            margin : 10px;
+                            font-size : 12px;
+                        }
+                    }
+                }
+            }
             label {
                 display : block;
                 margin-bottom : 20px;
@@ -61,5 +95,17 @@
             }
         }
     }
-
+}
+#point-dialog {
+    .inner {
+        width : 800px;
+        height : 285px;
+        .line {
+            margin : 15px;
+        }
+        input[type=text],
+        textarea {
+            width : 100%;
+        }
+    }
 }

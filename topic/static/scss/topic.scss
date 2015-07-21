@@ -18,6 +18,13 @@
                     margin-bottom : 20px;
                     .data-line {
                         position : relative;
+                        .flags {
+                            margin-right : 10px;
+                            font-size : 16px;
+                            i {
+                                font-style : italic;
+                            }
+                        }
                         .operates {
                             margin-top : 35px;
                             a {
@@ -510,6 +517,9 @@
             width : 900px;
             margin : 20px auto;
             overflow : hidden;
+            input.title {
+                width : 630px;
+            }
             .edui-container {
                 width : auto!important;
             }
@@ -531,9 +541,55 @@
             float : left;
             line-height : 40px;
         }
-        span {
+        span.s-post-title {
             width : 80px;
         }
+        span.s-agree-title {
+            width : 120px;
+            margin-left : 15px;
+        }
+
+        .i-agree {
+            font-size : 16px;
+            color : #333;
+            margin-left : 0;
+            padding : 0 13px;
+            text-align : center;
+            position : relative;
+            border : solid 1px #FFF;
+            border-right : solid 3px #FFF;
+            .point-selector {
+                display : none;
+                position : absolute;
+                z-index : 10000;
+                background : #FFF;
+                text-align : left;
+                right : -3px;
+                top : 41px;
+                width : 440px;
+                i {
+                    font-size : 16px;
+                }
+                li {
+                    text-align : right;
+                    border-left : solid 1px #EEE;
+                    border-right : solid 3px $brandColor;
+                }
+                .points {
+                    padding : 0 10px;
+                }
+            }
+            i {
+                font-style : italic;
+            }
+            &.hover {
+                border-right-color : $brandColor;
+                .point-selector {
+                    display : block;
+                }
+            }
+        }
+
         input {
             &.title,
             &.to {
@@ -552,6 +608,7 @@
             }
         }
     }
+    
     .textbox {
         margin-top : 20px;
         #editor {
@@ -587,6 +644,67 @@
         }
         .public {
             float : right;
+        }
+    }
+}
+
+.point-area {
+    ul li {
+        border : solid 1px #EEE;
+        border-left : solid 3px $brandColor;
+        margin-top : 5px;
+        .points {
+            display : block;
+            color : #333;
+            height : 40px;
+            line-height : 40px;
+            padding-left : 10px;
+            cursor : pointer;
+            font-size : 13px;
+            &:hover {
+                text-decoration : none;
+            }
+            i {
+                font-style : italic;
+                margin-right : 5px;
+                font-size : 14px;
+            }
+            .point-data {
+                font-size : 12px;
+                padding : 0 10px;
+                .index:hover {
+                    text-decoration : none; 
+                }
+                .base-data {
+                    padding : 0 5px;
+                    margin-right : 15px;
+                    display : inline-block;
+                    border-left : solid 1px #EEE;
+                    border-right : solid 1px #EEE;
+                    position : relative;
+                    background : #FAFAFA;
+                    span {
+                        margin : 0 10px;
+                    }
+                    .triangle {
+                        position : absolute;
+                        border : solid 8px transparent;
+                        border-left-color : #EEE;
+                        right : -17px;
+                        top : 12px;
+                        font-size : 0;
+                        line-height : 0;
+                        .triangle {
+                            top : -8px;
+                            left : -10px;
+                            border-left-color : #FAFAFA;
+                        }
+                    }
+                }
+            }
+        }
+        &:hover {
+            background : #FAFAFA;
         }
     }
 }
