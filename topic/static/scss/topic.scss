@@ -19,7 +19,9 @@
                     .data-line {
                         position : relative;
                         .flags {
-                            margin-right : 10px;
+                            position : absolute;
+                            right : 10px;
+                            top : 0;
                             font-size : 16px;
                             i {
                                 font-style : italic;
@@ -406,11 +408,44 @@
                         font-size : 12px;
                         margin : 15px 0 10px;
                         .count {
-                            i {
-                                color : $brandColor;
+                            float : left;
+                        }
+                        .filter-box {
+                            float : right;
+                            margin-right : 10px;
+                            .filter-list {
+                                border-top : solid 1px #EEE;
+                                position : absolute;
+                                display : none;
+                                z-index : 1100;
+                            }
+                            a {
+                                display : block;
+                                width : 30px;
+                                height : 30px;
+                                background : #FFF;
+                                text-align : center;
+                                color : #666;
+                                border : solid 1px #EEE;
+                                border-top : 0;
+                                cursor : pointer;
+                                i {
+                                    font-size : 16px;
+                                    font-style : italic;
+                                    position : relative;
+                                    left : -2px;
+                                    top : 2px;
+                                }
+                                &.current {
+                                    border-top : solid 1px #EEE;
+                                    border-bottom : 0;
+                                }
+                                &:hover {
+                                    background : #FAFAFA;
+                                }
                             }
                         }
-                        ul {
+                        .sort-list {
                             li {
                                 float : left;
                                 a {

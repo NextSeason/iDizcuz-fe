@@ -4,7 +4,12 @@
 #idizcuz {
     .core {
         padding : 20px;
-        .event-form {
+        .article-form {
+            .block {
+                label {
+                    margin-right : 15px;
+                }
+            }
             label {
                 display : block;
                 margin-bottom : 20px;
@@ -16,11 +21,9 @@
                 }
                 input[type=text] {
                     width : 800px;
-                }
-
-                textarea {
-                    width : 800px;
-                    height : 800px;
+                    &.origin {
+                        width : 200px;
+                    }
                 }
                 .preview-img {
                     display : none;
@@ -30,6 +33,12 @@
                     }
                 }
             }
+            .btn-line {
+                margin-top : 20px;
+            }
+        }
+        #editor {
+            width : 800px;
         }
     }
 }

@@ -89,6 +89,7 @@ J.Package( {
                 data = {
                     id : response.data.id,
                     title : title,
+                    point_id : point_id,
                     content : content,
                     to : 0,
                     ctime : '刚刚'

@@ -347,3 +347,27 @@ textarea {
         height : 160px;
     }
 }
+
+.seal {
+    display : inline-block;
+    height : 36px;
+    line-height : 36px;
+    width : 36px;
+    background : $brandColor;
+    color : #FFF;
+    font-size : 12px;
+    text-align : center;
+    vertical-align : 3px;
+    cursor : pointer;
+    &.seal-0:after {
+        content : '讨论';
+    }
+
+    &.seal-1:after {
+        content : '辩论';
+    }
+    &:hover {
+        color : #FFF;
+        text-decoration : none;
+    }
+}

@@ -20,6 +20,7 @@ J.Package( {
     getlist : function( pn ) {
         var me = this,
             order = this.order,
+            point_id = this.focusPoint,
             start = ( pn - 1 ) * this.rn;
 
         this.pn = pn;
@@ -34,6 +35,7 @@ J.Package( {
             method : 'GET',
             data : {
                 topic : this.topic,
+                point : point_id,
                 order : order,
                 start : start,
                 rn  : this.rn
@@ -172,6 +174,22 @@ J.Package( {
             e.preventDefault();
             me.getlist( $( this ).attr( 'data-pn' ) );
             window.scroll( 0, $( '.list-area' ).position().top );
+        } );
+
+        $( '.topic-area .filter-box' ).on( 'mouseover', function( e ) {
+            $( this ).parent().find( '.filter-list' ).show();
+        } );
+        $( '.topic-area .filter-box' ).on( 'mouseout', function( e ) {
+            $( this ).parent().find( '.filter-list' ).hide();
+        } );
+
+        $( '.topic-area .filter-list a' ).on( 'click', function( e ) {
+            e.preventDefault();
+            var id = $( this ).attr( 'data-point-id' );
+            $( this ).parent().parent().find( '.current i' ).replaceWith( $(this).html() );
+            $('.filter-list').hide();
+            me.focusPoint = id;
+            me.getlist( 1 );
         } );
     }
     

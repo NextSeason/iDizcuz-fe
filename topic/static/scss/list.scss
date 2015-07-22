@@ -37,6 +37,13 @@
                 > li {
                     padding : 20px 0;
                     border-bottom : dashed 1px #EEE;
+                    h3 {
+                        line-height : 40px;
+                        a {
+                            color : #333;
+                            font-size : 18px;
+                        }
+                    }
                     .data {
                         line-height : 30px;
                         color : #999;
@@ -50,7 +57,8 @@
                     .desc {
                         padding : 10px;
                         background : #FAFAFA;
-                        border : solid 1px #EEE;
+                        color : #666;
+                        text-indent : 2em;
                     }
                 }
             }
