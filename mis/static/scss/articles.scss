@@ -1,32 +1,51 @@
 @import "compass/css3";
+@import "variables";
 
 #idizcuz {
-    .events-list {
+    .article-list {
         padding : 20px;
         li {
             margin-bottom : 15px;
             .topline {
                 height : 40px;
-                background : #EEE;
+                background : #FAFAFA;
                 color : #333;
                 border : solid 1px #EEE;
+                border-left : solid 3px $brandColor;
                 line-height : 40px;
                 padding : 0 10px;
                 .op {
-                    margin : 0 15px;
+                    margin : 0 10px;
+                    font-size : 12px;
+                }
+                h4 {
+                    font-size : 14px;
+                    a {
+                        font-size : 12px;
+                        color : #999;
+                    }
                 }
             }
-            .event-content {
+            .article-content {
                 display : none;
                 .content {
                     padding : 15px;
                     border : solid 1px #EEE;
+                    border-top : 0;
                 }
-                .event-info {
+                .article-info {
                     border : solid 1px #EEE;
                     border-top : 0;
                     padding : 15px;
                     line-height : 25px;
+                    span, a {
+                        color : #666;
+                        margin-right : 20px;
+                        font-size : 12px;
+                        &.s-title {
+                            margin-right : 0;
+                        }
+                    }
                 }
             }
         }

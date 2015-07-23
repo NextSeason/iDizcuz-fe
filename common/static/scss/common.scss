@@ -22,6 +22,7 @@ body {
                 position : relative;
                 .account {
                     position : absolute;
+                    z-index : 1000;
                     right : 0;
                     top : 0;
                     font-size : 12px;
@@ -93,6 +94,9 @@ body {
             height : 50px;
             line-height : 50px;
             background : $brandColor;
+            .inner {
+                background : $brandColor;
+            }
             ul li {
                 float : left;
                 a {
@@ -109,7 +113,7 @@ body {
                 }
             }
         }
-        &.main {
+        &.body {
             margin-top : 15px;
         }
         &.footer {
@@ -252,7 +256,6 @@ body {
         }
     }
     .sub-nav {
-        margin-top : 20px;
         border-bottom : solid 1px #EEE;
         ul.nav {
             float : right;

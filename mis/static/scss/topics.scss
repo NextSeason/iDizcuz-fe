@@ -5,34 +5,57 @@
     .topics-list {
         padding : 20px;
         li {
-            border : solid 1px #EEE;
-            border-left : solid 3px $brandColor;
             margin-bottom : 15px;
-            &:hover {
-                background : #FAFAFA;
-            }
             .topline {
                 height : 40px;
                 line-height : 40px;
                 color : #333;
                 padding : 0 10px;
+                border : solid 1px #EEE;
+                background : #FAFAFA;
+                border-left : solid 3px $brandColor;
                 h3 {
                     font-size : 14px;
+                    .seal {
+                        margin-right : 5px;
+                        height : 40px;
+                        line-height : 40px;
+                    }
+                    a {
+                        font-size : 12px;
+                        color : #999;
+                    }
                 }
                 .op {
-                    margin : 0 15px;
+                    margin : 0 10px;
                     float : right;
+                    font-size : 12px;
                 }
                 .ctime {
                     font-size : 12px;
                     color : #999;
                 }
             }
-            .topic-content {
+            .topic-details {
                 display : none;
-                border-top : solid 1px #EEE;
+                font-size : 12px;
+            }
+            .topic-content,
+            .topic-data {
+                border : solid 1px #EEE;
+                border-top : 0;
                 padding : 15px;
                 line-height : 1.4em;
+            }
+            .topic-data {
+                span {
+                    margin-right : 15px;
+                    b {
+                        color : $brandColor;
+                        font-weight : bold;
+                    }
+                }
+
             }
         }
     }

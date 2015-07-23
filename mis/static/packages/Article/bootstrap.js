@@ -15,28 +15,45 @@ J.Package( {
 
             var form = $( 'form.article-form' );
 
-            var title = $.trim( form.find( '.title' ).val() ),
+            var id = form.find('input.id').val(),
+                topic_id = $.trim( form.find( 'input.topic_id' ).val() ),
+                title = $.trim( form.find( '.title' ).val() ),
                 summary = $.trim( form.find( '.summary' ).val() ),
                 time = $.trim( form.find( '.time' ).val() ),
                 origin = $.trim( form.find( '.origin' ).val() ),
                 origin_url = $.trim( form.find( '.origin_url' ).val() ),
                 origin_logo = $.trim( form.find( '.origin_logo' ).val() ),
+                author = $.trim( form.find( '.author' ).val() ),
                 img = form.find( 'input.img' ).val(),
                 content = me.editor.getContent(); 
 
             if( !title.length ) {
-                alert( '事件标题必须填写' );
+                alert( '标题必须填写' );
+                return false;
+            }
+
+            if( time.length && new Date( time ) == 'Invalid Date') {
+                alert( '时间格式应为：2015-12-31' );
+                return false;
+            }
+
+            if( topic_id.length && !/^\d+$/.test( topic_id ) ) {
+                alert( '绑定话题ID格式不正确' );
                 return false;
             }
 
             var data = {
+                id : id,
+                topic_id : topic_id,
                 title : title,
                 content : content,
-                img : img,
-                tip : tip,
+                time : time.length ? Math.floor( +new Date( time ) / 1000 ) : '',
+                summary : summary,
                 origin : origin,
                 origin_url : origin_url,
-                origin_logo : origin_logo
+                origin_logo : origin_logo,
+                author : author,
+                img : img
             };
 
             $.ajax( {
@@ -44,7 +61,15 @@ J.Package( {
                 method : 'POST',
                 data : data
             } ).done( function( response ) {
-                    
+                var errno = +response.errno; 
+                if( !errno ) {
+                    alert( '保存成功' );
+                    if( !+id ) {
+                        location.href = '/mis/page/article?id=' + response.data.article_id;
+                        return;
+                    }
+                    location.reload();
+                }
             } );
         } );
 
@@ -80,7 +105,6 @@ J.Package( {
                     url = response.data.url;
 
                 if( !errno ) {
-
                     $( '.preview-img' ).show().html( '<img src="http://topicstc.idizcuzz.com/' + url + '" />' );
                     $( 'input.img' ).val( url );
                     return;

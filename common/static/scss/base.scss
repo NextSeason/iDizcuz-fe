@@ -371,3 +371,24 @@ textarea {
         text-decoration : none;
     }
 }
+
+.aside {
+    float : right;
+    width : 220px;
+    margin-left : 15px;
+}
+
+.main {
+    display : table-cell;
+    height : auto;
+    &:after {
+        clear : both;
+        display : block;
+        visibility : hidden;
+        overflow : hidden;
+        height : 0!important;
+        line-height : 0;
+        font-size : xx-large;
+        content : "X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X "
+    }
+}

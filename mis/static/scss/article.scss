@@ -21,14 +21,19 @@
                 }
                 input[type=text] {
                     width : 800px;
-                    &.origin {
-                        width : 200px;
+                    font-size : 12px;
+                    &.origin,
+                    &.author,
+                    &.time {
+                        width : 180px;
+                    }
+                    &.topic_id {
+                        width : 100px;
                     }
                 }
                 .preview-img {
-                    display : none;
                     img {
-                        width : 135px;
+                        width : 140px;
                         height : 80px;
                     }
                 }

@@ -3,7 +3,7 @@
 
 #idizcuz {
     .boxes {
-        &.main {
+        &.body {
             .topic-area {
                 width : 765px;
                 .empty {
@@ -473,7 +473,6 @@
                 }
             }
             .sidebar {
-                width : 220px;
                 .about-idizcuz,
                 .new-post {
                     text-align : center;

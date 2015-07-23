@@ -1,0 +1,80 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .boxes.main {
+        .main {
+            width :765px;
+            .article {
+                padding-bottom : 20px;
+                .hd {
+                    position : relative;
+                    .origin-logo {
+                        position : absolute;
+                        top : 40px;
+                        right : 0;
+                        display : block;
+                        width : 100px;
+                        height : 30px;
+                        background-repeat : no-repeat;
+                        background-position : center;
+                        @include background-size( contain );
+                    }
+                    h1 {
+                        line-height : 50px;
+                        font-size : 18px;
+                    }
+                    .info {
+                        font-size : 13px;
+                        color : #666;
+                        span {
+                            margin-right : 10px;
+                            &.time {
+                                color : #999;
+                            }
+                        }
+                    }
+                }
+                .topic-area {
+                    position : relative;
+                    .title-line {
+                        font-size : 12px;
+                        color : #666;
+                        line-height : 30px;
+                        a.show-desc {
+                            color : #666;
+                        }
+                    }
+                }
+                .summary {
+                    background : #FAFAFA;
+                    margin-top : 10px;
+                    padding : 10px 20px;
+                    color : #666;
+                    border : dashed 1px #EEE;
+                }
+                .content {
+                    padding : 5px 5px 20px;
+                    border-bottom : dashed 1px #EEE;
+                }
+                .adjacent {
+                    margin-top : 20px;
+                }
+                .bridge {
+                    margin-top : 20px;
+                    font-size : 14px;
+                    a {
+                        display : block;
+                        height : 59px;
+                        line-height : 59px;
+                        border : solid 1px #EEE;
+                        text-align : center;
+                        &:hover {
+                            background : #FAFAFA;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
