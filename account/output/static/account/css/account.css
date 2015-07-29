@@ -76,24 +76,25 @@ html, body {
 #idizcuz .account-form-area form.sign .line .tip {
   height: 40px;
   line-height: 40px;
+  font-size: 10px;
   padding: 0 10px;
   display: none;
   -moz-box-shadow: 0px 0px 10px #999 inset;
   -webkit-box-shadow: 0px 0px 10px #999 inset;
   box-shadow: 0px 0px 10px #999 inset;
 }
-/* line 68, ../../../../static/scss/account.scss */
+/* line 69, ../../../../static/scss/account.scss */
 #idizcuz .account-form-area form.sign .line .tip.warn {
   -moz-box-shadow: 0 0 10px #d94521 inset;
   -webkit-box-shadow: 0 0 10px #d94521 inset;
   box-shadow: 0 0 10px #d94521 inset;
   color: #d94521;
 }
-/* line 71, ../../../../static/scss/account.scss */
+/* line 72, ../../../../static/scss/account.scss */
 #idizcuz .account-form-area form.sign .line .tip.warn a {
   color: #333;
 }
-/* line 76, ../../../../static/scss/account.scss */
+/* line 77, ../../../../static/scss/account.scss */
 #idizcuz .account-form-area form.sign .line .forget {
   color: #CCC;
   font-size: 12px;
@@ -102,11 +103,11 @@ html, body {
   top: 0;
   right: 10px;
 }
-/* line 83, ../../../../static/scss/account.scss */
+/* line 84, ../../../../static/scss/account.scss */
 #idizcuz .account-form-area form.sign .line .forget:hover {
   text-decoration: none;
 }
-/* line 89, ../../../../static/scss/account.scss */
+/* line 90, ../../../../static/scss/account.scss */
 #idizcuz .account-form-area .logo-text {
   height: 85px;
   line-height: 85px;

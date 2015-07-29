@@ -2,9 +2,8 @@
 @import "variables";
 
 #idizcuz {
-    .boxes.main {
+    .boxes.body {
         .main {
-            width :765px;
             .article {
                 padding-bottom : 20px;
                 .hd {
@@ -20,10 +19,6 @@
                         background-position : center;
                         @include background-size( contain );
                     }
-                    h1 {
-                        line-height : 50px;
-                        font-size : 18px;
-                    }
                     .info {
                         font-size : 13px;
                         color : #666;
@@ -38,7 +33,7 @@
                 .topic-area {
                     position : relative;
                     .title-line {
-                        font-size : 12px;
+                        font-size : 13px;
                         color : #666;
                         line-height : 30px;
                         a.show-desc {
@@ -54,11 +49,15 @@
                     border : dashed 1px #EEE;
                 }
                 .content {
+                    margin-top : 15px;
                     padding : 5px 5px 20px;
                     border-bottom : dashed 1px #EEE;
                 }
                 .adjacent {
-                    margin-top : 20px;
+                    margin-top : 10px;
+                    li {
+                        line-height : 40px;
+                    }
                 }
                 .bridge {
                     margin-top : 20px;

@@ -43,36 +43,127 @@
     }
     .boxes.banner {
         margin-top : 15px;
+        .narrow-area {
+            display : none;
+        }
+        .cate-area.broad {
+            float : left;
+            width : 203px;
+            margin-right : 15px;
+            margin-left : 0;
+            border : solid 1px #EEE;
+            border-top : solid 3px $brandColor;
+            height : 340px;
+            @include box-sizing( border-box );
+            a {
+                float : left; 
+                width : 67px;
+                height : 67px;
+                line-height : 67px;
+                display : block;
+                text-align : center;
+                border-color : #EEE;
+                border-style : solid;
+                border-right-width : 1px;
+                border-bottom-width : 1px;
+                @include box-sizing( border-box );
+                &.focus {
+                    width : 134px;
+                    height : 134px;
+                    line-height : 134px;
+                    font-size : 20px;
+                }
+                &.more {
+                    color : #CCC;
+                }
+                &.culture,
+                &.philosophy,
+                &.history,
+                &.others,
+                &.more {
+                    border-right : 0;
+                }
+                &.more {
+                    border-bottom : 0;
+                    width : 201px;
+                }
+                &:hover {
+                    text-decoration : none;
+                    background : #FAFAFA;
+                }
+            }
+        }
         .slide-area {
             border-top : solid 3px $brandColor;
             li {
-                width : 765px;
-                height : 225px;
+                height : 222px;
                 background : #EEE;
                 a {
                     display : block;
                     height : 100%;
                 }
             }
+            .ad {
+                margin-top : 15px;
+                background : #FAFAFA;
+                height : 100px;
+                border : solid 1px #EEE;
+                @include box-sizing( border-box );
+            }
         }
         .account-area {
+            .user-card {
+                width : 100%;
+                padding-bottom : 0;
+            }
+            .user-info {
+                .uname {
+                    margin : 10px 0;
+                    line-height : 40px;
+                    background : #FAFAFA;
+                }
+                .num-part {
+                    border-top : solid 1px #EEE;
+                    & > div {
+                        width : 108px;
+                        float : left;
+                        padding : 10px 0;
+                        &:first-child {
+                            border-right : solid 1px #EEE;
+                        }
+                        &:hover {
+                            background : #FAFAFA;
+                        }
+                    }
+                }
+            }
             .join-btn {
-                width : 220px;
+                width : 100%;
                 height : 40px;
                 line-height : 40px;
                 font-size : 14px;
             }
             .sign-box {
+                border : solid 1px #EEE;
                 border-top : solid 3px $brandColor;
                 margin-top : 15px;
+                height : 285px;
                 @include box-sizing( border-box );
             }
             form.signin {
                 padding : 10px 0;
-                width : 220px;
+                width : 100%;
                 height : 235px;
-                border : solid 1px #EEE;
+                position : relative;
                 @include box-sizing( border-box );
+                .signin-tip {
+                    position : absolute;
+                    top : 18px;
+                    color : $brandColor;
+                    left : 80px;
+                    font-size : 12px;
+                    display : none;
+                }
                 .tt {
                     padding : 0 10px;
                     margin-bottom : 10px;
@@ -88,7 +179,12 @@
                         height : 36px;
                         line-height : 36px;
                     }
+                    input[type=checkbox] {
+                        border : solid 1px #B9B9B9;
+                    }
+                    label,
                     .redirect {
+                        cursor : pointer;
                         font-size : 12px;
                         color : #999;
                     }
@@ -102,5 +198,220 @@
                 }
             }
         }
+    }
+    .boxes .hd {
+        line-height : 30px;
+    }
+
+    .boxes.focus-box {
+        margin-top : 15px;
+        .topic-area {
+            .topics {
+                position : relative;
+                margin-top : 15px;
+                padding : 10px;
+                border : solid 1px #EEE;
+                @include box-sizing( border-box );
+                h3 {
+                    .seal {
+                        vertical-align : 1px;
+                    }
+                    a {
+                        color : #333;
+                        &:hover {
+                            text-decoration : none;
+                        }
+                    }
+                }
+                .data-line {
+                }
+                .desc {
+                    margin-top : 10px;
+                    line-height : 1.5em;
+                    p {
+                        text-indent : 2em;
+                    }
+                }
+                .point-list {
+                    .points {
+                        line-height : 26px;
+                        border-left : solid 3px $brandColor;
+                        margin-top : 15px;
+                        padding-left : 10px;
+                        .flags {
+                            font-size : 16px;
+                            font-style : italic;
+                            margin-right : 3px;
+                            &.flag-1 {
+                                color : #E9733C;
+                            }
+                            &.flag-2 {
+                                color : #3BA1E0;
+                            }
+                            &.flag-3 {
+                                color : $brandColor;
+                            }
+                        }
+                    }
+                }
+                .chart {
+                    height : 240px;
+                    width : 300px;
+                }
+                .chart-legend {
+                    text-align : center;
+                    font-size : 12px;
+                }
+                .view {
+                    position : absolute;
+                    bottom : 10px;
+                    font-size : 13px;
+                }
+            }
+        }
+
+    }
+    .boxes.topic-box {
+        margin-top : 15px;
+        .topic-area {
+            .seal {
+                vertical-align : 1px;
+            }
+            .topics {
+                float : left;
+                width : 485px;
+                margin-top : 15px;
+                border : solid 1px #EEE;
+                padding : 10px;
+                margin-right : 15px;
+                position : relative;
+                .cate {
+                    position : absolute;
+                    right : 10px;
+                    top : 15px;
+                }
+                h3 {
+                    a { color : #333 }
+                }
+                .desc {
+                    color : #666;
+                    text-indent : 2em;
+                }
+                @include box-sizing( border-box );
+                &:nth-child( even ) {
+                    margin-right : 0;
+                }
+            }
+        }
+
+    }
+    ul.post-list {
+        margin-top : 15px;
+        li {
+            height : 65px;
+            h4 {
+                a {
+                    line-height : 30px;
+                    color : #333;
+                    font-size : 14px;
+                }
+            }
+            .info {
+                font-size : 12px;
+                a, span {
+                    color : #999;
+                }
+            }
+        }
+    }
+}
+
+/** view port less then 1280 */
+@media screen and ( max-width : 1280px ) {
+    #idizcuz {
+        .hot-posts {
+            display : none;
+        }
+        .topic-box {
+            .topics {
+                float : none!important;
+                width : auto!important;
+                margin-right : 0!important;
+            }
+        }
+    }
+}
+
+
+/** view in ipad portrait */
+@media (max-device-width: 768px) and (orientation: portrait) {
+    #idizcuz {
+        .boxes.banner {
+            .slide-area ul li {
+                height : 170px;
+            }
+            .broad-area {
+                display : none;
+            }
+            .narrow-area {
+                display : table-cell;
+            }
+            .cate-area.narrow {
+                width : 525px;
+                margin-top : 15px;
+                border : solid 1px #EEE;
+                border-top : solid 3px $brandColor;
+                height : 152px;
+                @include box-sizing( border-box );
+                a {
+                    display : block;
+                    width : 74px;
+                    height : 74px;
+                    line-height : 74px;
+                    border-right : solid 1px #EEE;
+                    border-bottom : solid 1px #EEE;
+                    text-align : center;
+                    &.focus {
+                        width : 148px;
+                        height : 148px;
+                        line-height : 148px;
+                        float : left;
+                        margin : 0;
+                        font-size : 20px;
+                        border-bottom : 0;
+                    }
+                    &.history,
+                    &.entertainment,
+                    &.bizarre,
+                    &.others {
+                        border-bottom : 0;
+                    }
+                }
+                .p2 {
+                    a {
+                        float : left;
+                        &.more {
+                            float : right;
+                            margin : 0;
+                            border-right : 0;
+                            border-bottom : 0;
+                            height : 148px;
+                            line-height : 148px;
+                            color : #CCC;
+                        }
+                    }
+                }
+            }
+        }
+        .boxes.focus-box {
+            .topic-area .topics {
+                padding-bottom : 50px;
+            }
+        }
+        .boxes.topic-box {
+            .topics {
+            }
+        }
+        
     }
 }

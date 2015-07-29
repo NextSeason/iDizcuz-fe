@@ -1077,19 +1077,7 @@ function getDomNode(node, start, ltr, startFromChild, fn, guard) {
     }
     return tmpNode;
 }
-var attrFix = ie && browser.version < 9 ? {
-        tabindex: "tabIndex",
-        readonly: "readOnly",
-        "for": "htmlFor",
-        "class": "className",
-        maxlength: "maxLength",
-        cellspacing: "cellSpacing",
-        cellpadding: "cellPadding",
-        rowspan: "rowSpan",
-        colspan: "colSpan",
-        usemap: "useMap",
-        frameborder: "frameBorder"
-    } : {
+var attrFix = {
         tabindex: "tabIndex",
         readonly: "readOnly"
     },
@@ -1116,7 +1104,7 @@ var domUtils = dom.domUtils = {
     POSITION_IS_CONTAINED: 8,
     POSITION_CONTAINS: 16,
     //ie6使用其他的会有一段空白出现
-    fillChar: ie && browser.version == '6' ? '\ufeff' : '\u200B',
+    fillChar: '\u200B',
     //-------------------------Node部分--------------------------------
     keys: {
         /*Backspace*/ 8: 1, /*Delete*/ 46: 1,
@@ -1526,12 +1514,6 @@ var domUtils = dom.domUtils = {
             return domUtils.insertAfter(node, next);
         }
         var retval = node.splitText(offset);
-        //ie8下splitText不会跟新childNodes,我们手动触发他的更新
-        if (browser.ie8) {
-            var tmpNode = doc.createTextNode('');
-            domUtils.insertAfter(retval, tmpNode);
-            domUtils.remove(tmpNode);
-        }
         return retval;
     },
 
@@ -6884,46 +6866,7 @@ UM.plugins['enterkey'] = function() {
                 start = range.startContainer,
                 doSave;
 
-            //修正在h1-h6里边回车后不能嵌套p的问题
-            if (!browser.ie) {
-
-                if (/h\d/i.test(hTag)) {
-                    if (browser.gecko) {
-                        var h = domUtils.findParentByTagName(start, [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6','blockquote','caption','table'], true);
-                        if (!h) {
-                            me.document.execCommand('formatBlock', false, '<p>');
-                            doSave = 1;
-                        }
-                    } else {
-                        //chrome remove div
-                        if (start.nodeType == 1) {
-                            var tmp = me.document.createTextNode(''),div;
-                            range.insertNode(tmp);
-                            div = domUtils.findParentByTagName(tmp, 'div', true);
-                            if (div) {
-                                var p = me.document.createElement('p');
-                                while (div.firstChild) {
-                                    p.appendChild(div.firstChild);
-                                }
-                                div.parentNode.insertBefore(p, div);
-                                domUtils.remove(div);
-                                range.setStartBefore(tmp).setCursor();
-                                doSave = 1;
-                            }
-                            domUtils.remove(tmp);
-
-                        }
-                    }
-
-                    if (me.undoManger && doSave) {
-                        me.undoManger.save();
-                    }
-                }
-                //没有站位符，会出现多行的问题
-                browser.opera &&  range.select();
-            }else{
-                me.fireEvent('saveScene',true,true)
-            }
+            me.fireEvent('saveScene',true,true)
         }
     });
 
@@ -6951,35 +6894,6 @@ UM.plugins['enterkey'] = function() {
                     return;
                 }
             }
-            if (tag == 'p') {
-
-
-                if (!browser.ie) {
-
-                    start = domUtils.findParentByTagName(range.startContainer, ['ol','ul','p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6','blockquote','caption'], true);
-
-                    //opera下执行formatblock会在table的场景下有问题，回车在opera原生支持很好，所以暂时在opera去掉调用这个原生的command
-                    //trace:2431
-                    if (!start && !browser.opera) {
-
-                        me.document.execCommand('formatBlock', false, '<p>');
-
-                        if (browser.gecko) {
-                            range = me.selection.getRange();
-                            start = domUtils.findParentByTagName(range.startContainer, 'p', true);
-                            start && domUtils.removeDirtyAttr(start);
-                        }
-
-
-                    } else {
-                        hTag = start.tagName;
-                        start.tagName.toLowerCase() == 'p' && browser.gecko && domUtils.removeDirtyAttr(start);
-                    }
-
-                }
-
-            }
-
         }
     });
 
@@ -8202,9 +8116,7 @@ UM.plugins['formula'] = function () {
 //button 类
 UM.ui.define('button', {
     tpl: '<<%if(!texttype){%>div class="edui-btn edui-btn-<%=icon%> <%if(name){%>edui-btn-name-<%=name%><%}%>" unselectable="on" onmousedown="return false" <%}else{%>a class="edui-text-btn"<%}%><% if(title) {%> data-original-title="<%=title%>" <%};%>> ' +
-        '<% if(icon) {%><div unselectable="on" class="edui-icon-<%=icon%> edui-icon"></div><% }; %><%if(text) {%><span unselectable="on" onmousedown="return false" class="edui-button-label"><%=text%></span><%}%>' +
-        '<%if(caret && text){%><span class="edui-button-spacing"></span><%}%>' +
-        '<% if(caret) {%><span unselectable="on" onmousedown="return false" class="edui-caret"></span><% };%></<%if(!texttype){%>div<%}else{%>a<%}%>>',
+        '<% if(icon) {%><div unselectable="on" class="edui-icon-<%=icon%> edui-icon"></div><% }; %><%if(text) {%><span unselectable="on" onmousedown="return false" class="edui-button-label"><%=text%></span><%}%>',
     defaultOpt: {
         text: '',
         title: '',
@@ -8309,7 +8221,7 @@ UM.ui.define('menu',{
         }else{
             this.root().css($.extend({display:'block'},$obj ? {
                 top : $obj[fnname]().top + ( dir == 'right' ? 0 : $obj.outerHeight()) - (topOffset || 0),
-                left : $obj[fnname]().left + (dir == 'right' ?  $obj.outerWidth() : 0) -  (leftOffset || 0)
+                left : $obj[fnname]().left + (dir == 'right' ?  $obj.outerWidth() : 0) -  (leftOffset || 0) - 1
             }:{}))
             this.trigger('aftershow');
         }
@@ -8820,7 +8732,6 @@ UM.ui.define('colorpicker', {
                 "<%for( var i=0, len = recordStack.length; i<len; i++ ) {%>" +
                 "<%var index = recordStack[i];%>" +
                 "<li class=\"<%=itemClassName%><%if( selected == index ) {%> edui-combobox-checked<%}%>\" data-item-index=\"<%=index%>\" unselectable=\"on\" onmousedown=\"return false\">" +
-                "<span class=\"edui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
                 "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ index ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=items[index]%></label>" +
                 "</li>" +
                 "<%}%>" +
@@ -9220,7 +9131,7 @@ UM.ui.define('modal', {
     },
     autoCenter: function () {
         //ie6下不用处理了
-        !$.IE6 && this.root().css("margin-left", -(this.root().width() / 2));
+        this.root().css("margin-left", -(this.root().width() / 2));
     },
     hide: function () {
         var me = this;
@@ -9870,9 +9781,6 @@ UM.registerUI('bold italic redo undo underline insertorderedlist insertunordered
             //容器padding
             paddingWidth += parseInt( domUtils.getComputedStyle( editorBody, 'padding-left' ), 10 ) + parseInt( domUtils.getComputedStyle( editorBody, 'padding-right' ), 10 ) || 0;
 
-            //干掉css表达式
-            $.IE6 && editorBody.style.setExpression( 'height', null );
-
             bound = this.getBound();
 
             $( editor.container ).css( {
@@ -10189,22 +10097,6 @@ UM.registerUI('link image video map formula',function(name){
                     me.$container.find('.edui-dialog-container').append($root);
                 }
 
-                //IE6下 特殊处理, 通过计算进行定位
-                if( $.IE6 ) {
-
-                    win = {
-                        width: $( window ).width(),
-                        height: $( window ).height()
-                    };
-                    offset = $root.parents(".edui-toolbar")[0].getBoundingClientRect();
-                    $root.css({
-                        position: 'absolute',
-                        margin: 0,
-                        left: ( win.width - $root.width() ) / 2 - offset.left,
-                        top: 100 - offset.top
-                    });
-
-                }
                 UM.setWidgetBody(name,$dialog,me);
                 UM.setTopEditor(me);
         }).on('afterbackdrop',function(){
@@ -10216,9 +10108,6 @@ UM.registerUI('link image video map formula',function(name){
             }catch(e){}
         }).attachTo($btn)
     });
-
-
-
 
     me.addListener('selectionchange', function () {
         var state = this.queryCommandState(name);

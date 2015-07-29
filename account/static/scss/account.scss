@@ -62,6 +62,7 @@ html, body {
                 .tip {
                     height : 40px;
                     line-height : 40px;
+                    font-size : 10px;
                     padding : 0 10px;
                     display : none;
                     @include box-shadow( 0px 0px 10px #999 inset );

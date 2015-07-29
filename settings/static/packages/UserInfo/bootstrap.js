@@ -24,9 +24,21 @@ J.Package( {
                 position = $.trim( $( '.position' ).val() );
                 desc = $.trim( $( '.desc' ).val() ),
                 industry = $( '.industries' ).val(),
-                sex = $( 'input[name=sex][checked]' );
+                sex = $( 'input[name=sex]' ),
+                year = $( 'select.birth-year' ).val(),
+                month = $( 'select.birth-month' ).val(),
+                date = $( 'select.birth-date' ).val(),
+                birth = [ year, month, date ].join( '-' ),
+                i = 0,
+                l = sex.length;
 
-            sex = sex.length ? sex.val() : 0;
+
+            for( ; i < l; i += 1 ) { 
+                if( sex.get( i ).checked ) {
+                    sex = sex.eq( i ).val();
+                    break;
+                }
+            }
 
             if( employment.length > 20 ) {
                 me.submiting = false;
@@ -57,7 +69,8 @@ J.Package( {
                     industry : industry,
                     employment : employment,
                     position : position,
-                    desc : desc
+                    desc : desc,
+                    birth : birth 
                 }
             } ).done( function( response ) {
                 me.submiting = false;

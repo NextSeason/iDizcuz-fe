@@ -12,9 +12,127 @@ J.Package( {
         this.maxSize = {};
         this.currentSize = null;
         this.currentPosition = {};
+        this.scale = 1;
+
+        this.minScale = 1;
 
         this.img = null;
+
         this.imgSize = {};
+
+        this.createCanvas();
+
+        this.uploading = false;
+    },
+
+    createCanvas : function() {
+        var canvas = document.createElement( 'canvas' );
+        canvas.width = 240;
+        canvas.height = 240;
+
+        this.canvas = canvas;
+
+        this.canvasContext = canvas.getContext( '2d' );
+    },
+
+    dataURLToBlob : function( dataURL ) {
+        var byteCharacters = window.atob( dataURL ),
+            i = 0,
+            l = byteCharacters.length,
+            slice,
+            buffer = new ArrayBuffer( l ),
+            byteArrays = new Uint8Array( buffer );
+
+        for( ; i < l; i += 1 ) {
+            byteArrays[ i ] = byteCharacters.charCodeAt( i );
+        }
+        return new Blob( [ byteArrays ], {
+            type : 'image/png'
+        } );
+    },
+
+    upload : function() {
+        var me = this,
+            pic = this.canvas.toDataURL( 'image/png' ),
+            formData = new FormData();
+
+        console.log( pic, this.dataURLToBlob( pic.replace( /^data:image\/png;base64,/, '' ) ) );
+
+        formData.append( 'image', this.dataURLToBlob( pic.replace( /^data:image\/png;base64,/, '' ) ), 'avatar.png' );
+
+        var xhr_provider = function() {
+            var xhr = $.ajaxSettings.xhr();
+  
+            if( xhr.upload ) { 
+                xhr.upload.addEventListener( 'progress', function(e) {
+                    if(e.lengthComputable) {
+                        console.log(e.loaded);
+                    }   
+                }, false);
+            }   
+            return xhr;
+        };  
+
+        this.uploading = true;
+        $( '.uploading-cover' ).show();
+ 
+        $.ajax( {
+            url: '/settings/interface/uploadavatar',
+            type : 'post',
+            data: formData,
+            contentType: false, 
+            processData: false,
+            xhr: xhr_provider
+        } ).done( function( response ) { 
+            var errno = +response.errno,
+                url = response.data.url;
+
+            this.uploading = false;
+            $( '.uploading-cover' ).hide();
+ 
+            if( !errno ) { 
+                $( '.avatar' ).css( 'background-image', 'url(' + url + ')' );
+                me.hideDialog();
+                return;
+            }   
+     
+        } ).fail( function() {
+            alert( '图片上传失败' );
+            this.uploading = false;
+            $( '.uploading-cover' ).hide();
+        } );
+    },
+
+    clip : function( callback ) {
+        var me = this,
+            image = new Image(),
+            pos = this.currentPosition,
+            scale = this.scale,
+            size = this.imgSize;
+
+        image.src = this.img.attr( 'src' ),
+
+        // 当 position 中，大于0的值，无论是x 或者 y，应为 画布坐标
+        image.addEventListener( 'load', function() {
+            me.canvasContext.drawImage( 
+                image, 
+                Math.max( 0 - pos.x, 0 ) / scale,
+                Math.max( 0 - pos.y, 0 ) / scale, 
+                size.w,
+                size.h,
+                Math.max( 0, pos.x ),
+                Math.max( 0, pos.y ),
+                size.w * scale,
+                size.h * scale
+            );
+            callback();
+        }, false );
+    },
+
+    hideDialog : function() {
+        var uploadDialog = $( '#upload-dialog' );
+        uploadDialog.find( '.img-area .inner' ).html( '' );
+        uploadDialog.hide();
     },
 
     bindEvent : function() {
@@ -34,13 +152,20 @@ J.Package( {
 
         uploadDialog.find( 'input.resize-bar' ).on( 'input change', function( e ) {
             var val = $( this ).val();            
-            me.resize( val / 100 * 2 + 1 );
+            me.resize( val / 100 * 2 * me.minScale + me.minScale );
         } );
 
         uploadDialog.find( '.cancel' ).on( 'click', function( e ) {
             e.preventDefault();
-            uploadDialog.find( '.img-area .inner' ).html( '' );
-            uploadDialog.hide();
+            me.hideDialog();
+        } );
+
+        uploadDialog.find( '.save' ).on( 'click', function( e ) {
+            e.preventDefault();
+            if( me.uploading ) return false;
+            me.clip( function() {
+                me.upload();
+            } );
         } );
 
         uploadDialog.find( '.img-cover' ).on( 'mousedown', function( e ) {
@@ -138,22 +263,31 @@ J.Package( {
                 h : me.minSize.h * 2
             }
 
+            me.minScale = me.scale = me.minSize.w / me.imgSize.w;
+
             me.center();
-            me.setSize();
+            me.resize( me.scale );
         };
 
         reader.readAsDataURL( file );
     },
 
     resize : function( scale ) {
+        this.scale = scale;
+        this.currentSize = {
+            w : this.imgSize.w * scale,
+            h : this.imgSize.h * scale
+        };
         this.img.css( 'transform', 'scale(' + scale + ')' );
     },
 
+    /*
     setSize : function( w, h ) {
         var w = this.minSize.w,
             h = this.minSize.h;
         this.img.css( 'width', w ).css( 'height', h );
     },
+    */
 
     reposition : function( left, top ) {
         this.img.css( 'left', left ).css( 'top', top );
@@ -171,33 +305,6 @@ J.Package( {
         this.reposition( left, top );
     },
 
-    getAdjustedImg : function() {
-    },
-
-    upload : function() {
-        var formData = new FormData();
-
-        formData.append( 'file', file );
-
-        var xhr_provider = function() {
-            var xhr = $.ajaxSettings.xhr();
-
-            if( xhr.upload ) {
-                xhr.upload.addEventListener( 'progress', function( e ) {
-                }, false );
-            }
-            return xhr;
-        };
-
-        $.ajax( {
-            url: '/common/interface/upload',
-            type : 'post',
-            data: formData,
-            contentType: false,
-            processData: false,
-            xhr: xhr_provider,
-        } );
-    },
     showDialog : function() {
         $( '#upload-dialog' ).show();
     }

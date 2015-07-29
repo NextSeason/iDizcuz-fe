@@ -54,11 +54,11 @@ J.Package( {
         $( '#point-dialog .save' ).on( 'click', function( e ) {
             e.preventDefault();
             var el = $( '#point-dialog' ),
-                id = el.find( '.id' ).val(),
+                id = +el.find( '.id' ).val(),
                 title = $.trim( el.find( '.title' ).val() ),
                 desc = $.trim( el.find( '.desc' ).val() );
 
-            if( !id.length || !desc.length ) {
+            if( !title.length || !desc.length ) {
                 return false;
             }
 

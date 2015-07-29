@@ -192,7 +192,7 @@ J.Package( {
             $( '.i-agree' ).removeClass( 'hover' );
         } );
 
-        $( '.i-agree' ).on( 'mouseover', function( e ) {
+        $( '.i-agree' ).on( 'mouseover click', function( e ) {
             $( this ).addClass( 'hover' );
         } );
 

@@ -3,12 +3,13 @@
 
 body {
     font-size : 14px;
+    font-family : "Microsoft YaHei", "微软雅黑","Hiragino Sans GB","黑体","arial";
 }
 #idizcuz {
     min-height : 100%;
     .boxes {
         & > .inner {
-            width : 1000px;
+            width : 1220px;
             margin : 0 auto;
         }
         &.top {
@@ -25,7 +26,7 @@ body {
                     z-index : 1000;
                     right : 0;
                     top : 0;
-                    font-size : 12px;
+                    font-size : 14px;
                     border : solid 1px transparent;
                     border-top : 0;
                     &:hover {
@@ -79,7 +80,7 @@ body {
                     a,
                     span {
                         color : $brandColor;
-                        font-size : 12px;
+                        font-size : 14px;
                     }
                     span {
                         margin : 3px;
@@ -134,6 +135,12 @@ body {
     }
 
     .rich-text {
+        b {
+            font-weight : bold!important;
+            p {
+                text-indent : 2em;
+            }
+        }
         img {
             max-width : 100%; 
         }   
@@ -245,7 +252,7 @@ body {
         .info-part,
         .desc-part {
             margin-top : 8px;
-            font-size : 12px;
+            font-size : 14px;
             span.sp {
                 margin : 0 5px;
                 font-size : 10px;
@@ -266,10 +273,10 @@ body {
                     display : block;
                     padding : 0 20px;
                     color : #666;
-                    line-height : 30px;
+                    line-height : 32px;
                     position : relative;
                     top : 1px;
-                    font-size : 13px;
+                    font-size : 14px;
                     &:hover {
                         text-decoration : none;
                     }
@@ -284,3 +291,41 @@ body {
         }
     }
 }
+@media screen and (max-width: 1280px) {
+    #idizcuz {
+        .boxes {
+            & > .inner {
+                width : 1000px;
+            }
+        }
+    }
+}
+
+@media (max-device-width: 768px) and (orientation: portrait) {   
+    #idizcuz {
+        .boxes {
+            & > .inner {
+                width : 760px;
+            }
+            &.body {
+                .aside {
+                    display : none;
+                }
+            }
+        }
+    }
+} 
+@media screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2){  
+    #idizcuz {
+        .boxes {
+            & > .inner {
+                width : 320px;
+            }
+            &.body {
+                .aside {
+                    display : none;
+                }
+            }
+        }
+    }
+} 

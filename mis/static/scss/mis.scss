@@ -3,11 +3,10 @@
 
 #idizcuz {
     #top {
-        height : 80px;;
-        line-height : 80px;
+        height : 40px;;
+        line-height : 40px;
         background : $brandColor;
         padding : 0 20px;
-        position : fixed;
         top : 0;
         left : 0;
         width : 100%;
@@ -22,10 +21,11 @@
     }
     .main {
         position : relative;
-        margin-top : 80px;
+        margin-top : 40px;
         .sidebar {
             position : fixed;
-            top : 80px;
+            padding-top : 40px;
+            top : 0;
             bottom : 0;
             width : 180px;
             background : $brandColor;

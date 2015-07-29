@@ -59,18 +59,21 @@ h1 {
     font-size : $h1FontSize;
     color : $h1Color;
     font-weight : $h1FontWeight;
+    line-height : 40px;
 }
 
 h2 {
     font-size : $h2FontSize;
     color : $h2Color;
     font-weight : $h2FontWeight;
+    line-height : 36px;
 }
 
 h3, h4, h5, h6 {
     font-size : $h3FontSize;
     color : $h3Color;
     font-weight : $h3FontWeight;
+    line-height : 30px;
 }
 
 p {
@@ -108,7 +111,7 @@ p {
 /** buttons start  **/
 .btns {
     width : 80px;
-    height : 28px;
+    height : 30px;
     line-height : 28px;
     font-size : 12px;
     display : inline-block;
@@ -137,7 +140,7 @@ p {
     @include border-radius( 0 );
     &.small {
         width : 60px;
-        height : 22px;
+        height : 24px;
         line-height : 22px;
         font-size : 12px;
     }
@@ -241,6 +244,18 @@ p {
             color : $brandColor;
         }
     }
+}
+
+.flag-1 {
+    color : #E9733C; 
+}
+
+.flag-2 {
+    color : #3BA1E0;
+}
+
+.flag-3 {
+    color : #cc3914;
 }
 
 input[type=text],
@@ -347,7 +362,18 @@ textarea {
         height : 160px;
     }
 }
-
+.pos-tag {
+    display : inline-block;
+    height : 36px;
+    line-height : 36px;
+    padding : 0 15px;
+    background : $brandColor;
+    color : #FFF;
+    font-size : 14px;
+    text-align : center;
+    vertical-align : 2px;
+    cursor : pointer;
+}
 .seal {
     display : inline-block;
     height : 36px;
@@ -371,6 +397,9 @@ textarea {
         text-decoration : none;
     }
 }
+.unknow {
+    color : #CCC;
+}
 
 .aside {
     float : right;
@@ -381,7 +410,7 @@ textarea {
 .main {
     display : table-cell;
     height : auto;
-    &:after {
+    &:before {
         clear : both;
         display : block;
         visibility : hidden;

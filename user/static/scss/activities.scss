@@ -15,11 +15,11 @@
     }
     .activity-list {
         > li {
-            border-bottom : solid 1px #EEE;
             &:hover {
                 background : #FAFAFA;
             }
             .activities {
+                border-bottom : solid 1px #EEE;
                 padding : 20px 10px 10px;
                 .hline {
                     font-size : 12px;
@@ -46,6 +46,12 @@
                     border-bottom : 0;
                     margin-bottom : 0;
                 }
+            }
+        }
+        .empty {
+            line-height : 80px;
+            &:hover {
+                background : #FFF;
             }
         }
     }

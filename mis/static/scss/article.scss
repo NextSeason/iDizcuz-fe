@@ -37,6 +37,7 @@
                         height : 80px;
                     }
                 }
+                
             }
             .btn-line {
                 margin-top : 20px;
@@ -44,6 +45,11 @@
         }
         #editor {
             width : 800px;
+        }
+        #textbox {
+            label {
+                margin-bottom : 0;
+            }
         }
     }
 }

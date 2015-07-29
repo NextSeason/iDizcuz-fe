@@ -1,8 +1,8 @@
 J.Package( {
     initialize : function( options ) {
-        this.bindEvent();
         this.editor = null;
         this.createEditor();
+        this.bindEvent();
     },
 
     createEditor : function() {
@@ -10,6 +10,11 @@ J.Package( {
     },
     bindEvent : function() {
         var me = this;
+        this.editor.addListener( 'beforepaste', function( name, data ) { 
+             var node = $( '<helper>' + data.html + '</helper>' );
+             data.html = J.encodeHTML( node.text() );
+             node = null;
+         } );
         $( '.save' ).on( 'click', function( e ) {
             e.preventDefault();
 

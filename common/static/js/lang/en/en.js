@@ -23,7 +23,7 @@ UM.I18N['en'] = {
         'webapp':'WebAPP', 'touppercase':'UpperCase', 'tolowercase':'LowerCase','template':'Template','background':'Background','inserttable':'InsertTable',
         'drafts': 'drafts', 'formula':'formula'
     },
-    'paragraph':{'p':'Paragraph', 'h1':'Title 1', 'h2':'Title 2', 'h3':'Title 3', 'h4':'Title 4', 'h5':'Title 5', 'h6':'Title 6'},
+    'paragraph':{'P':'Paragraph', 'H1':'Title 1', 'H2':'Title 2', 'H3':'Title 3', 'H4':'Title 4', 'H5':'Title 5', 'H6':'Title 6'},
     'fontfamily':{
         'songti':'Sim sun',
         'kaiti':'Sim kai',
