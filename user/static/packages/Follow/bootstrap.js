@@ -20,7 +20,8 @@ J.Package( {
                 url : '/user/interface/follow',
                 method : 'POST',
                 data : {
-                    account_id : accountId
+                    account_id : accountId,
+                    'csrf-token' : $.cookie( 'CSRF-TOKEN' )
                 }
             } ).done( function( response ){
                 var errno = +response.errno;
@@ -50,7 +51,8 @@ J.Package( {
                 url : '/user/interface/unfollow',
                 method : 'POST',
                 data : {
-                    account_id : accountId
+                    account_id : accountId,
+                    'csrf-token' : $.cookie( 'CSRF-TOKEN' )
                 }
             } ).done( function( response ){
                 var errno = +response.errno;

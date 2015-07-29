@@ -118,9 +118,10 @@ body {
             margin-top : 15px;
         }
         &.footer {
-            background : $darkBrandColor;
-            height : 300px;
-            margin-top : 30px;
+            background :#FAFAFA;
+            height : 100px;
+            margin-top : 90px;
+            border-top : solid 1px #EEE;
         }
     }
     .logo-text { 

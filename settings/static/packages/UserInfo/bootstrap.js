@@ -70,7 +70,8 @@ J.Package( {
                     employment : employment,
                     position : position,
                     desc : desc,
-                    birth : birth 
+                    birth : birth,
+                    'csrf-token' : $.cookie( 'CSRF-TOKEN' )
                 }
             } ).done( function( response ) {
                 me.submiting = false;

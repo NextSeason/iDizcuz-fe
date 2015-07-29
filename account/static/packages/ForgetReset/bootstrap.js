@@ -54,7 +54,8 @@ J.Package( {
             data : {
                 email : email,
                 passwd : passwd,
-                token : token
+                token : token,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno;

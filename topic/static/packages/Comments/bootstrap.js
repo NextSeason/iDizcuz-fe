@@ -64,7 +64,8 @@ J.Package( {
             url : '/topic/interface/removecomment',
             method : 'POST',
             data : {
-                id : id
+                id : id,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             $( '#comment-' + id ).remove();
@@ -165,7 +166,9 @@ J.Package( {
             accountId = el.attr( 'data-account-id' ),
             commentId = el.attr( 'data-comment-id' ),
             content = el.find( 'input.comment' ).val(),
-            data = {};
+            data = {
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
+            };
 
         if( !content.length ) {
             return false;

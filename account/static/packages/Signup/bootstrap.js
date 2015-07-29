@@ -83,7 +83,8 @@ J.Package( {
             url : '/account/interface/sendvcode',
             data : {
                 'do' : type,
-                'to' : $.trim( $( 'form.signup input.email' ).val() )
+                'to' : $.trim( $( 'form.signup input.email' ).val() ),
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno;
@@ -183,7 +184,8 @@ J.Package( {
                 email : email,
                 uname : uname,
                 passwd : passwd,
-                vcode : vcode
+                vcode : vcode,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno,

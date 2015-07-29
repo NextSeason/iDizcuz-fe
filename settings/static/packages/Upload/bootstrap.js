@@ -59,6 +59,7 @@ J.Package( {
         console.log( pic, this.dataURLToBlob( pic.replace( /^data:image\/png;base64,/, '' ) ) );
 
         formData.append( 'image', this.dataURLToBlob( pic.replace( /^data:image\/png;base64,/, '' ) ), 'avatar.png' );
+        formData.append( 'csrf-token', $.cookie( 'CSRF-TOKEN' ) );
 
         var xhr_provider = function() {
             var xhr = $.ajaxSettings.xhr();

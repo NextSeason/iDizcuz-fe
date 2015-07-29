@@ -58,7 +58,8 @@ J.Package( {
                 origin_url : origin_url,
                 origin_logo : origin_logo,
                 author : author,
-                img : img
+                img : img,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             };
 
             $.ajax( {
@@ -84,6 +85,7 @@ J.Package( {
 
             var formData = new FormData();
             formData.append( 'file', file );
+            formData.append( 'csrf-token', $.cookie( 'CSRF-TOKEN' ) );
  
             var xhr_provider = function() {
                 var xhr = $.ajaxSettings.xhr();

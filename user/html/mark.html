@@ -23,6 +23,7 @@
                     </div>
                 </div>
             </div>
+            @Include::common::foot.inc.html
         </div>
         @Include::posts.tpl.html
         @Include::common::pagination.inc.html
@@ -33,6 +34,6 @@
             } );
             iDizcuz.mount( 'follow', '@Package::Follow', {});
         </script>
-        @Include::common::foot.inc.html
+        @Include::common::end.inc.html
     </body>
 </html>

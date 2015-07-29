@@ -76,7 +76,8 @@ J.Package( {
                 topic_id : this.topic.id,
                 point_id : point_id,
                 title : title,
-                to : to
+                to : to,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno,

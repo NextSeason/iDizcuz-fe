@@ -79,7 +79,8 @@ J.Package( {
             url : '/account/interface/sendVcode',
             data : {
                 'do' : type,
-                'to' : $.trim( $( 'form.forget input.email' ).val() )
+                'to' : $.trim( $( 'form.forget input.email' ).val() ),
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno;
@@ -151,7 +152,8 @@ J.Package( {
             url : '/account/interface/forget',
             data : {
                 email : email,
-                vcode : vcode
+                vcode : vcode,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno;

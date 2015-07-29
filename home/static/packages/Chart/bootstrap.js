@@ -25,10 +25,12 @@ J.Package( {
 
     formatData : function( data ) {
         var i = 0,
-            l = data.length;
+            l = data.length,
+            index = 0;
 
         for( ; i < l; i += 1 ) {
-            data[i].index = 0;
+            index = data[i].post_cnt * 10 + Math.floor( data[i].agree / 20 ) - Math.floor( data[i].disagree / 20 );
+            data[i].index = Math.max( index, 0 );
         }
 
         return data;
@@ -45,7 +47,7 @@ J.Package( {
         for( ; i < l; i += 1 ) {
             data.push( {
                 name : '观点' + a2c[i],
-                value : points_data.index,
+                value : points_data[i].index,
                 color : colors[i]
             } );
         }

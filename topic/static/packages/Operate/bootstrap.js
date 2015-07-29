@@ -78,7 +78,8 @@ J.Package( {
                 post_id : postId,
                 opinion : opinion,
                 type : 0,
-                value : 1
+                value : 1,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno,
@@ -106,7 +107,8 @@ J.Package( {
             data = {
                 post_id : postId,
                 act : +!markId,
-                mark_id : markId
+                mark_id : markId,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             };
 
         if( markId ) {
@@ -179,7 +181,8 @@ J.Package( {
             url : '/topic/interface/removepost',
             method : 'POST',
             data : {
-                id : id
+                id : id,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno;
@@ -229,7 +232,8 @@ J.Package( {
             data : {
                 post_id : postId,
                 reason : reason,
-                desc : desc
+                desc : desc,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno;

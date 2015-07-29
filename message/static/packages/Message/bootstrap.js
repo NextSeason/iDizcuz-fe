@@ -66,7 +66,8 @@ J.Package( {
             url : '/message/interface/read',
             method : 'POST',
             data : {
-                id : id
+                id : id,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } );
     },
@@ -75,7 +76,8 @@ J.Package( {
             url : '/message/interface/remove',
             method : 'POST',
             data : {
-                id : id
+                id : id,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             $( '#message-' + id ).remove();

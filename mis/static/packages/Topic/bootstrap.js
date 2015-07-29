@@ -68,7 +68,8 @@ J.Package( {
                 data : {
                     id : id,
                     title : title,
-                    desc : desc
+                    desc : desc,
+                    'csrf-token' : $.cookie( 'CSRF-TOKEN' )
                 }
             } ).done( function( response ) {
                 var errno = +response.errno;
@@ -140,7 +141,8 @@ J.Package( {
             title : title,
             desc : desc,
             type : type,
-            cid : cid
+            cid : cid,
+            'csrf-token' : $.cookie( 'CSRF-TOKEN' )
         };
 
         if( type == 1 ) {

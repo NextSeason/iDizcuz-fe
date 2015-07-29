@@ -138,13 +138,15 @@
      * */
     var Upload = {
         showCount: 0,
-        uploadTpl: '<div class="edui-image-upload%%">' +
-            '<span class="edui-image-icon"><i class="fa fa-desktop"></i></span>' +
-            '<form class="edui-image-form" method="post" enctype="multipart/form-data" target="up">' +
-            '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="image" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp"/>' +
-            '</form>' +
-
-            '</div>',
+        uploadTpl: [
+            '<div class="edui-image-upload%%">',
+                '<span class="edui-image-icon"><i class="fa fa-desktop"></i></span>',
+                '<form class="edui-image-form" method="post" enctype="multipart/form-data" target="up">',
+                    '<input class="edui-image-file" type="file" hidefocus name="image" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp"/>',
+                    '<input type="hidden" name="csrf-token" />',
+                '</form>',
+            '</div>'
+        ].join( '' ),
         init: function (editor, $w) {
             var me = this;
 
@@ -214,6 +216,7 @@
 
                 });
 
+                $(this).parent().find( 'input[name=csrf-token]' ).val( $.cookie( 'CSRF-TOKEN' ) );
                 $(this).parent()[0].submit();
                 Upload.updateInput( input );
                 me.toggleMask("Loading....");

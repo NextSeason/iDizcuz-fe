@@ -26,6 +26,7 @@
                     </div>
                 </div>
             </div>
+            @Include::common::foot.inc.html
         </div>
         <textarea class="templates" id="activity-list-tpl">
             <% if( !data.length ) { %>
@@ -80,6 +81,6 @@
             var iDizcuz = new J();
             iDizcuz.mount( 'activities', '@Package::Activities', { self : <?php echo $self ? 1 : 0; ?>});
         </script>
-        @Include::common::foot.inc.html
+        @Include::common::end.inc.html
     </body>
 </html>

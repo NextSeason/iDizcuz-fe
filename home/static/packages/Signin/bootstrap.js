@@ -26,7 +26,8 @@ J.Package( {
             method : 'POST',
             data : {
                 email : email,
-                passwd : passwd
+                passwd : passwd,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno;

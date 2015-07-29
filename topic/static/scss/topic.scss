@@ -582,7 +582,7 @@
                 color : #999;
             }
             &.post-warn {
-                width : 350px;
+                width : 550px;
                 color : $brandColor;
                 text-align : right;
                 padding-right : 15px;
@@ -685,11 +685,17 @@
         .edui-container {
             width : 763px!important;
         }
-        #editor-area input {
-            &.title,
-            &.to {
-                width : 500px; /* 500px in 1024 */
+        #editor-area {
+            .post-warn {
+                width : 350px;
             }
+            input {
+                &.title,
+                &.to {
+                    width : 500px; /* 500px in 1024 */
+                }
+            }
+            
         }
     }
     #editor-dialog {
@@ -720,16 +726,14 @@
         .edui-container {
             width : 760px!important;
         }
-        #editor-area input {
-            &.title,
-            &.to {
-                width : 500px; /* 500px in 1024 */
+        #editor-area {
+            .post-warn {
+                width : 330px;
             }
         }
     }
     #editor-dialog {
         > .inner {
-            margin-top : 40px;
             width : 700px; /* 1000px in 1024 */
             height : 860px;
             #editor-float-box {
@@ -737,9 +741,6 @@
                 margin : 30px auto;
                 input.title {
                     width : 380px;
-                }
-                .edui-container {
-                    width : auto!important;
                 }
                 #editor {
                     height : 570px!important;
