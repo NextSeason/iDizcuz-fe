@@ -374,6 +374,9 @@
                             }
                         }
                     }
+                    .post-list {
+                        min-height : 100px;
+                    }
                 }
                 .pagination {
                     display : none;
@@ -382,15 +385,9 @@
                 }
             }
             .sidebar {
-                .about-idizcuz,
-                .new-post {
-                    text-align : center;
-                    padding : 10px;
-                    background : #FAFAFA;
-                    .btns {
-                        margin : 0 auto;
-                        display : block;
-                    }
+                .show-editor,
+                .signup {
+                    width : 100%;
                 }
             }
         }
