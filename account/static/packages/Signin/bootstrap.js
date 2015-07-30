@@ -64,6 +64,7 @@ J.Package( {
             data : {
                 email : email,
                 passwd : passwd,
+                remember : +$( '.remember' ).get(0).checked,
                 'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {

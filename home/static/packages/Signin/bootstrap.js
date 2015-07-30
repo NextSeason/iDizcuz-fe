@@ -11,7 +11,8 @@ J.Package( {
     },
     signin : function() {
         var email = $( 'form.signin input.email' ).val(),
-            passwd = $( 'form.signin input.passwd' ).val();
+            passwd = $( 'form.signin input.passwd' ).val(),
+            remember = +$( 'form.signin input.remember' ).get(0).checked;
 
         if( !/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test( email ) ) {
             return false;
@@ -27,6 +28,7 @@ J.Package( {
             data : {
                 email : email,
                 passwd : passwd,
+                remember : remember,
                 'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
