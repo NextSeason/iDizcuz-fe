@@ -10,8 +10,8 @@ J.Package( {
         this.dragging = false;
         this.minSize = {};
         this.maxSize = {};
-        this.currentSize = null;
         this.currentPosition = {};
+        this.lastPosition = {};
         this.scale = 1;
 
         this.minScale = 1;
@@ -27,12 +27,8 @@ J.Package( {
 
     createCanvas : function() {
         var canvas = document.createElement( 'canvas' );
-        canvas.width = 240;
-        canvas.height = 240;
-
-        this.canvas = canvas;
-
-        this.canvasContext = canvas.getContext( '2d' );
+        canvas.width = canvas.height = 240;
+        this.canvasContext = ( this.canvas = canvas ).getContext( '2d' );
     },
 
     dataURLToBlob : function( dataURL ) {
@@ -56,22 +52,11 @@ J.Package( {
             pic = this.canvas.toDataURL( 'image/png' ),
             formData = new FormData();
 
-        console.log( pic, this.dataURLToBlob( pic.replace( /^data:image\/png;base64,/, '' ) ) );
-
         formData.append( 'image', this.dataURLToBlob( pic.replace( /^data:image\/png;base64,/, '' ) ), 'avatar.png' );
         formData.append( 'csrf-token', $.cookie( 'CSRF-TOKEN' ) );
 
         var xhr_provider = function() {
-            var xhr = $.ajaxSettings.xhr();
-  
-            if( xhr.upload ) { 
-                xhr.upload.addEventListener( 'progress', function(e) {
-                    if(e.lengthComputable) {
-                        console.log(e.loaded);
-                    }   
-                }, false);
-            }   
-            return xhr;
+            return $.ajaxSettings.xhr();
         };  
 
         this.uploading = true;
@@ -88,7 +73,7 @@ J.Package( {
             var errno = +response.errno,
                 url = response.data.url;
 
-            this.uploading = false;
+            me.uploading = false;
             $( '.uploading-cover' ).hide();
  
             if( !errno ) { 
@@ -113,19 +98,12 @@ J.Package( {
 
         image.src = this.img.attr( 'src' ),
 
-        // 当 position 中，大于0的值，无论是x 或者 y，应为 画布坐标
         image.addEventListener( 'load', function() {
-            me.canvasContext.drawImage( 
-                image, 
-                Math.max( 0 - pos.x, 0 ) / scale,
-                Math.max( 0 - pos.y, 0 ) / scale, 
-                size.w,
-                size.h,
-                Math.max( 0, pos.x ),
-                Math.max( 0, pos.y ),
-                size.w * scale,
-                size.h * scale
-            );
+            me.canvasContext.save();
+            me.canvasContext.translate( pos.x, pos.y );
+            me.canvasContext.scale( scale, scale );
+            me.canvasContext.drawImage( image, 0, 0, size.w, size.h );
+            me.canvasContext.restore();
             callback();
         }, false );
     },
@@ -148,12 +126,20 @@ J.Package( {
 
             me.readFile( files[ 0 ] );
             me.showDialog();
+            uploadDialog.find( 'input.resize-bar' ).val( 0 );
             $( this ).val( '' );
         } );
 
         uploadDialog.find( 'input.resize-bar' ).on( 'input change', function( e ) {
-            var val = $( this ).val();            
-            me.resize( val / 100 * 2 * me.minScale + me.minScale );
+            var val = $( this ).val(),
+                scale = val / 100 * 2 * me.minScale + me.minScale;
+
+            me.resize( scale );
+
+            var x = me.lastPosition.x - ( scale - me.lastScale ) * me.imgSize.w / 2,
+                y = me.lastPosition.y - ( scale - me.lastScale ) * me.imgSize.h / 2;
+            
+            me.reposition( x, y );
         } );
 
         uploadDialog.find( '.cancel' ).on( 'click', function( e ) {
@@ -175,15 +161,17 @@ J.Package( {
                 x : e.clientX,
                 y : e.clientY
             };
+
+            me.lastPosition = {
+                x : me.currentPosition.x,
+                y : me.currentPosition.y
+            };
         } );
 
         uploadDialog.on( 'mousemove', function( e ) {
             if( !me.dragging ) return;
-            var x = e.clientX,
-                y = e.clientY;
-
-            var left = x - me.dragPoint.x + me.currentPosition.x,
-                top = y - me.dragPoint.y + me.currentPosition.y;
+            var left = e.clientX - me.dragPoint.x + me.lastPosition.x,
+                top = e.clientY - me.dragPoint.y + me.lastPosition.y;
 
             me.reposition( left, top );
 
@@ -194,10 +182,8 @@ J.Package( {
                 var x = e.clientX,
                     y = e.clientY;
 
-                me.currentPosition = {
-                    x : x - me.dragPoint.x + me.currentPosition.x,
-                    y : y - me.dragPoint.y + me.currentPosition.y
-                };
+                me.lastPosition = me.currentPosition;
+                me.lastScale = me.scale; 
 
                 me.dragging = false;
             }
@@ -254,11 +240,6 @@ J.Package( {
                 }
             }
 
-            me.currentSize = {
-                w : me.minSize.w,
-                h : me.minSize.h
-            };
-
             me.maxSize = {
                 w : me.minSize.w * 2,
                 h : me.minSize.h * 2
@@ -274,34 +255,34 @@ J.Package( {
     },
 
     resize : function( scale ) {
-        this.scale = scale;
-        this.currentSize = {
-            w : this.imgSize.w * scale,
-            h : this.imgSize.h * scale
-        };
-        this.img.css( 'transform', 'scale(' + scale + ')' );
-    },
+        var w = this.imgSize.w * scale,
+            h = this.imgSize.h * scale;
 
-    /*
-    setSize : function( w, h ) {
-        var w = this.minSize.w,
-            h = this.minSize.h;
+        this.scale = scale;
+
+        //this.img.css( 'transform', 'scale(' + scale + ')' );
         this.img.css( 'width', w ).css( 'height', h );
     },
-    */
 
     reposition : function( left, top ) {
+        this.currentPosition = {
+            x : left,
+            y : top
+        };
         this.img.css( 'left', left ).css( 'top', top );
     },
 
     center : function() {
-        var left = ( this.boxSize.w - this.currentSize.w ) / 2,
-            top = ( this.boxSize.h - this.currentSize.h ) / 2;
+        var left = ( this.boxSize.w - this.imgSize.w * this.scale ) / 2,
+            top = ( this.boxSize.h - this.imgSize.h * this.scale ) / 2;
 
         this.currentPosition = {
             x : left,
             y : top
         };
+
+        this.lastPosition = this.currentPosition;
+        this.lastScale = this.scale;
 
         this.reposition( left, top );
     },

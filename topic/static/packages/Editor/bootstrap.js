@@ -7,9 +7,7 @@ J.Package( {
         this.timeout2 = null;
 
         this.editor = null;
-
         this.topic = options.topic;
-
         this.tpl = $( '#new-post-tpl' ).val();
 
         this.createEditor();

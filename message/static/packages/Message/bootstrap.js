@@ -1,11 +1,59 @@
 J.Package( {
     initialize : function( options ) {
         this.accountCompiledTpl = J.template( $( '#account-tpl' ).val() );
+        this.msgType = options.type || 0;
         this.bindEvent();
+        this.cursor = 0;
+        this.compiledTpl = J.template( $( '#message-list-tpl' ).val() );
+        this.loading = false;
+        this.load();
     },
+
+    load : function() {
+        var me = this,
+            data = {
+                type : this.msgType,
+                cursor : this.cursor,
+                _t : +new Date
+            };
+
+        this.loading = true 
+
+        $.ajax( {
+            url : 'message/interface/getmessages',
+            data : data
+        } ).done( function( response ) {
+            var errno = +response.errno,
+                messages,
+                l;
+
+            me.loading = false;
+
+            if( !errno ) {
+                messages = response.data.messages;
+                l = messages.length;
+                if( l < 20 ) {
+                    $( '.load-more' ).hide();
+                } else {
+                    $( '.load-more' ).show();
+                }
+                if( l ) {
+                    me.cursor = messages[ l - 1 ].id;
+                }
+                me.render( response.data.messages );
+            }
+        } ).fail( function() {
+            me.loading = false;
+        } );
+    },
+    render : function( data ) {
+        var html = this.compiledTpl( { data : data } );
+        $( '.message-list' ).append( html );
+    },
+
     bindEvent : function() {
         var me = this;
-        $( '.open' ).on( 'click', function( e ) {
+        $( '.message-list' ).on( 'click', '.open', function( e ) {
             e.preventDefault();
             var messageEl = me.getMessageEl( $( this ) ),
                 messageId = messageEl.attr( 'data-msg-id' ),
@@ -29,12 +77,14 @@ J.Package( {
             }
         } );
 
-        $( '.remove' ).on( 'click', function( e ) {
+        $( '.message-list' ).on( 'click', '.remove', function( e ) {
             e.preventDefault();
             var messageEl = me.getMessageEl( $( this ) );
             me.removeMessage( messageEl.attr( 'data-msg-id' ) );
         } );
-
+        $( '.load-more' ).on( 'click', function() {
+            me.loading || me.load();
+        } );
     },
     getAccount : function( account_id, messageId ) {
         var me = this;

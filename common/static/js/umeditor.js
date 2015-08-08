@@ -7795,6 +7795,7 @@ UM.plugins['autoupload'] = function () {
         var fd = new FormData();
         fd.append(editor.options.imageFieldName || 'upfile', file, file.name || ('blob.' + file.type.substr('image/'.length)));
         fd.append('type', 'ajax');
+        fd.append( 'csrf-token', $.cookie( 'CSRF-TOKEN' ) );
         var xhr = new XMLHttpRequest();
         xhr.open("post", me.options.imageUrl, true);
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");

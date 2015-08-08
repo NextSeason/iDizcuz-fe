@@ -37,9 +37,21 @@
                                 display : block;
                             }
                         }
+                        ul {
+                            list-style : square inside;
+                            li {
+                                line-height : 26px;
+                            }
+                        }
                         .bottom-line {
                             padding : 5px;
                             text-align : right;
+                        }
+                    }
+                    .bottom {
+                        margin-top : 15px;
+                        a {
+                            margin-right : 30px;
                         }
                     }
                 }

@@ -22,7 +22,7 @@ J.Package( {
         } );
 
         $( 'form.signup input.uname' ).on( 'focus', function( e ) {
-            me.setTip( '用户名长度为1~6个字(三个字母等于一个字)' );
+            me.setTip( '用户名长度为1~16个字符' );
         } );
 
         $( 'form.signup input.passwd' ).on( 'focus', function( e ) {
@@ -145,8 +145,8 @@ J.Package( {
             return false;
         }
 
-        if( J.byteLen( uname ) > 18 ) {
-            this.setTip( '用户名长度为1~6个字(三个字母等于一个字)', 'warn' ); 
+        if( uname.length > 16 ) {
+            this.setTip( '用户名长度为1~16个字字符', 'warn' ); 
             return false;
         }
 
@@ -219,21 +219,6 @@ J.Package( {
         } );
     },
     redirect : function() {
-        var r = J.getQuery( 'r' ),
-            referrer = document.referrer;
-
-        if( r && /^https?\:\/\/www.idizcuz.com/.test( r ) ) {
-            location.href = r;
-            return;
-        }
-
-        if( referrer && /^https?\:\/\/www.idizcuz.com/.test( referrer ) ) {
-            if( !/\/(signin|signup|forget)/.test( referrer ) ) {
-                location.href = referrer;
-                return;
-            }
-        }
-                 
-        location.href = '/';
+        location.href = '/settings';
     }
 } );

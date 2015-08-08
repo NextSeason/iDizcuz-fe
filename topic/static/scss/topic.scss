@@ -304,6 +304,13 @@
                     p {
                         text-indent : 2em;
                     }
+                    ul {
+                            list-style : square inside;
+                            li {
+                                line-height : 26px;
+                            }
+                        }
+
                     .bottom-line {
                         text-align : right;
                         padding : 10px;

@@ -2,7 +2,7 @@
 @import "variables";
 
 #idizcuz {
-    .messages-list {
+    .message-list {
         margin-top : 20px;
         li {
             border-bottom : solid 1px #EEE;
@@ -73,5 +73,8 @@
                 }
             }
         }
+    }
+    .load-more {
+        display : none;
     }
 }

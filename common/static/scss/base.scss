@@ -307,6 +307,17 @@ textarea {
     height : 80px;
 }
 
+.load-more {
+    text-align : center;
+    margin-top : 20px;
+    line-height : 60px;
+    display : block;
+    color : #666;
+    cursor : pointer;
+    background : #FAFAFA;
+    border : solid 1px #EEE;
+}
+
 .dialogs {
     display : none;
     position : fixed;
@@ -347,7 +358,7 @@ textarea {
     height : 120px;
     overflow : hidden;
     border : solid 1px #EEE;
-    background : url( @Static::images/avatar.png ) no-repeat center center #EEE;
+    background : url( @Static::images/avatar.png ) no-repeat center center #FAFAFA;
     @include background-size( contain );
     &.radius {
         border : 0;
@@ -356,6 +367,10 @@ textarea {
     &.small {
         width : 100px;
         height : 100px;
+    }
+    &.smaller {
+        width : 80px;
+        height : 80px;
     }
     &.big {
         width : 160px;
@@ -397,7 +412,7 @@ textarea {
         text-decoration : none;
     }
 }
-.unknow {
+.unknown {
     color : #CCC;
 }
 
