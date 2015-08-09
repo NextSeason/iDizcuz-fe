@@ -33,7 +33,8 @@ J.Package( {
             title = $.trim( $( 'input.title' ).val() ),
             point_id = $( 'input.point_id' ).val(),
             content = editor.getContent(),
-            contentTxt = editor.getContentTxt();
+            contentTxt = editor.getContentTxt(),
+            imagecode = $.trim( $( 'input.imagecode' ).val() );
 
         if( contentTxt == this.placeholder || !contentTxt.length ) {
             this.setWarn( '发布内容至少需要10个字符' );
@@ -66,6 +67,16 @@ J.Package( {
             return false;
         }
 
+        if( !imagecode.length ) {
+            this.setWarn( '请输入验证码' );
+            return false;
+        }
+
+        if( imagecode.length != 4 ) {
+            this.setWarn( '验证码不正确' );
+            return false;
+        }
+
         $.ajax( {
             url : '/topic/interface/post',
             method : 'POST',
@@ -75,6 +86,7 @@ J.Package( {
                 point_id : point_id,
                 title : title,
                 to : to,
+                imagecode : imagecode,
                 'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
@@ -117,7 +129,9 @@ J.Package( {
                 node.css( 'opacity', 1 );
                 $( 'a.to-title' ).html( '' );
                 $( 'input.to' ).val( '' );
-                $( '.to-line' ).fadeOut( 'slow' );
+                $( '.to-line' ).hide();
+                $( 'input.imagecode' ).val( '' );
+                me.refreshImageCode();
                 return ;
             }
 
@@ -134,6 +148,10 @@ J.Package( {
                 case 3 :
                     me.setWarn( '您目前没有登录，虚要先登录才能发布论述' );
                     break;
+                case 4 :
+                    me.setWarn( '验证码不正确' );
+                    me.refreshImageCode();
+                    break;
                 case 1 :
                 default :
                     me.setWarn( '系统错误，请稍候再试' );
@@ -141,6 +159,9 @@ J.Package( {
             }
             return false;
         } );
+    },
+    refreshImageCode : function() {
+        $( '.vcode-area img' ).attr( 'src', '/common/interface/imagecode?_t=' + ( +new Date ) );
     },
     bindEvent : function() {
         var me = this
@@ -170,7 +191,7 @@ J.Package( {
             e.preventDefault();
             $( 'a.to-title' ).html( '' );
             $( 'input.to' ).val( '' );
-            $( '.to-line' ).fadeOut( 'slow' );
+            $( '.to-line' ).hide();
         } );
 
         $( '.submit-line .public' ).on( 'click', function( e ) {
@@ -197,6 +218,11 @@ J.Package( {
 
         $( '.i-agree' ).on( 'mouseout', function( e ) {
             $( this ).removeClass( 'hover' );
+        } );
+
+        $( '.refresh-imagecode' ).on( 'click', function( e ) {
+            e.preventDefault();
+            me.refreshImageCode();
         } );
     },
     getTitle : function( content ) {

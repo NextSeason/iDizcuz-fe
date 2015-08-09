@@ -169,6 +169,8 @@ body {
     }
 
     .rich-text {
+        word-warp : break-word;
+        word-break : break-all;
         b {
             font-weight : bold!important;
         }
