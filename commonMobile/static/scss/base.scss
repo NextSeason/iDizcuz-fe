@@ -1,0 +1,216 @@
+@import "compass/reset";
+@import "variables";
+
+html {
+    -webkit-text-size-adjust : 100%;
+    text-size-adjust : 100%;
+}
+body {
+    color : $paragraphColor;
+}
+
+img {
+    vertical-align : middle;
+}
+
+em,
+.em {
+    font-style : italic;
+}
+
+strong,
+.string {
+    font-weight : bold;
+}
+
+a {
+    color : $brandColor;
+    text-decoration : none;
+    &:hover,
+    &:active {
+        color : $highlightBrandColor;
+        text-decoration : underline;
+    }
+}
+
+h1 {
+    font-size : $h1FontSize;
+    color : $h1Color;
+    font-weight : $h1FontWeight;
+    line-height : 40px;
+}
+
+h2 {
+    font-size : $h2FontSize;
+    color : $h2Color;
+    font-weight : $h2FontWeight;
+    line-height : 36px;
+}
+
+h3, h4, h5, h6 {
+    font-size : $h3FontSize;
+    color : $h3Color;
+    font-weight : $h3FontWeight;
+    line-height : 30px;
+}
+
+p {
+    font-size : $paragraphFontSize;
+    line-height : $paragraphLineHeight;
+    &.large {
+        font-size : $largeParagraphFontSize;
+    }
+}
+
+.l {
+    float : left;
+}
+
+.r {
+    float : right;
+}
+
+.clearfix {
+    &:after {
+        content : '.';
+        display : block;
+        visibility : hidden;
+        font-size : 0;
+        clear : both;
+        overflow : hidden;
+        height : 0;
+    }
+}
+
+.brand {
+    color : $brandColor;
+}
+
+input[type=text],
+input[type=password],
+input[type=date],
+input[type=time],
+textarea {
+    width : 200px;
+    height : 40px;
+    font-size : 14px;
+    line-height : 40px;
+    border : none;
+    display : inline-block;
+    padding-left : 10px;
+    -webkit-border-radius : 0;
+    border-radius : 0;
+    -webkit-box-sizing : border-box;
+    box-sizing : border-box;
+    -webkit-appearance : none;
+    appearance : none;
+    &:focus {
+        outline : 0px;
+        border-color : $brandColor;
+    }   
+    &.small {
+        width : 100px;
+    }
+    &.large {
+        width : 260px;
+    }
+}
+
+input[type=date] {
+    width : 150px;
+}
+
+input[type=time] {
+    width : 100px;
+}
+
+.btns {
+    width : 80px;
+    height : 30px;
+    line-height : 28px;
+    font-size : 12px;
+    display : inline-block;
+    white-space : nowrap;
+    cursor : pointer;
+    text-decoration : none;
+    -moz-user-select : none;
+    user-select : none;
+    text-align : center;
+    vertical-align : middle;
+    background : $brandColor;
+    color : $normalButtonColor;
+    border : solid 1px $brandColor;
+    padding : 0;
+    outline : 0;
+    &:hover {
+        background : $highlightBrandColor;
+        color : $normalButtonColor;
+        text-decoration : none;
+    }
+    &:active {
+        opacity : .6;
+    }
+    -webkit-box-sizing : border-box;
+    box-sizing : border-box;
+    -webkit-appearance : none;
+    appearance : none;
+    -webkit-border-radius : 0;
+    border-radius : 0;
+    &.small {
+        width : 60px;
+        height : 24px;
+        line-height : 22px;
+        font-size : 12px;
+    }
+    &.inside-input {
+        width : auto;
+        height : 26px;
+        line-height : 26px;
+        font-size : 12px;
+        margin-top : 7px;
+        padding : 0 10px;
+    }
+    &.large {
+        width : 200px;
+        height : 36px;
+        line-height : 36px;
+        font-size : 16px;
+    }
+    &.larger {
+        width : 260px;    
+        height : 36px;
+        line-height : 36px;
+        font-size : 16px;
+    }
+
+    &.dark {
+        background : $normalBackgroundColor;
+        color : $normalColorGray;
+        border-color : #EEE;
+        &:hover,
+        &:active {
+            background : $normalBackgroundGray;
+        }
+    }
+
+    &.warn {
+        background : $normalRed;
+        border-color : $normalRed;
+        color : $normalRed;
+        &:hover {
+            background : $normalBackgroundColor;
+            color : $highlightRed;
+            border-color : $highlightRed;
+        }
+        &:active {
+            color : $normalBackgroundColor;
+            background : $highlightRed;
+            border-color : $highlightRed;
+        }
+    }
+    &.disabled {
+        background : $disabledBackgroundColor;
+        border-color : $disabledBackgroundColor;
+        color : $disabledColor;
+    }
+}

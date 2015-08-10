@@ -1,0 +1,49 @@
+@import "variables";
+
+html,body {
+    height : 100%;
+}
+#idizcuz {
+    border-top : solid 3px $brandColor;
+    height : 100%;
+    .boxes.sign {
+        input[type=text],
+        input[type=password] {
+            width : 100%;
+            border-bottom : solid 1px #EEE;
+        }
+        .btn-line {
+            height : 40px;
+            line-height : 40px;
+            border-bottom : solid 1px #EEE;
+            .btns {
+                height : 40px;
+                line-height : 40px;
+            }
+        }
+        .tip {
+            font-size : 12px;
+            text-align : center;
+            margin-top : 15px;
+            line-height : 1.5em;
+            span {
+                font-size : 10px;
+                position : relative;
+                top : -2px;
+                color : #999;
+                margin : 0 5px;
+            }
+        }
+        form.signin {
+            .btn-line {
+                padding-left : 10px;
+                label {
+                    color : #999;
+                }
+                .signin {
+                    width : 80px;
+                }
+            }
+        }
+    }
+}

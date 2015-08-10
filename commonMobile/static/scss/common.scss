@@ -1,0 +1,38 @@
+@import "variables";
+
+body {
+    font-size : 14px;
+    font-family : "Microsoft YaHei", "微软雅黑","Hiragino Sans GB","黑体","arial";
+}
+
+#idizcuz {
+    min-height : 100%;
+}
+.boxes {
+    max-width : 100%;
+    & > .inner {
+        width : 300px;
+        margin : 0 auto;
+    }
+    &.top {
+        padding : 0 10px;
+        height : 50px;
+        line-height : 50px;
+        background : $brandColor;
+        .sign {
+            a {
+                color : #FFF;
+                text-decoration : none;
+            }
+        }
+        .logo-text {
+            font-size : 16px;
+            color : #FFF;
+            font-weight : bold;
+            font-style : italic;
+        }
+    }
+    &.body {
+        margin-top : 10px;
+    }
+}
