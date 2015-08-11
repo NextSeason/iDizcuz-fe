@@ -1,12 +1,6 @@
 J.Package( {
     initialize : function( options ) {
-
         this.submiting = false;
-
-        this.reg = {
-            email : /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
-        };
-
         this.bindEvent();
     },
     setTip : function( text, type ) {
@@ -80,7 +74,7 @@ J.Package( {
             }
         } ).fail( function() {
             me.submiting = false;
-            me.setTip( '系统错误，请稍候再试', 'warn' );
+            me.setTip( '数据提交失败，请确认您的网络状况正常', 'warn' );
         } );
     }
 } );

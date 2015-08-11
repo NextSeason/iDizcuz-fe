@@ -38,7 +38,7 @@ J.Package( {
 
             if( $( this ).hasClass( 'disabled' ) ) return;
 
-            me.sendVcode( 'forget' ); 
+            me.sendVcode(); 
 
             $( this ).hide();
             $( 'form.forget .resend-btn' ).css( 'display', 'inline-block' );
@@ -49,7 +49,7 @@ J.Package( {
             e.preventDefault();
             if( $( this ).hasClass( 'disabled' ) ) return false;
 
-            me.sendVcode( 'forget' );
+            me.sendVcode();
             me.restartTimer( $( 'form.forget .resend-btn' ) );
         } );
 
@@ -71,14 +71,14 @@ J.Package( {
             r && $( this ).attr( 'href', href + '?r=' + encodeURIComponent( r ) );
         } );
     },
-    sendVcode : function( type ) {
+    sendVcode : function() {
         var me = this;
 
         $.ajax( {
             method : 'POST',
             url : '/account/interface/sendVcode',
             data : {
-                'do' : type,
+                'do' : 'forget',
                 'to' : $.trim( $( 'form.forget input.email' ).val() ),
                 'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }

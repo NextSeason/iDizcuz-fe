@@ -1,7 +1,7 @@
 @import "variables";
 
 body {
-    font-size : 14px;
+    font-size : 15px;
     font-family : "Microsoft YaHei", "微软雅黑","Hiragino Sans GB","黑体","arial";
 }
 
@@ -15,6 +15,56 @@ body {
         margin : 0 auto;
     }
     &.top {
+        height : 50px;
+        line-height : 50px;
+        padding : 0 10px;
+        position : relative;
+        .logo-text {
+            font-size : 16px;
+            font-weight : bold;
+        }
+        .account {
+            position : absolute;
+            z-index : 10000;
+            right : 0px;
+            > ul {
+                text-align : center;
+                > li {
+                    line-height : 50px;
+                    width : 60px;
+                    position : relative;
+                    box-sizing : border-box;
+                    a {
+                        display : block;
+                        font-size : 12px;
+                    }
+                    .avatar {
+                        vertical-align : middle;
+                    }
+                    ul {
+                        border-top : solid 1px #EEE;
+                        display : none;
+                        li {
+                            line-height : 40px;
+                            border-bottom : solid 1px #EEE;
+                            &:last-child {
+                                border : 0;
+                            }
+                        }
+                    }
+                    &:hover {
+                        border : solid 1px #EEE;
+                        border-top : 0;
+                        background : #FFF;
+                        ul {
+                            display : block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.sign-top {
         padding : 0 10px;
         height : 50px;
         line-height : 50px;
@@ -30,6 +80,24 @@ body {
             color : #FFF;
             font-weight : bold;
             font-style : italic;
+        }
+    }
+    &.nav {
+        background : $brandColor;
+        height : 40px;
+        line-height : 40px;
+        ul li {
+            float : left;
+            a {
+                color : #FFF;
+                padding : 0 15px;
+                font-size : 12px;
+                line-height : 40px;
+                display : block;
+                &.focus {
+                    background : $darkBrandColor;
+                }
+            }
         }
     }
     &.body {

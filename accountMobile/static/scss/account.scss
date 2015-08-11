@@ -4,9 +4,9 @@ html,body {
     height : 100%;
 }
 #idizcuz {
-    border-top : solid 3px $brandColor;
     height : 100%;
     .boxes.sign {
+        padding-bottom : 15px;
         input[type=text],
         input[type=password] {
             width : 100%;
@@ -16,16 +16,33 @@ html,body {
             height : 40px;
             line-height : 40px;
             border-bottom : solid 1px #EEE;
+            position : relative;
             .btns {
-                height : 40px;
-                line-height : 40px;
+                height : 30px;
+                line-height : 30px;
+                min-width : 80px;
+                position : absolute;
+                top : 5px;
+                right : 5px;
             }
+        }
+        .warn {
+            text-align : center;
+            color : $brandColor;
+            font-size : 12px;
+            background : #FFFFD1;
+            line-height : 40px;
+            border-bottom : solid 1px #EEE;
+            display : none;
+            padding : 0 15px;
         }
         .tip {
             font-size : 12px;
             text-align : center;
             margin-top : 15px;
             line-height : 1.5em;
+            padding : 0 5%;
+            text-align : center;
             span {
                 font-size : 10px;
                 position : relative;
@@ -40,8 +57,18 @@ html,body {
                 label {
                     color : #999;
                 }
-                .signin {
-                    width : 80px;
+            }
+        }
+        form.signup,
+        form.forget {
+            .email-line {
+                position : relative;
+                .send {
+                    position : absolute;
+                    right : 5px;
+                    top : 5px;
+                    height : 30px;
+                    line-height : 30px;
                 }
             }
         }

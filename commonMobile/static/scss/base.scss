@@ -37,26 +37,26 @@ h1 {
     font-size : $h1FontSize;
     color : $h1Color;
     font-weight : $h1FontWeight;
-    line-height : 40px;
+    line-height : 1.7em
 }
 
 h2 {
-    font-size : $h2FontSize;
+    font-size : 16px;
     color : $h2Color;
-    font-weight : $h2FontWeight;
-    line-height : 36px;
+    font-weight : bold; 
+    line-height : 1.7em
 }
 
 h3, h4, h5, h6 {
-    font-size : $h3FontSize;
+    font-size : 14;
     color : $h3Color;
     font-weight : $h3FontWeight;
-    line-height : 30px;
+    line-height : 1.7em
 }
 
 p {
     font-size : $paragraphFontSize;
-    line-height : $paragraphLineHeight;
+    line-height : 1.7em; 
     &.large {
         font-size : $largeParagraphFontSize;
     }
@@ -113,6 +113,10 @@ textarea {
     }
     &.large {
         width : 260px;
+    }
+    &::-webkit-input-placeholder {
+        line-height : 40px;
+        height : 40px;
     }
 }
 
@@ -212,5 +216,81 @@ input[type=time] {
         background : $disabledBackgroundColor;
         border-color : $disabledBackgroundColor;
         color : $disabledColor;
+    }
+}
+
+.avatar {
+    display : inline-block;
+    width : 120px;
+    height : 120px;
+    overflow : hidden;
+    border : solid 1px #EEE;
+    background : url( @Static::images/avatar.png ) no-repeat center center #FAFAFA;
+    -webkit-background-size : contain;
+    background-size : contain;
+    &.radius {
+        border : 0;
+        -webkit-border-radius : 50%;
+        border-radius : 50%;
+    }   
+    &.small {
+        width : 100px;
+        height : 100px;
+    }   
+    &.smaller {
+        width : 32px;
+        height : 32px;
+        border : none;
+    }   
+    &.big {
+        width : 160px;
+        height : 160px;
+    }   
+}
+i.male {
+    color : #1480B3;
+    font-weight : bold;
+}
+i.female {
+    color : #EE80A7;
+    font-weight : bold;
+}
+
+.seal {
+    display : inline-block;
+    height : 30px;
+    line-height : 30px;
+    width : 30px;
+    background : $brandColor;
+    color : #FFF;
+    font-size : 10px;
+    text-align : center;
+    vertical-align : 3px;
+    cursor : pointer;
+    &.seal-2:after {
+        content : '讨论';
+    }
+
+    &.seal-1:after {
+        content : '辩论';
+    }
+    &:hover {
+        color : #FFF;
+        text-decoration : none;
+    }
+}
+.flags {
+    display : inline-block;
+    width : 10px;
+    height : 10px;
+    border-radius : 50%;
+    &.flag-1 {
+        background : #E9733C; 
+    }
+    &.flag-2 {
+        background : #3BA1E0;
+    }
+    &.flag-3 {
+        background : $brandColor;
     }
 }
