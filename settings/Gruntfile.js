@@ -82,15 +82,15 @@ module.exports = function( grunt ) {
                  */
                 options : {
                     patterns : [ {
-                        match : /@Package::(\w+)(?:::([\w]+))?/g,
+                        match : /@Package::([\w-_]+)(?:::([\w-_]+))?/g,
                         replacement : function() {
                             var args = arguments;
 
                             if( typeof args[ 2 ] === 'undefined' ) {
-                                return '/static/' + __MODULE__ + '/packages/' + args[ 1 ] + '/bootstrap.js';
+                                return '/static/' + __MODULE__ + '/packages/' + args[ 1 ] + '/bootstrap.js?_t=' + (+new Date);
                             }
 
-                            return '/static/' + args[ 1 ] + '/packages/' + args[ 2 ] + '/bootstrap.js';
+                            return '/static/' + args[ 1 ] + '/packages/' + args[ 2 ] + '/bootstrap.js?_t=' + (+new Date);
                         }
                     } ],
                 },
@@ -122,7 +122,7 @@ module.exports = function( grunt ) {
             static : {
                 options : {
                     patterns : [ {
-                        match : /@Static::([\w\.\/]+)(?:::([\w\.\/]+))?/g,
+                        match : /@Static::([\w./_-]+)(?:::([\w./_-]+))?/g,
                         replacement : function() {
                             /**
                              * @Static::MODULE::SRC - @Static::common::base.css - load base.css from common module
@@ -131,10 +131,10 @@ module.exports = function( grunt ) {
                             var args = arguments;
 
                             if( typeof args[ 2 ] === 'undefined' ) {
-                                return '/static/' + __MODULE__  + '/' + args[ 1 ];
+                                return '/static/' + __MODULE__  + '/' + args[ 1 ] + '?_t=' + (+new Date);
                             }
 
-                            return '/static/' + args[ 1 ] + '/' + args[ 2 ];
+                            return '/static/' + args[ 1 ] + '/' + args[ 2 ] + '?_t=' + (+new Date);
                         }
                     } ]
                 },

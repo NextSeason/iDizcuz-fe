@@ -3,7 +3,6 @@ J.Package( {
         this.cursor = 0;
         this.rn = 20;
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
-
         this.load( this.cursor );
     },
     load : function( cursor ) {

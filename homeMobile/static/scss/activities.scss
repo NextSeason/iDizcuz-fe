@@ -1,0 +1,68 @@
+@import "variables";
+
+#idizcuz {
+    .posts {
+        padding : 10px 5px;
+        border-bottom : dashed 1px #EEE;
+        > .aside {
+            width : auto;
+            margin-left : 5px;
+            .op-btn {
+                width : 50px;
+                display : block;
+                font-size : 12px;
+                margin-bottom : 5px;
+                &.agree,
+                &.disagree {
+                    line-height : 16px;
+                    height : 36px;
+                }
+                &.disagree {
+                    color : #FFF;
+                    background : #666;
+                    border-color : #666;
+                }
+                b, span {
+                    display : block;
+                }
+            }
+        }
+        > .main {
+            h2 {
+                line-height : inherit;
+                margin-bottom : 5px;
+                a {
+                    color : #333;
+                }
+            }
+            .info {
+                color : #666;
+                font-size : 12px;
+                div {
+                    margin : 3px 0;
+                    line-height : 1.7em;
+                }
+                .aside {
+                    float : left;
+                    width : auto;
+                    margin : 0;
+                    
+                }
+            }
+            .bottom-line {
+                margin-top : 5px;
+                .comments {
+                    font-size : 12px;
+                }
+            }
+        }
+    }
+    .tip-dialog {
+        display : none;
+        .inner {
+            p.tip {
+                padding : 10px 15px;
+            }
+        }
+    }
+}

@@ -26,10 +26,8 @@ strong,
 a {
     color : $brandColor;
     text-decoration : none;
-    &:hover,
-    &:active {
-        color : $highlightBrandColor;
-        text-decoration : underline;
+    &:visited {
+        color : $brandColor;
     }
 }
 
@@ -118,6 +116,9 @@ textarea {
         line-height : 40px;
         height : 40px;
     }
+    &.templates {
+        display : none;
+    }
 }
 
 input[type=date] {
@@ -146,13 +147,8 @@ input[type=time] {
     border : solid 1px $brandColor;
     padding : 0;
     outline : 0;
-    &:hover {
-        background : $highlightBrandColor;
+    &:visited {
         color : $normalButtonColor;
-        text-decoration : none;
-    }
-    &:active {
-        opacity : .6;
     }
     -webkit-box-sizing : border-box;
     box-sizing : border-box;
@@ -191,26 +187,12 @@ input[type=time] {
         background : $normalBackgroundColor;
         color : $normalColorGray;
         border-color : #EEE;
-        &:hover,
-        &:active {
-            background : $normalBackgroundGray;
-        }
     }
 
     &.warn {
         background : $normalRed;
         border-color : $normalRed;
         color : $normalRed;
-        &:hover {
-            background : $normalBackgroundColor;
-            color : $highlightRed;
-            border-color : $highlightRed;
-        }
-        &:active {
-            color : $normalBackgroundColor;
-            background : $highlightRed;
-            border-color : $highlightRed;
-        }
     }
     &.disabled {
         background : $disabledBackgroundColor;
@@ -274,10 +256,6 @@ i.female {
     &.seal-1:after {
         content : '辩论';
     }
-    &:hover {
-        color : #FFF;
-        text-decoration : none;
-    }
 }
 .flags {
     display : inline-block;
@@ -292,5 +270,54 @@ i.female {
     }
     &.flag-3 {
         background : $brandColor;
+    }
+}
+.aside {
+    float : right;
+    width : 220px;
+    margin-left : 15px;
+}
+
+.main {
+    display : table-cell;
+    height : auto;
+    &:before {
+        clear : both;
+        display : block;
+        visibility : hidden;
+        overflow : hidden;
+        height : 0!important;
+        line-height : 0;
+        font-size : xx-large;
+        content : "X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X "
+    }
+}
+.dialog {
+    position : fixed;
+    background : rgba( 0, 0, 0, .6 );
+    z-index : 10000;
+    width : 100%;
+    height : 100%;
+    top : 0;
+    bottom : 0;
+    left : 0;
+    right : 0;
+    > .wrap {
+        width : 100%;
+        height : 100%;
+        display : -webkit-box;
+        -webkit-box-orient : horizontal;
+        -webkit-box-pack : center;
+        -webkit-box-align : center;
+        display : box;
+        box-orient : horizontal;
+        box-pack : center;
+        box-align : center;
+        > .inner {
+            margin : 0 auto;
+            background : #FAFAFA;
+            border : solid 1px #EEE;
+            border-top : solid 3px $brandColor;
+        }
     }
 }

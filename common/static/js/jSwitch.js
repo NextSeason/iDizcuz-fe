@@ -526,21 +526,28 @@ jSwitch.Loader = ( function() {
      */
 
     jSwitch.PackagesMap = {};
+    jSwitch.mountQueue = [];
 
     jSwitch.Package = function( options ) {
         var Package  = function() {
         };
 
+        /*
         var script = jSwitch.currentScript();
 
         if( !script ) return false;
 
         return ( jSwitch.PackagesMap[ script.getAttribute( 'data-source-name' ) ] = jSwitch.createClass( Package, options, jSwitch ) );
+        */
+
+        return ( jSwitch.PackagesMap[ jSwitch.mountQueue.shift() ] = jSwitch.createClass( Package, options, jSwitch ) );
     };
 
     
     jSwitch.prototype.mount = function( name, Package, options ) {
         var me = this;
+
+        jSwitch.mountQueue.push( name );
 
         var instantPackage = function( Package ) {
             var pkg = new Package( options ); 

@@ -1,8 +1,9 @@
 @import "variables";
 
-body {
+html, body {
     font-size : 15px;
     font-family : "Microsoft YaHei", "微软雅黑","Hiragino Sans GB","黑体","arial";
+    min-height : 100%;
 }
 
 #idizcuz {
@@ -103,4 +104,29 @@ body {
     &.body {
         margin-top : 10px;
     }
+    .rich-text {
+        word-wrap : break-word;
+        word-break : break-all;
+        b {
+            font-weight : bold!important;
+        }
+        img {
+            max-width : 100%; 
+            margin : 10px 0;
+        }   
+        ol {
+            li {
+                line-height : 1.5em;
+            }
+            list-style-type : decimal;
+            list-style-position : inside;
+        }
+        ul {
+            li {
+                line-height : 1.5em;
+            }
+            list-style-position : inside;
+            list-style-type : square;
+        }
+    } 
 }

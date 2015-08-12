@@ -11,6 +11,8 @@
         this.children = [];
         this.parent = null;
 
+        this.currentlyInteractiveScript = null;
+
         this.config = {};
 
         if( config ) {
@@ -259,6 +261,8 @@ jSwitch.extend( jSwitch, {
     currentScript : function() {
         if( document.currentScript ) return document.currentScript;
 
+        if( jSwitch.currentlyInteractiveScript ) return currentlyInteractiveScript;
+
         var scripts = document.getElementsByTagName( 'script' ),
             i = 0,
             l = scripts.length;
@@ -504,7 +508,12 @@ jSwitch.Loader = ( function() {
                     }, false );
 
                     node.src = url;
+
+                    jSwitch.currentlyInteractiveScript = node;
+
                     head.appendChild( node );
+
+                    jSwitch.currentlyInteractiveScript = null;
                 }
                 break;
             case 'css' :
@@ -521,15 +530,14 @@ jSwitch.Loader = ( function() {
 } )();
 
     /**
-     * a class used to create a package in jSwtich
+     * a class used to create a package in jSwitch
      * and all packages create with new J.Package is inherited from jSwitch
      */
 
     jSwitch.PackagesMap = {};
 
     jSwitch.Package = function( options ) {
-        var Package  = function() {
-        };
+        var Package  = function() {};
 
         var script = jSwitch.currentScript();
 
@@ -595,7 +603,7 @@ jSwitch.Loader = ( function() {
             dispatcher : this
         } );
 
-        if( jSwtich.isString( pkg ) ) {
+        if( jSwitch.isString( pkg ) ) {
             this.children.hasOwnProperty( pkg ) && ( this.children[ pkg ] = null ); 
         } else {
             for( item in this.children ) {

@@ -169,13 +169,14 @@ body {
     }
 
     .rich-text {
-        word-warp : break-word;
+        word-wrap : break-word;
         word-break : break-all;
         b {
             font-weight : bold!important;
         }
         img {
             max-width : 100%; 
+            max-width : 970px;
             margin : 10px 0;
         }   
         ol {
@@ -344,6 +345,12 @@ body {
             & > .inner {
                 width : 1000px;
             }
+            .rich-text {
+                img {
+                    max-width : 765px;
+                }
+            }
+
         }
     }
 }
