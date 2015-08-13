@@ -28,6 +28,19 @@ html, body {
             position : absolute;
             z-index : 10000;
             right : 0px;
+            .msg-cnt {
+                position : absolute;
+                top : 5px;
+                right : 5px;
+                font-size : 10px;
+                z-index : 100001;
+                display : block;
+                line-height : 14px;
+                height : 14px;
+                padding : 0 3px;
+                background : $brandColor;
+                color : #FFF;
+            }
             > ul {
                 text-align : center;
                 > li {
@@ -48,8 +61,22 @@ html, body {
                         li {
                             line-height : 40px;
                             border-bottom : solid 1px #EEE;
+                            position : relative;
                             &:last-child {
                                 border : 0;
+                            }
+                            .dot {
+                                display : block;
+                                position : absolute;
+                                background : $brandColor;
+                                width : 6px;
+                                height : 6px;
+                                line-height : 0;
+                                font-size : 0;
+                                -webkit-border-radius : 50%;
+                                border-radius : 50%;
+                                top : 10px;
+                                left : 45px;
                             }
                         }
                     }
@@ -101,9 +128,6 @@ html, body {
             }
         }
     }
-    &.body {
-        margin-top : 10px;
-    }
     .rich-text {
         word-wrap : break-word;
         word-break : break-all;
@@ -129,4 +153,57 @@ html, body {
             list-style-type : square;
         }
     } 
+    &.foot {
+        border-top : solid 1px #EEE;
+        border-bottom : solid 1px #EEE;
+        background : #FAFAFA;
+        margin-top : 20px;
+        .slogan {
+            min-width : 320px;
+            min-height : 40px;
+            background : url( @Static::images/slogan-fz.png ) no-repeat center;
+            background-size : contain;
+        }
+    }
+    .topics {
+        padding : 5px;
+        background : #FAFAFA;
+        border-bottom : solid 1px #EEE;
+        .first-line {
+            color : #999;
+            font-size : 12px;
+            margin : 5px 0;
+        }
+        h2 {
+            a { color : #333; }
+        }
+        .point-list {
+            li {
+                line-height : 1.6em;
+                margin : 5px 0;
+            }
+        }
+        .desc {
+            border : solid 1px #EEE;
+            padding : 5px;
+            p {
+                display : none;
+                &:first-child {
+                    display : block;
+                }
+            }
+            .bottom-line {
+                font-size : 12px;
+                text-align : right;
+                margin : 5px 0;
+            }
+        }
+        .open-topic {
+            width : 100%;
+            height : 40px;
+            line-height : 40px;
+            font-size : 14px;
+            margin : 10px 0;
+        }
+    }
 }

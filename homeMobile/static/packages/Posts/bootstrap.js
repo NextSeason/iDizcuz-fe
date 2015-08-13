@@ -1,24 +1,41 @@
 J.Package( {
     initialize : function( options ) {
+        this.loading = false;
         this.cursor = 0;
         this.rn = 20;
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
-        this.load( this.cursor );
+        this.load();
+        this.bindEvent();
     },
-    load : function( cursor ) {
+    bindEvent : function() {
         var me = this;
+        $( '.load-more' ).on( 'tap', function( e ) {
+            e.preventDefault();
+            if( me.loading ) return false;
+            me.load();
+        } );
+    },
+    load : function() {
+        var me = this;
+
+        this.loading = true;
+        $( '.load-more' ).html( '正在加载...' );
 
         $.ajax( {
             url : '/home/interface/posts',
             data : {
-                cursor : cursor,
+                cursor : this.cursor,
                 rn : this.rn
             },
             success : function( response ) {
-                var errno = +response.errno;
+                var errno = +response.errno,
+                    posts;
 
                 if( !errno ) {
-                    me.render( response.data.posts );
+                    posts = response.data.posts;
+                    me.cursor = posts[ posts.length - 1 ].id;
+                    me.render( posts );
+                    me.loading = false;
                 }
             }
         } );
@@ -29,7 +46,7 @@ J.Package( {
         if( data.length < 20 ) {
             $( '.load-more' ).hide();
         } else {
-            $( '.load-more' ).show();
+            $( '.load-more' ).html( '点击加载更多' ).show();
         }
     }
 } );

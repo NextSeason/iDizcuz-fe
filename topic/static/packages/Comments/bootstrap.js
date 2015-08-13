@@ -1,8 +1,7 @@
 J.Package( {
 
     initialize : function( options ) {
-        this.compiledTpl = J.template( $( '#comments-list-tpl' ).val() );
-        this.paginationCompiledTpl = J.template( $( '#post-pagination-tpl' ).val() );
+        this.compiledTpl = J.template( $( '#comment-list-tpl' ).val() );
         this.accountId = $( '#idizcuz' ).attr( 'data-account-id' );
         this.accountUname = $( '#idizcuz' ).attr( 'data-account-uname' );
         this.rn = 10;
@@ -14,7 +13,9 @@ J.Package( {
 
         $( '.topic-area' ).on( 'click', '.comments', function( e ) {
             e.preventDefault();
-            me.commentsAction( $( this ) );
+            var el = me.getPostEl( $( this ) );
+            el.find( '.comment-box' ).show();
+            !+me.getCursor( el ) && me.load( $( this ) );
         } );
 
         $( '.topic-area' ).on( 'click', 'a.reply', function( e ) {
@@ -42,9 +43,9 @@ J.Package( {
                 .find( 'input.comment_id' ).val( me.getCommentEl( $( this ) ).attr( 'data-comment-id' ) );
         } );
 
-        $( '.topic-area' ).on( 'submit', '.comments-form', function( e ) {
+        $( '.topic-area' ).on( 'submit', '.comment-form', function( e ) {
             e.preventDefault();
-            me.submitComment( $( this ) );
+            me.submit( $( this ) );
         } );
 
         $( '#complain-box .cancel' ).on( 'click', function( e ) {
@@ -52,11 +53,9 @@ J.Package( {
             $( '#complain-box' ).hide().find( 'textarea' ).val('');
         } );
 
-        $( '.topic-area' ).on( 'click', '.comment-pagination a', function( e ) {
+        $( '.topic-area' ).on( 'click', '.comment-box .load-more', function( e ) {
             e.preventDefault();
-            var postEl = me.getPostEl( $( this ) );
-            me.getComments( postEl.attr( 'data-post-id' ), $( this ).attr( 'data-pn' ) );  
-            window.scrollTo( 0, postEl.find( '.comments-box' ).position().top );
+            me.load( $( this ) );
         } );
     },
     removeComment : function( id ) {
@@ -71,121 +70,68 @@ J.Package( {
             $( '#comment-' + id ).remove();
         } );
     },
-    commentsAction : function( el ) {
+    load : function( el ) {
+        var me = this;
         var postEl = this.getPostEl( el ),
-            commentsBoxEl = postEl.find( '.comments-box' );
-        commentsBoxEl.toggle();
-        if( commentsBoxEl.is( ':hidden' ) ) return;
-        if( postEl.find( '.comments-list li' ).length ) return;
-
-        this.getComments( postEl.attr( 'data-post-id' ), 1 );
-    },
-
-    getComments : function( postId, pn ) {
-        var me = this,
-            start = ( pn - 1 ) * this.rn;
+            postId = this.getPostId( postEl ),
+            cursor = this.getCursor( postEl );
 
         $.ajax( {
             url : '/topic/interface/getcomments',
-            method : 'GET',
             data : {
                 post_id : postId,
-                start : start,
+                cursor : cursor,
                 rn : this.rn
             }
         } ).done( function( response ) {
             var errno = +response.errno;
 
-            if( errno ) {
-                return;
+            if( !errno ) {
+                me.render( postEl, response.data.comments );
             }
-            $( '#post-' + postId ).find( '.comments-list' ).html('');
-
-            me.renderComments( postId, response.data.comments );
-
-            me.renderPagination( postId, pn, response.data.total );
 
         } );
     },
 
-    renderPagination : function( postId, pn, total ) {
-        var totalPage = Math.ceil( total / this.rn ),
-            i, list = [];
-
-        if( totalPage < 2 ) return;
-
-        var first = pn - 5,
-            last = first + 9;
-
-        if( first < 1 ) {
-            last = Math.min( ( 1 - first ) + last, totalPage );
-            first = 1;
-        } else if( last > totalPage ) {
-            first = Math.max( 1, first - ( last - totalPage ) );
-            last = totalPage;
-        }
-
-        for( i = first; i <= last; i += 1 ) {
-            list.push( { pn : i } );
-        }
-
-        var data = {
-            current : pn,
-            list : list,
-            total : totalPage
-        };
-
-        var html = this.paginationCompiledTpl( { data : data } );
-
-        $( '#post-' + postId ).find( '.comment-pagination' ).html( html ).show();
-    },
-
-    renderComments : function( postId, data ) {
-        var postEl = $( '#post-' + postId ),
-            commentsListEl = postEl.find( '.comments-list' ),
-            html,
-            i = 0,
+    render : function( el, data ) {
+        var html = this.compiledTpl( { data : data } ),
             l = data.length;
 
-        for( ; i < l; i += 1 ) {
-            data[i].isSelf = ( data[i].account_id == this.accountId );
-        }
+        l && el.find( '.comments' ).attr( 'data-cursor', data[ l - 1 ].id );
 
-        html = this.compiledTpl( { data : data } );
+        el.find( '.comment-list' ).append( html );
+        el.find( '.comment-box .loading' ).hide();
 
-        postEl.find( '.comments-list' ).append( html );
-        postEl.find( '.comments-box .loading' ).hide();
+        var loadMore = el.find( '.comment-box .load-more' );
+        l == this.rn ? loadMore.show() : loadMore.hide();
     },
 
 
-    submitComment : function( el ) {
+    submit : function( el ) {
         var me = this;
 
         var postEl = this.getPostEl( el ),
             postId = postEl.attr( 'data-post-id' ),
-            accountId = el.attr( 'data-account-id' ),
+            accountId = +el.attr( 'data-account-id' ),
             commentId = el.attr( 'data-comment-id' ),
-            content = el.find( 'input.comment' ).val(),
-            data = {
-                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
-            };
+            content = el.find( 'input.comment' ).val();
 
-        if( !content.length ) {
-            return false;
-        }
-
-        data.content = content;
-        data.post_id = postId;
-
-        commentId && ( data.comment_id = commentId );
+        if( !content.length ) return false;
+        if( !commentId ) commentId = 0;
 
         $.ajax( {
             url : '/topic/interface/comment',
             method : 'POST',
-            data : data
+            data : {
+                content : content,
+                post_id : postId,
+                comment_id : commentId,
+                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
+            }
         } ).done( function( response ) {
             var errno = +response.errno,
-                data;
+                data,
+                res;
         
             if( errno ) {
                 switch( errno ) {
@@ -198,16 +144,18 @@ J.Package( {
                 return false;
             }
 
+            res = response.data;
+
             data = {
-                id : response.data.comment_id,
-                account_id : me.accountId,
+                id : res.comment_id,
+                account_id : res.account.id,
                 reply_account_id : accountId,
                 reply_comment_id : commentId,
                 content : content,
                 ctime : '刚刚',
                 account : {
-                    id : me.accountId,
-                    uname : me.accountUname
+                    id : res.account.id,
+                    uname : res.account.uname
                 }
             };
 
@@ -218,8 +166,8 @@ J.Package( {
                 };
             }
 
-            me.renderComments( postId, [ data ] );
-
+            var html = me.compiledTpl( { data : [ data ] } );
+            postEl.find( '.new-comment-list' ).append( html );
             el.find( '.comment' ).val( '' );
             accountId && el.hide();
 
@@ -229,9 +177,15 @@ J.Package( {
 
     },
     getCommentEl : function( el ) {
-        return el.closest( '.comments-item' );
+        return el.closest( '.comment-item' );
     },
     getPostEl : function( el ) {
         return el.closest( '.posts' );
+    },
+    getPostId : function( el ) {
+        return el.attr( 'data-post-id' );
+    },
+    getCursor : function( el ) {
+        return el.find( '.comments' ).attr( 'data-cursor' );
     }
 } );

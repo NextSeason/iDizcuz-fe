@@ -1,6 +1,9 @@
 <div class="top boxes">
     <?php if( $account ) { ?>
         <div class="account">
+            <?php if( $account['data']['unread_msg'] > 0 ) { ?>
+                <span class="msg-cnt"><?php echo $account['data']['unread_msg']; ?></span>
+            <?php } ?>
             <ul>
                 <li>
                     <a href="###"> 
@@ -11,7 +14,7 @@
                     </a>
                     <ul>
                         <li><a href="/user/activities/<?php echo $account['id']; ?>">主页</a></li>
-                        <li><a href="/messages">消息</a></li>
+                        <li><a href="/messages">消息</a><?php if( $account['data']['unread_msg'] > 0 ) { ?><b class="dot"></b><?php } ?></li>
                         <li><a href="/settings">设置</a></li>
                         <li><a href="/signout">退出</a></li>
                     </ul>

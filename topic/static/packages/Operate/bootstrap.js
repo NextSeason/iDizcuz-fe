@@ -103,16 +103,15 @@ J.Package( {
         var me = this,
             postEl = this.getPostEl( el ),
             postId = postEl.attr( 'data-post-id' ),
-            markId = +el.attr( 'data-mark-id' ),
+            marked = +el.attr( 'data-marked' ),
             data = {
                 post_id : postId,
-                act : +!markId,
-                mark_id : markId,
+                act : +!marked,
                 'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             };
 
-        if( markId ) {
-            el.removeClass( 'op-unmark' ).addClass( 'op-mark' ).attr( 'data-mark-id', 0 );
+        if( marked ) {
+            el.removeClass( 'op-unmark' ).addClass( 'op-mark' ).attr( 'data-marked', 0 );
             el.html( '<i class="fa fa-star-o"></i> 收藏' );
             if( me.showingBubble( el ) == 'mark' ) me.hideBubble( el );
         }
@@ -129,7 +128,7 @@ J.Package( {
             }
 
             if( +data.mark ) {
-                el.removeClass( 'op-mark' ).addClass( 'op-unmark' ).attr( 'data-mark-id', data.mark );
+                el.removeClass( 'op-mark' ).addClass( 'op-unmark' ).attr( 'data-marked', 1 );
                 el.html( '<i class="fa fa-star"></i> 取消收藏' );
                 me.showBubble( el );
             }

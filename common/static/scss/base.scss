@@ -311,6 +311,10 @@ textarea {
     cursor : pointer;
     background : #FAFAFA;
     border : solid 1px #EEE;
+    font-size : 16px;
+    &:hover {
+        text-decoration : none;
+    }
 }
 
 .dialogs {

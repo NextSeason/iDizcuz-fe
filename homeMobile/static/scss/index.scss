@@ -49,22 +49,9 @@
         }
     }
     .topics {
-        padding : 5px;
-        background : #FAFAFA;
-        border-bottom : solid 1px #EEE;
-        .first-line {
-            color : #999;
-            font-size : 12px;
-            margin : 5px 0;
-        }
-        h2 {
-            a { color : #333; }
-        }
-        .point-list {
-            li {
-                line-height : 1.6em;
-                margin : 5px 0;
-            }
+        .desc {
+            border : 0;
+            padding : 0;
         }
     }
 }
