@@ -1,12 +1,12 @@
 J.Package( {
     initialize : function( options ) {
         this.signin = !!options.signin;
-        this.list = $( '.post-list' );
+        this.container = options.container || $( '#idizcuz' );
         this.bindEvent();
     },
     bindEvent : function() {
         var me = this;
-        this.list.on( 'click', '.op-btn', function( e ) {
+        this.container.on( 'click', '.op-btn', function( e ) {
             if( +$( this ).attr( 'data-active' ) ) return false;
 
             var action = $( this ).attr( 'data-action' );
@@ -14,7 +14,6 @@ J.Package( {
             if( !me.signin && +$( this ).attr( 'data-need-signin' ) ) {
                 me.warn( '您需要登录才可以操作' );
                 window.scrollTo( 0, 0 );
-                me.unactive( el );
                 return false;
             }
 

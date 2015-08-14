@@ -217,22 +217,22 @@ input[type=time] {
     height : 120px;
     overflow : hidden;
     border : solid 1px #EEE;
-    background : url( @Static::images/avatar.png ) no-repeat center center #FAFAFA;
+    background : url( @Static::common::images/avatar.png ) no-repeat center center #FAFAFA;
     -webkit-background-size : contain;
     background-size : contain;
+    -webkit-box-sizing : border-box;
+    box-sizing : border-box;
     &.radius {
-        border : 0;
         -webkit-border-radius : 50%;
         border-radius : 50%;
     }   
     &.small {
-        width : 100px;
-        height : 100px;
+        width : 80px;
+        height : 80px;
     }   
     &.smaller {
         width : 32px;
         height : 32px;
-        border : none;
     }   
     &.big {
         width : 160px;
@@ -330,6 +330,14 @@ i.female {
             border-top : solid 3px $brandColor;
         }
     }
+    &.tip-dialog {
+        display : none;
+        .inner {
+            p.tip {
+                padding : 10px 15px;
+            }
+        }
+    }
 }
 .load-more {
     width : 100%;
@@ -342,4 +350,7 @@ i.female {
     font-size : 13px;
     -webkit-box-sizing : border-box;
     box-sizing : border-box;
+}
+.unknown {
+    color : #999;
 }

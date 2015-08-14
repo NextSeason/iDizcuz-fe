@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        @Include::commonMobile::head.inc.html
+        <link rel="stylesheet" href="@Static::css/activities.css" />
+    </head>
+    <body>
+        <?php $nav = 'activities'; ?>
+        <div id="idizcuz">
+            @Include::commonMobile::top.inc.html
+            @Include::commonMobile::nav.inc.html
+            <?php if( !$account ) { ?>
+                @Include::accountMobile::signin.inc.html
+            <?php } ?>
+            <div class="boxes operate">
+
+            </div>
+        </div>
+    </body>
+</html>

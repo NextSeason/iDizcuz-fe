@@ -2,7 +2,7 @@ J.Package( {
     initialize : function( options ) {
         this.accountId = options.accountId;
         this.compiledTpl = J.template( $( '#comment-list-tpl' ).val() );
-        this.container = $( '.post-list' );
+        this.container = options.container || $( '#idizcuz' );
         this.bindEvent();
         this.rn = 20;
     },

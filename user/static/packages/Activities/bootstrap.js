@@ -5,7 +5,6 @@ J.Package( {
         this.self = !!options.self;
         this.accountId = $( '#idizcuz' ).attr( 'data-account-id' );
         this.compiledTpl = J.template( $( '#activity-list-tpl' ).val() );
-
         this.load( this.cursor );
     },
     load : function( cursor ) {
