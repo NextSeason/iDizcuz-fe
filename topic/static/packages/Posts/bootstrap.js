@@ -32,7 +32,6 @@ J.Package( {
 
         $.ajax( {
             url : '/topic/interface/getposts',
-            method : 'GET',
             data : {
                 topic : this.topic,
                 point : point_id,
@@ -70,7 +69,6 @@ J.Package( {
 
         $.ajax( {
             url : '/topic/interface/postlist',
-            method : 'GET',
             data : {
                 ids : this.list.slice( this.index, this.index + this.slice ).join( ',' )
             }

@@ -1,96 +1,56 @@
 J.Package( {
     initialize : function( options ) {
+        this.userId = options.userId;
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
-        this.account = $( '#idizcuz' ).attr( 'data-account-id' );
-        this.paginationCompiledTpl = J.template( $( '#post-pagination-tpl' ).val() );
-        this.rn = 20;
-
+        this.rn = 2;
         this.url = options.url;
-
         this.bindEvent();
-        this.load( 1 );
+        this.loading = false;
+        this.load();
     },
-    load : function( pn ) {
-        var me = this,
-            rn = 20,
-            start = ( pn - 1 ) * rn;
-
-        var data = {
-            account : this.account,
-            start : start,
-            rn : rn,
-            _t : +new Date
-        };
-
-        $( '.post-list' ).html('');
-        $( '.loading' ).show();
+    load : function() {
+        var me = this;
+        this.loading = true;
 
         $.ajax( {
             url : this.url,
-            data : data
+            data : {
+                account_id : this.userId,
+                cursor : this.cursor,
+                rn : this.rn,
+                _t : +new Date 
+            }
         } ).done( function( response ) {
-            var errno = +response.errno;
+            var errno = +response.errno,
+                posts;
 
-            $( '.loading.list-top' ).fadeOut( 'slow' );
-
-            if( errno ) return false;
-
-            var posts = me.formatData( response.data.posts );
-            me.render( posts );
-            $( '.loading' ).hide();
-            me.renderPagination( pn, response.data.total );
+            me.loading = false;
+            if( !errno ) {
+                posts = response.data.posts;
+                me.cursor = posts[ posts.length - 1 ].id;
+                me.render( posts );
+                $( '.loading' ).hide();
+            }
         } );
-    },
-
-    renderPagination : function( pn, total ) {
-        var totalPage = Math.ceil( total / this.rn ),
-            i, list = [];
-
-        if( totalPage == 1 ) return;
-
-        var first = pn - 5,
-            last = first + 9;
-
-        if( first < 1 ) {
-            last = Math.min( ( 1 - first ) + last, totalPage );
-            first = 1;
-        } else if( last > totalPage ) {
-            first = Math.max( 1, first - ( last - totalPage ) );
-            last = totalPage;
-        }
-
-        for( i = first; i <= last; i += 1 ) {
-            list.push( { pn : i } );
-        }
-
-        var data = {
-            current : pn,
-            list : list,
-            total : totalPage
-        };
-
-        var html = this.paginationCompiledTpl( { data : data } );
-
-        $( '#list-pagination' ).html( html ).show();
-    },
-
-    formatData : function( data ) {
-        return data;
+        $( '.loading' ).show();
     },
 
     render : function( posts ) {
         var html = this.compiledTpl( { data : posts } );
-        $( '.post-list' ).html( html );
-        window.scrollTo( 0, 0 );
+        $( '.post-list' ).append( html );
+        if( posts.length < this.rn ) {
+            $( '.load-more' ).hide();
+        } else {
+            $( '.load-more' ).css( 'display', 'block' );
+        }
     },
 
     bindEvent : function() {
         var me = this;
-
-        $( '#list-pagination' ).on( 'click', 'a', function( e ) {
+        $( '.load-more' ).on( 'click', function( e ) {
             e.preventDefault();
-            me.load( $( this ).attr( 'data-pn' ) );
-            window.scroll( 0, $( '.list-area' ).position().top );
+            if( me.loading ) return false;
+            me.load();
         } );
     }
 } );

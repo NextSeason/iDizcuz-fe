@@ -311,10 +311,10 @@ body {
     .sub-nav {
         border-bottom : solid 1px #EEE;
         ul.nav {
-            float : right;
+            text-align : right;
             margin-right : 20px;
             li {
-                float : left;
+                display : inline-block;
                 a {
                     display : block;
                     padding : 0 20px;

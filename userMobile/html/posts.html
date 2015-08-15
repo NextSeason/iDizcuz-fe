@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        @Include::commonMobile::head.inc.html
+        <link rel="stylesheet" href="@Static::css/user.css" />
+    </head>
+    <body>
+        <div id="idizcuz">
+            @Include::commonMobile::top.inc.html
+            @Include::commonMobile::nav.inc.html
+            <?php if( !$account ) { ?>
+                @Include::accountMobile::signin.inc.html
+            <?php } ?>
+            @Include::card.inc.html
+            @Include::subnav.inc.html
+            <div class="boxes">
+                <ul class="post-list"></ul>
+                <div class="btns load-more">点击加载更多</div>
+            </div>
+            <div class="dialog tip-dialog">
+                <div class="wrap">
+                    <div class="inner">
+                        <p class="brand tip"></p>
+                    </div>
+                </div>
+            </div>
+            @Include::commonMobile::foot.inc.html
+        </div>
+        <textarea class="templates" id="post-list-tpl">
+            <% if( !data.length ) { %>
+                <li class="empty">
+                    用户还没有发布论述
+                </li>
+            <% } else { %>
+                <% for( var i = 0, l = data.length; i < l; i += 1 ) { %>
+                    <% var post = data[i]; %>
+                    <li>@Include::commonMobile::post.inc.html</li>
+                <% } %>
+            <% } %>
+        </textarea>
+        <textarea class="templates" id="comment-list-tpl">
+            <% for( var i = 0, l = data.length; i < l; i += 1 ) { %>
+                <% var comment = data[i]; %>                
+                @Include::commonMobile::comment.inc.html
+            <% } %>
+        </textarea>
+        <?php $signin = $account ? 1 : 0; ?>
+        <script>
+            var idizcuz = new J();
+            idizcuz.mount( 'posts', '@Package::Posts', {
+                signin : +'<?php echo $signin; ?>',
+                userId : +'<?php echo $user['id']; ?>',
+                url : '/user/interface/userposts'
+            } );
+            idizcuz.mount( 'operate', '@Package::commonMobile::PostOperate', {
+                signin : +'<?php echo $signin; ?>'
+            } );
+            idizcuz.mount( 'comments', '@Package::commonMobile::Comments', {
+                signin : +'<?php echo $signin ?>'
+            } );
+        </script>
+        @Include::commonMobile::end.inc.html
+    </body>
+</html>

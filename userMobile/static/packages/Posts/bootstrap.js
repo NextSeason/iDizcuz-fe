@@ -1,5 +1,11 @@
 J.Package( {
     initialize : function( options ) {
+        /**
+         * this package will be used both in mark page and user posts page
+         * so, there will have several different urls
+         */
+        this.url = options.url;
+        this.userId = options.userId;
         this.loading = false;
         this.cursor = 0;
         this.rn = 20;
@@ -22,18 +28,21 @@ J.Package( {
         $( '.load-more' ).html( '正在加载...' );
 
         $.ajax( {
-            url : '/home/interface/posts',
+            url : this.url,
             data : {
                 cursor : this.cursor,
-                rn : this.rn
+                rn : this.rn,
+                account_id : this.userId,
+                _t : +new Date
             },
             success : function( response ) {
                 var errno = +response.errno,
-                    posts;
+                    posts,
+                    l;
 
                 if( !errno ) {
                     posts = response.data.posts;
-                    me.cursor = posts[ posts.length - 1 ].id;
+                    ( l = posts.length ) && ( me.cursor = posts[ l - 1 ].id );
                     me.render( posts );
                     me.loading = false;
                 }
@@ -49,4 +58,5 @@ J.Package( {
             $( '.load-more' ).html( '点击加载更多' ).show();
         }
     }
+
 } );

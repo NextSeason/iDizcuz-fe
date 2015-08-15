@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="@Static::css/home.css" />
     </head>
     <body>
-        <div id="idizcuz" data-account-id="<?php echo $user['id']; ?>">
+        <div id="idizcuz">
             @Include::common::top.inc.html
             <div class="boxes body">
                 <div class="inner">
@@ -19,18 +19,18 @@
                         @Include::nav.inc.html
                         <div class="loading"></div>
                         <ul class="post-list"></ul>
-                        <div id="list-pagination" class="pagination"></div>
+                        <div class="load-more">加载更多论述</div>
                     </div>
                 </div>
             </div>
             @Include::common::foot.inc.html
         </div>
         @Include::posts.tpl.html
-        @Include::common::pagination.inc.html
         <script>
             var iDizcuz = new J();
             iDizcuz.mount( 'posts', '@Package::Posts', {
-                url : '/user/interface/userposts'
+                url : '/user/interface/userposts',
+                userId : +'<?php echo $user['id']; ?>'
             } );
             iDizcuz.mount( 'follow', '@Package::Follow', {});
         </script>
