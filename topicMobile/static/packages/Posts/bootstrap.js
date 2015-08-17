@@ -2,6 +2,7 @@ J.Package( {
     initialize : function( options ) {
         this.topic = options.topic;
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
+        this.points = this.formatePoints( options.points );
 
         // list used to store posts id
         this.list = [];
@@ -87,7 +88,7 @@ J.Package( {
                 var errno = +response.errno;
 
                 if( !errno ) {
-                    me.render( response.data.posts );
+                    me.render( me.formatData( response.data.posts ) );
                     me.index += me.slice;
 
                     if( me.index >= me.list.length ) {
@@ -98,12 +99,46 @@ J.Package( {
             }
         } );
     },
+
+    formatData : function( data ) {
+        var i = 0,
+            l = data.length;
+
+        for( ; i < l; i += 1 ) {
+            if( this.points ) {
+                data[i].point = this.points[ data[i].point_id ];
+            }
+        }
+        return data;
+    },
+    formatePoints : function( points ) {
+        var result = {},
+            i = 0,
+            l = points.length;
+
+        for( ; i < l; i += 1 ) {
+            result[ points[i].id ] = points[i];
+        }
+        return result;
+    },
     render : function( data ) {
         var html = this.compiledTpl( { data : data } );
         $( '.post-list' ).append( html );
     },
     bindEvent : function() {
+        var me = this;
         $( '.load-more' ).on( 'click', function( e ) {
+            me.load();
+        } );
+        $( '.sort' ).on( 'click', function( e ) {
+            e.preventDefault();
+
+            me.order = $( this ).attr( 'data-order' );
+
+            $( '.sort' ).removeClass( 'focus' );
+            $( this ).addClass( 'focus' );
+
+            me.getlist( 1 );
         } );
     }
 } );

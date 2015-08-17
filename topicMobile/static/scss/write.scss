@@ -1,0 +1,64 @@
+@import "variables";
+
+#idizcuz {
+    .boxes.top {
+        height : 40px;
+        line-height : 40px;
+        padding : 0 5px;
+        background : $brandColor;
+        .public {
+            margin-top : 7px;
+            color : $brandColor;
+        }
+        .cancel {
+            color : #FFF;
+            font-size : 13px;
+        }
+    }
+    .boxes.topic {
+        margin-top : 10px;
+        padding : 0 5px;
+        .title {
+            font-size : 13px;
+        }
+    }
+    .selected {
+        margin-top : 10px;
+        line-height : 36px;
+        text-align : center;
+        border : solid 1px #EEE;
+        border-left : 0;
+        border-right : 0;
+        font-size : 13px;
+        color : #999;
+    }
+    .boxes.points {
+        position : fixed;
+        bottom : 0;
+        border-top : solid 1px #EEE;
+        background : #FAFAFA;
+        .top {
+            line-height : 30px;
+            border-bottom : solid 1px #EEE;
+            padding : 0 10px;
+            .done {
+                font-size : 13px;
+            }
+        }
+        .point-list {
+            padding-bottom : 10px;
+            li {
+                padding : 0 10px;
+                margin-top : 15px;
+                font-size : 13px;
+                line-height : 1.6;
+            }
+        }
+    }
+    .boxes.form-area {
+        textarea {
+            margin-top : 10px;
+            min-height : 260px;
+        }
+    }
+}
