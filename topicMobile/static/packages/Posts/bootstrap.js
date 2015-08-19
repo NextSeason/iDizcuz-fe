@@ -112,6 +112,8 @@ J.Package( {
         return data;
     },
     formatePoints : function( points ) {
+
+        if( !points ) return null;
         var result = {},
             i = 0,
             l = points.length;

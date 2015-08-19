@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        @Include::commonMobile::head.inc.html
+        <link rel="stylesheet" href="@Static::css/post.css" />
+    </head>
+    <body>
+        <div id="idizcuz">
+            @Include::commonMobile::top.inc.html
+            @Include::commonMobile::nav.inc.html
+            <?php if( !$account ) { ?>
+                @Include::accountMobile::signin.inc.html
+            <?php } ?>
+            <div class="boxes post">
+                <textarea class="templates" id="post-tpl">
+                    @Include::commonMobile::post.inc.html
+                </textarea>
+            </div>
+            <div class="boxes topic">
+                <a href="/topic/<?php echo $topic['id']; ?>">
+                    <span>查看话题此论述所在话题</span>
+                    <?php echo $topic['title']; ?>
+                </a>
+            </div>
+            @Include::commonMobile::foot.inc.html
+            <textarea class="templates" id="comment-list-tpl">
+                <% for( var i = 0, l = data.length; i < l; i += 1 ) { %>
+                    <% var comment = data[i]; %>                
+                    @Include::commonMobile::comment.inc.html
+                <% } %>
+            </textarea>
+        </div>
+        <script>
+            var idizcuz = new J();
+            idizcuz.mount( 'post', '@Package::Post', {
+                postId : '<?php echo $post['id']; ?>'
+            } );
+            idizcuz.mount( 'operate', '@Package::commonMobile::PostOperate', {
+                signin : +'<?php echo $account ? 1 : 0; ?>'
+            } );
+
+            idizcuz.mount( 'comment', '@Package::commonMobile::Comments', {
+                signin : +'<?php echo $account ? 1 : 0; ?>'
+            } );
+        </script>
+        @Include::commonMobile::end.inc.html
+    </body>
+</html>

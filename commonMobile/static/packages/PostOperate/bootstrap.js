@@ -2,7 +2,21 @@ J.Package( {
     initialize : function( options ) {
         this.signin = !!options.signin;
         this.container = options.container || $( '#idizcuz' );
+        this.dialog();
         this.bindEvent();
+    },
+    dialog : function() {
+        this.dialog = $( [
+            '<div class="dialog tip-dialog">',
+                '<div class="wrap">',
+                    '<div class="inner">',
+                        '<p class="brand tip"></p>',
+                    '</div>',
+                '</div>',
+            '</div>'
+        ].join( '' ) );
+        
+        $( '#idizcuz' ).append( this.dialog );
     },
     bindEvent : function() {
         var me = this;
@@ -12,6 +26,7 @@ J.Package( {
             var action = $( this ).attr( 'data-action' );
 
             if( !me.signin && +$( this ).attr( 'data-need-signin' ) ) {
+                e.preventDefault();
                 me.warn( '您需要登录才可以操作' );
                 window.scrollTo( 0, 0 );
                 return false;
@@ -35,7 +50,6 @@ J.Package( {
             postEl = this.getPostEl( el ),
             postId = this.getPostId( postEl ),
             act = +el.attr( 'data-marked' );
-
 
         $.ajax( {
             url : '/topic/interface/mark',
@@ -62,11 +76,7 @@ J.Package( {
                 me.warn( '操作失败，请确保您的网络状况正常' );
             }
         } );
-
-        
-
     },
-
     voteAction : function( el ) {
         var me = this,
             post = this.getPostEl( el ),
@@ -109,15 +119,14 @@ J.Package( {
 
     },
     warn : function( txt ) {
-        var dialog = $( '.tip-dialog' ),
-            tip = dialog.find( '.tip' );
+        var me = this,
+            tip = this.dialog.find( '.tip' );
 
         tip.html( txt );
-        dialog.show();
+        this.dialog.show();
 
         setTimeout( function() {
-             dialog.hide();
+             me.dialog.hide();
         }, 1500 );
     }
-
 } );

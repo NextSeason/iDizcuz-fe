@@ -1,0 +1,22 @@
+@import "variables";
+
+#idizcuz {
+    .boxes.topic {
+        padding : 0 5px;
+        margin-top : 10px;
+        border : solid 1px #EEE;
+        border-left : 0;
+        border-right : 0;
+        a {
+            text-align : center;
+            display : block;
+            line-height : 20px;
+            padding : 10px 0;
+            span {
+                display : block;
+                color : #999;
+                margin-bottom : 5px;
+            }
+        }
+    }
+}

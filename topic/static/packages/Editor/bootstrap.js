@@ -236,8 +236,6 @@ J.Package( {
             title = node.text();
         }
 
-        title = $.trim( title.substr( 0, 50 ) );
-
-        return title.substr( 0, 20 );
+        return $.trim( title.substr( 0, 20 ) );
     }
 } );

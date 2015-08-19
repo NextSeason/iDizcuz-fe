@@ -106,7 +106,10 @@ input[type=time] {
         border-color : $brandColor;
     }   
     &.small {
-        width : 100px;
+        width : 80px;
+        line-height : 38px;
+        height : 38px;
+        border : solid 1px #EEE;
     }
     &.large {
         width : 260px;
@@ -222,6 +225,10 @@ input[type=time] {
         border-color : $disabledBackgroundColor;
         color : $disabledColor;
     }
+}
+
+textarea, input, a:link, .btns, p, div {
+    -webkit-tap-highlight-color : rgba( 255, 255, 255, 0 );
 }
 
 .avatar {
