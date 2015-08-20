@@ -90,7 +90,6 @@ J.Package( {
         var me = this;
         $.ajax( {
             url : '/account/interface/getaccount',
-            method : 'GET',
             data : {
                 account_id : account_id,
                 _t : +new Date
@@ -99,7 +98,7 @@ J.Package( {
             var errno = +response.errno;
 
             if( !errno ) {
-                me.renderAccount( messageId, response.data.target_account );
+                me.renderAccount( messageId, response.data.user );
             }
         } );
     },

@@ -65,28 +65,6 @@
         font-size : 14px;
         color : #999;
     }
-    .ucards {
-        padding : 5px;
-        border : solid 1px #EEE;
-        .aside {
-            width : 80px;
-            float : left;
-            margin : 0 10px 0 0;
-        }
-        .info-part {
-            margin-top : 5px;
-            font-size : 14px;
-            line-height : 1.7em;
-        }
-        .num-part {
-            font-size : 14px;
-            line-height : 1.7em;
-            b {
-                color : $brandColor;
-                margin-left : 3px;
-            }
-        }
-    }
     .account-list {
         margin-top : 10px;
         li {

@@ -6,10 +6,10 @@ J.Package( {
 
         this.list = [];
         this.order = 0;
-        this.status = 0;
+        this.loading = false;
         this.index = 0;
-        this.rn = 100;
-        this.slice = 10;
+        this.rn = 10;
+        this.slice = 5;
         this.pn = 1;
         this.total = 0;
 
@@ -54,7 +54,7 @@ J.Package( {
             }
 
             me.index = 0;
-            me.status = 0;
+            me.loading = false;
             me.total = response.data.total;
 
             me.load();
@@ -63,7 +63,7 @@ J.Package( {
 
     load : function() {
         var me = this;
-        this.status = 1;
+        this.loading = true;
 
         if( !this.list.length ) return;
 
@@ -84,7 +84,7 @@ J.Package( {
                 $( '.loading.list-bottom' ).hide();
                 me.renderPagination();
             }
-            me.status = 0;
+            me.loading = false;
         } );
     },
 
@@ -161,7 +161,7 @@ J.Package( {
             
             top = $( '.loading.list-bottom' ).position().top;
 
-            if( me.status == 1 ) return;
+            if( me.loading ) return;
 
             if( top - $( window ).scrollTop() < 1000 ) {
                 me.load();

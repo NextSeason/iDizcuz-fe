@@ -1,1 +1,42 @@
 @import "variables";
+
+#idizcuz {
+    .message-list {
+        padding : 0 5px;
+
+        .messages {
+            padding : 10px 0;
+            border-bottom : dashed 1px #EEE;
+        }
+        .first-line {
+            color : #999;
+            font-size : 12px;
+        }
+        .title-line {
+            margin-top : 10px;
+            font-size : 14px;
+        }
+        .content {
+            margin-top : 10px;
+            padding : 5px 0;
+            display : none;
+        }
+        .flag {
+            display : inline-block;
+            width : 6px;
+            height : 6px;
+            background : $brandColor;
+            -webkit-border-radius : 50%;
+            border-radius : 50%;
+        }
+        .remove {
+            color : #FFF;
+            font-size : 12px;
+            background : #999;
+            padding : 2px 3px;
+        }
+        .open {
+            color : #999;
+        }
+    }
+}

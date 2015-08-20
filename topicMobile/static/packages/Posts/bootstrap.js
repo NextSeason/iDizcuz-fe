@@ -2,6 +2,7 @@ J.Package( {
     initialize : function( options ) {
         this.topic = options.topic;
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
+        this.paginationCompiledTpl = J.template( $( '#pagination-tpl' ).val() );
         this.points = this.formatePoints( options.points );
 
         // list used to store posts id
@@ -10,16 +11,14 @@ J.Package( {
         // orderby
         this.order = 0;
 
-        // to record the status of page 
-        // if it is loading data , status = 1
-        this.status = 0;
+        this.loading = false;
 
         this.index = 0;
         
         // how many posts been displayed in one time
-        this.slice = 10;
+        this.slice = 1;
 
-        this.rn = 100;
+        this.rn = 2;
 
         this.pn = 1;
 
@@ -35,6 +34,7 @@ J.Package( {
 
         this.pn = pn;
 
+        $( '.pagination' ).hide();
         $( '.post-list' ).html( '' );
 
         $.ajax( {
@@ -58,24 +58,21 @@ J.Package( {
                     }
 
                     me.index = 0;
-                    me.status = 0;
-
-                    if( this.rn == me.list.length ) {
-                        //
-                    }
+                    me.loading = false;
+                    me.total = response.data.total;
 
                     me.load();
                     return;
                 }
             },
             error : function() {
-                this.status = 0;
+                me.loading = false;
             }
         } );
     },
     load : function() {
         var me = this;
-        this.status = 1;
+        this.loading = true;
 
         if( !this.list.length ) return;
 
@@ -87,17 +84,56 @@ J.Package( {
             success : function( response ) {
                 var errno = +response.errno;
 
+                me.loading = false;
+
                 if( !errno ) {
-                    me.render( me.formatData( response.data.posts ) );
                     me.index += me.slice;
+                    me.render( me.formatData( response.data.posts ) );
 
                     if( me.index >= me.list.length ) {
-                        // hide load more button and show next page button
+                        $( '.loading' ).hide();
+                        me.renderPagination();
                     }
                     return;
                 }
+            },
+            error : function() {
+                me.loading = false;
             }
         } );
+    },
+
+    renderPagination : function() {
+        var totalPage = Math.ceil( this.total / this.rn ),
+            i,
+            list = [];
+
+        if( totalPage == 1 ) return;
+
+        var first = this.pn - 5,
+            last = first + 9;
+
+        if( first < 1 ) {
+            last = Math.min( ( 1 - first ) + last, totalPage );
+            first = 1;
+        } else if( last > totalPage ) {
+            first = Math.max( 1, first - ( last - totalPage ) );
+            last = totalPage;
+        }
+
+        for( i = first; i <= last; i += 1 ) {
+            list.push( { pn : i } );
+        }
+
+        var data = {
+            current : this.pn,
+            list : list,
+            total : totalPage
+        };
+
+        var html = this.paginationCompiledTpl( { data : data } );
+
+        $( '.pagination' ).html( html ).show();
     },
 
     formatData : function( data ) {
@@ -126,12 +162,12 @@ J.Package( {
     render : function( data ) {
         var html = this.compiledTpl( { data : data } );
         $( '.post-list' ).append( html );
+        if( this.index >= this.list.length ) {
+            $( '.pagination' ).show();
+        }
     },
     bindEvent : function() {
         var me = this;
-        $( '.load-more' ).on( 'click', function( e ) {
-            me.load();
-        } );
         $( '.sort' ).on( 'click', function( e ) {
             e.preventDefault();
 
@@ -142,5 +178,20 @@ J.Package( {
 
             me.getlist( 1 );
         } );
+
+        $( window ).on( 'scroll', function() {
+            var top;
+
+            if( me.index >= me.list.length ) return;
+            
+            top = $( '.loading' ).position().top;
+
+            if( me.loading ) return;
+
+            if( top - $( window ).scrollTop() < 800 ) {
+                me.load();
+            }
+        } );
+
     }
 } );
