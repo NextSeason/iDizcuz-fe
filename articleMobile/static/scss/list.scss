@@ -1,0 +1,52 @@
+@import "variables";
+
+#idizcuz {
+    .boxes.topic {
+        color : #333;
+        background : #FAFAFA;
+        padding : 5px;
+        font-size : 14px;
+        line-height : 1.6em;
+        border-bottom : solid 1px #EEE;
+    }
+    .boxes.article {
+        margin-top : 10px;
+        padding : 10px 5px;
+        border-bottom : dashed 1px #EEE;
+        .aside {
+            margin : 0 10px 0 0;
+            width : 70px;
+            height : 40px;
+            float : left;
+            a.cover {
+                width : 100%;
+                height : 100%;
+                background-repeat : no-repeat;
+                background-position : center;
+                -webkit-background-sizing : cover;
+                background-sizing : cover;
+                background-color : #EEE;
+                display : block;
+            }
+        }
+        h2 {
+            font-size : 14px;
+            line-height : 1.4em;
+        }
+        .detail {
+            color : #999;
+            font-size : 12px;
+            margin-top : 10px;
+        }
+        .summary {
+            display : block;
+            color : #333;
+            margin-top : 10px;
+            line-height : 1.6em;
+            font-size : 13px;
+            .view {
+                color : #999;
+            }
+        }
+    }
+}

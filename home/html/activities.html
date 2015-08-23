@@ -7,6 +7,7 @@
         ?>
         @Include::common::head.inc.html
         <link rel="stylesheet" href="@Static::css/activities.css" />
+        <link rel="stylesheet" href="@Static::common::css/post.css" />
     </head>
     <body>
         <div id="idizcuz">
@@ -58,41 +59,29 @@
                 <% for( var i = 0, l = data.length; i < l; i += 1 ) { %>
                     <% var post = data[i]; %>
                     <li>
-                        <% var postUrl = '/post/' + post.id; %>
-                        <div class="posts" data-post-id="<%=post.id %>">
-                            <div class="data-line clearfix">
-                                <div class="vote l">
-                                    <a href="<%=postUrl %>" target="_blank" class="op-btn btns small agree" data-action="agree" data-intent="1">支持(<b><%=post.data.agree %></b>)</a>
-                                    <a href="<%=postUrl %>" target="_blank" class="op-btn btns small disagree" data-action="agree" data-intent="0">反对(<b><%=post.data.disagree %></b>)</a>
-                                </div>
-                                <div class="title l">
-                                    <h2><a href="/post/<%=post.id %>" target="_blank"><%-post.title %></a></h2>
-                                    <a href="/user/activities/<%=post.account_id %>" target="_blank" class="uname">作者： <%-post.account.uname %><%-post.account.desc %></a>
-                                </div>
-                            </div>
-                            <div class="topic-line">
-                                <a href="/topic/<%=post.topic.id %>" target="_blank" class="uname">所在话题： <%-post.topic.title%></a>
-                            </div>
-                            <div class="contents rich-text">
-                                <p><%=post.content %></p>
-                            </div>
-                            <div class="bottom-line">
-                                <a href="<%=postUrl %>" target="_blank" class="reply r">针对本条论述发表观点</a>
-                                <span class="ctime">发表于：<%=post.ctime.substr(0,10) %></span>
-                                <% if( post.mtime != post.ctime ) { %>
-                                    <span class="mtime">修改于：<%=post.mtime.substr(0,10) %></span>
-                                <% } %>
-                                <a href="<%=postUrl %>" target="_blank" class="comments"><%-post.data.comments_cnt %>条短评</a>
-                            </div>
-                        </div>
+                        @Include::common::post.tpl.html
                     </li>
                 <% } %>
             <% } %>
         </textarea>
+        <textarea class="templates" id="comment-list-tpl">
+            <% for( var i = 0, l = data.length; i < l; i += 1 ) { %>
+                <li>
+                    @Include::common::comment.tpl.html
+                </li>
+            <% } %>
+        </textarea>
+        <script src="@Static::common::js/ZeroClipboard.js"></script>
+        <script src="@Static::common::js/qrcode.js"></script>
         <script>
             var idizcuz = new J();
             idizcuz.mount( 'posts', '@Package::Posts' );
             idizcuz.mount( 'accounts', '@Package::Accounts' );
+
+            idizcuz.mount( 'operate', '@Package::common::PostOperate', {} );
+            idizcuz.mount( 'comments', '@Package::common::Comments', {} );
+            idizcuz.mount( 'share', '@Package::common::Share', {} );
+            idizcuz.mount( 'copy', '@Package::common::Copy', {} );
         </script>
     </body>
 </html>

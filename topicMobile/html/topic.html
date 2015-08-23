@@ -89,6 +89,9 @@
                     <?php } ?>
                 </div>
             </div>
+            <div class="boxes">
+                <a href="/articles/<?php echo $topic['id']; ?>" class="full-width-link">查看话题相关资料</a>
+            </div>
             <div class="boxes" style="margin-top:10px;padding:0 5px">
                 本话题共 
                 <b class="brand"><?php echo $topic['data']['post_cnt']; ?></b> 
@@ -142,6 +145,12 @@
             idizcuz.mount( 'comments', '@Package::commonMobile::Comments', {
                 signin : +'<?php echo $signin; ?>'
             } );
+            ( function() {
+                $( '.show-more-info' ).on( 'click', function( e ) {
+                    e.preventDefault();
+                    $( '.topics .desc p' ).show();
+                } );
+            } )();
         </script>
         @Include::commonMobile::end.inc.html
     </body>

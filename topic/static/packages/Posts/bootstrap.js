@@ -1,6 +1,6 @@
 J.Package( {
     initialize : function( options ) {
-        this.topic = $( '.topic-area' ).attr( 'data-topic-id' );
+        this.topic = options.topic;
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
         this.paginationCompiledTpl = J.template( $( '#post-pagination-tpl' ).val() );
 
@@ -33,7 +33,7 @@ J.Package( {
         $.ajax( {
             url : '/topic/interface/getposts',
             data : {
-                topic : this.topic,
+                topic : this.topic.id,
                 point : point_id,
                 order : order,
                 start : start,
@@ -126,6 +126,7 @@ J.Package( {
             l = data.length;
 
         for( ; i < l; i += 1 ) {
+            data[ i ].topic = this.topic;
             data[ i ].ctime = data[ i ].ctime.replace( /\s+[:\d]+/, '' );
             data[ i ].mtime = data[ i ].mtime.replace( /\s+[:\d]+/, '' );
             if( $( '#post-' + data[i].id ).length ) {

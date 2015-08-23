@@ -387,4 +387,15 @@ html, body {
             }
         }
     }
+    &.tip {
+        p {
+            height : 40px;
+            line-height : 40px;
+            padding : 0 10px;
+            text-align : center;
+            color : $brandColor;
+        }
+        background : #FAFAFA;
+        border-bottom : solid 1px #EEE;
+    }
 }

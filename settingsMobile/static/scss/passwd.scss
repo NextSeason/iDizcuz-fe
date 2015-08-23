@@ -1,0 +1,12 @@
+@import "variables";
+
+#idizcuz {
+    .btn-line {
+        text-align : right;
+        .submit-tip {
+            font-size : 13px;
+            color : $brandColor;
+            margin-right : 10px;
+        }
+    }
+}

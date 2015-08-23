@@ -79,15 +79,15 @@
                     </div>
                 <?php } ?>
                 @Include::commonMobile::foot.inc.html
+                <script>
+                    var idizcuz = new J();
+                    idizcuz.mount( 'write', '@Package::Write', {
+                        topicId : +'<?php echo $topic['id']; ?>',
+                        needPoint : +'<?php echo $topic['data']['type'] == 1 ? 1 : 0; ?>'
+                    } );
+                </script>
             <?php } ?>
         </div>
-        <script>
-            var idizcuz = new J();
-            idizcuz.mount( 'write', '@Package::Write', {
-                topicId : +'<?php echo $topic['id']; ?>',
-                needPoint : +'<?php echo $topic['data']['type'] == 1 ? 1 : 0; ?>'
-            } );
-        </script>
         @Include::commonMobile::end.inc.html
     </body>
 </html>

@@ -192,6 +192,22 @@ J.Package( {
                 me.load();
             }
         } );
+    
+        $( '.pagination' ).on( 'click', 'a', function( e ) {
+            e.preventDefault();
 
+            if( $( this ).hasClass( 'disabled' ) ) return false;
+
+            var pn = +$( this ).attr( 'data-pn' );
+
+            if( !pn ) return false;
+
+            me.getlist( pn );
+        } );
+
+        $( '.pagination' ).on( 'change', 'select', function( e ) {
+            e.preventDefault();
+            me.getlist( $( this ).val() );
+        } );
     }
 } );

@@ -1,0 +1,66 @@
+@import "variables";
+
+#idizcuz {
+    .info-form {
+        padding : 0 5px;
+        color : #333;
+        .avatar {
+            width : 100px;
+            height : 100px;
+            float : left;
+            margin : 0 10px 0 0;
+        }
+        .upload-btn {
+            position : relative;
+            input[type=file] {
+                position : absolute;
+                top : 0;
+                left : 0;
+                width : 80px;
+                height : 30px;
+                opacity : 0;
+            }
+            p {
+                font-size : 12px;
+                color : #999;
+            }
+        }
+        .s-title {
+        }
+        .s-main {
+            margin-top : 20px;
+        }
+        .parts {
+            border-bottom : dashed 1px #EEE;
+            padding : 20px 0;
+        }
+        .select-helper {
+            border : solid 1px #EEE;
+            display : inline-block;
+            padding-left : 5px;
+            font-size : 14px;
+            select {
+                -webkit-appearance : none;
+                appearance : none;
+                height : 36px;
+                line-height : 36px;
+                border : none;
+                background : none;
+                min-width : 50px;
+                outline : 0;
+            }
+        }
+        textarea {
+            width : 100%;
+            resize : none;
+            border : solid 1px #EEE;
+            outline : 0;
+            &:focus {
+                border-color : $brandColor;
+            }
+        }
+        .submit-tip {
+            font-size : 12px;
+        }
+    }
+}

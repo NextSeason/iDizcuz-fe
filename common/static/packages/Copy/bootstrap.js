@@ -1,5 +1,6 @@
 J.Package( {
     initialize : function( options ) {
+        this.container = options.container || $( '#idizcuz' );
         this.bindEvent();
         this.helper = $( '#copy-btn' );
         this.data;
@@ -10,7 +11,7 @@ J.Package( {
 
     bindEvent : function() {
         var me = this;
-        $( '.topic-area' ).on( 'mouseenter', '.copy-link', function( e ) {
+        this.container.on( 'mouseenter', '.copy-link', function( e ) {
             var pos = $( this ).offset(),
                 link = $( this ).parent().find( '.link' ),
                 href = link.attr( 'href' ),

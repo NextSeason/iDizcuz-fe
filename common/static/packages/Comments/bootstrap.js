@@ -4,6 +4,7 @@ J.Package( {
         this.compiledTpl = J.template( $( '#comment-list-tpl' ).val() );
         this.accountId = $( '#idizcuz' ).attr( 'data-account-id' );
         this.accountUname = $( '#idizcuz' ).attr( 'data-account-uname' );
+        this.container = options.container || $( '#idizcuz' );
         this.rn = 10;
 
         this.bindEvent();
@@ -11,21 +12,21 @@ J.Package( {
     bindEvent : function() {
         var me = this;
 
-        $( '.topic-area' ).on( 'click', '.comments', function( e ) {
+        this.container.on( 'click', '.comments', function( e ) {
             e.preventDefault();
             var el = me.getPostEl( $( this ) );
             el.find( '.comment-box' ).show();
             !+me.getCursor( el ) && me.load( $( this ) );
         } );
 
-        $( '.topic-area' ).on( 'click', 'a.reply', function( e ) {
+        this.container.on( 'click', 'a.reply', function( e ) {
             e.preventDefault();
             var el = me.getCommentEl( $( this ) );
             el.find( '.reply-form' ).toggle();
             el.find( '.reply-form .comment' ).focus();
         } );
 
-        $( '.topic-area' ).on( 'click', 'a.remove-comment', function( e ) {
+        this.container.on( 'click', 'a.remove-comment', function( e ) {
             e.preventDefault();
             var commentEl = me.getCommentEl( $( this ) ),
                 id = commentEl.attr( 'data-comment-id' );
@@ -33,7 +34,7 @@ J.Package( {
             me.removeComment( id );
         } );
 
-        $( '.topic-area' ).on( 'click', 'a.complaint', function( e ) {
+        this.container.on( 'click', 'a.complaint', function( e ) {
             e.preventDefault();
             var pos = $( this ).position();
             $( '#complain-box' )
@@ -43,7 +44,7 @@ J.Package( {
                 .find( 'input.comment_id' ).val( me.getCommentEl( $( this ) ).attr( 'data-comment-id' ) );
         } );
 
-        $( '.topic-area' ).on( 'submit', '.comment-form', function( e ) {
+        this.container.on( 'submit', '.comment-form', function( e ) {
             e.preventDefault();
             me.submit( $( this ) );
         } );
@@ -53,7 +54,7 @@ J.Package( {
             $( '#complain-box' ).hide().find( 'textarea' ).val('');
         } );
 
-        $( '.topic-area' ).on( 'click', '.comment-box .load-more', function( e ) {
+        this.container.on( 'click', '.comment-box .load-more', function( e ) {
             e.preventDefault();
             me.load( $( this ) );
         } );

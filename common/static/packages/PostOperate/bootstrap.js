@@ -1,6 +1,6 @@
 J.Package( {
     initialize : function( options ) {
-
+        this.container = options.container || $( '#idizcuz' );
         this.accountId = +$( '#idizcuz' ).attr( 'data-account-id' );
         this.removePostDialog = $( '#remove-post-dialog' );
 
@@ -8,7 +8,7 @@ J.Package( {
     },
     bindEvent : function() {
         var me = this;
-        $( '.topic-area' ).on( 'click', '.op-btn', function( e ) {
+        this.container.on( 'click', '.op-btn', function( e ) {
             var action = $( this ).attr( 'data-action' );
             e.preventDefault();
 
@@ -19,12 +19,12 @@ J.Package( {
             me[ action + 'Action' ] && me[ action + 'Action' ]( $( this ) );
         } );
 
-        $( '.topic-area' ).on( 'click', '.bubbles .close', function( e ) {
+        this.container.on( 'click', '.bubbles .close', function( e ) {
             e.preventDefault();
             $( this ).closest( '.bubbles' ).hide();
         } );
 
-        $( '.topic-area' ).on( 'click', '.report-submit', function( e ) {
+        this.container.on( 'click', '.report-submit', function( e ) {
             e.preventDefault();
             if( !me.accountId ) {
                 me.redirect( 'signup' );
@@ -33,7 +33,7 @@ J.Package( {
             me.submitReport( $( this ) );
         } );
 
-        $( '.topic-area' ).on( 'click', '.reply-to', function( e ) {
+        this.container.on( 'click', '.reply-to', function( e ) {
             e.preventDefault();
             if( !me.accountId ) {
                 me.redirect( 'signin' );
@@ -50,7 +50,7 @@ J.Package( {
 
         } );
 
-        $( '.topic-area' ).on( 'click', '.remove-post', function( e ) {
+        this.container.on( 'click', '.remove-post', function( e ) {
             e.preventDefault();
             me.removePostDialog.show().find( 'input.post-id' ).val( me.getPostEl( $( this ) ).attr( 'data-post-id' ) );
         } );

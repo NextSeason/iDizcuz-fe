@@ -1,0 +1,41 @@
+@import "variables";
+
+#idizcuz {
+    .boxes.article {
+        .hd {
+            padding : 5px;
+            background : #FAFAFA;
+            h1 {
+                font-size : 17px;
+                line-height : 1.5em;
+            }
+            .info {
+                font-size : 13px;
+                color : #999;
+            }
+        }
+        .topic-area {
+            line-height : 1.5em; 
+            padding : 5px;
+        }
+        .content {
+            font-size : 14px;
+            padding : 5px;
+            line-height : 1.5em;
+            margin : 5px;
+            border : dashed 1px #EEE;
+            p {
+                text-indent : 2em;
+                margin : 5px 0;
+            }
+            h1, h2, h3 {
+                font-weight : bold!important;
+            }
+        }
+        .bridge {
+            margin-top : 10px;
+            padding : 0 5px;
+            line-height : 1.6em;
+        }
+    }
+}
