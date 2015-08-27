@@ -1,6 +1,7 @@
 J.Package( {
 
     initialize : function( options ) {
+        this.signin = options.signin;
         this.compiledTpl = J.template( $( '#comment-list-tpl' ).val() );
         this.accountId = $( '#idizcuz' ).attr( 'data-account-id' );
         this.accountUname = $( '#idizcuz' ).attr( 'data-account-uname' );
@@ -26,6 +27,10 @@ J.Package( {
             el.find( '.reply-form .comment' ).focus();
         } );
 
+        this.container.on( 'focus', 'input.comment', function( e ) {
+            me.signin || me.redirect();
+        } );
+
         this.container.on( 'click', 'a.remove-comment', function( e ) {
             e.preventDefault();
             var commentEl = me.getCommentEl( $( this ) ),
@@ -34,6 +39,7 @@ J.Package( {
             me.removeComment( id );
         } );
 
+        /*
         this.container.on( 'click', 'a.complaint', function( e ) {
             e.preventDefault();
             var pos = $( this ).position();
@@ -43,6 +49,7 @@ J.Package( {
                 .show()
                 .find( 'input.comment_id' ).val( me.getCommentEl( $( this ) ).attr( 'data-comment-id' ) );
         } );
+        */
 
         this.container.on( 'submit', '.comment-form', function( e ) {
             e.preventDefault();
@@ -137,7 +144,7 @@ J.Package( {
             if( errno ) {
                 switch( errno ) {
                     case 3 :
-                        location.href = '/signin?r=' + encodeURIComponent( location.href );
+                        me.redirect();
                         break;
                     default :
                         break;
@@ -188,5 +195,8 @@ J.Package( {
     },
     getCursor : function( el ) {
         return el.find( '.comments' ).attr( 'data-cursor' );
+    },
+    redirect : function() {
+        $( '#signin-dialog' ).show();
     }
 } );

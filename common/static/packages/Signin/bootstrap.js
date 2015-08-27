@@ -1,19 +1,26 @@
 J.Package( {
     initialize : function() {
-        this.container = $( '.sign-box' );
+        this.container = $( '#signin-dialog' );
+        this.form = this.container.find( 'form.global-signin' );
         this.bindEvent();
     },
     bindEvent : function() {
         var me = this;
-        this.container.find( 'form.signin' ).on( 'submit', function( e ) {
+        this.form.on( 'submit', function( e ) {
             e.preventDefault();
             me.signin();
         } );
+
+        this.container.find( '.close' ).on( 'click', function( e ) {
+            e.preventDefault();
+            me.container.hide();
+        } );
     },
     signin : function() {
-        var email = this.container.find( 'form.signin input.email' ).val(),
-            passwd = this.container.find( 'form.signin input.passwd' ).val(),
-            remember = +this.container.find( 'form.signin input.remember' ).get(0).checked;
+        var me = this;
+        var email = this.form.find( 'input.email' ).val(),
+            passwd = this.form.find( 'input.passwd' ).val(),
+            remember = +this.form.find( 'input.remember' ).get(0).checked;
 
         if( !/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test( email ) ) {
             return false;
@@ -41,11 +48,11 @@ J.Package( {
             }
 
             if( errno == 7 ) {
-                this.container.find( '.signin-tip' ).html( '用户名或密码错误' ).show();
+                me.container.find( '.signin-tip' ).html( '用户帐号或密码错误' ).show();
             } else if( errno == 6 ) {
-                this.container.find( '.signin-tip' ).html( '用户名不存在' ).show();
+                me.container.find( '.signin-tip' ).html( '用户帐号不存在' ).show();
             } else {
-                this.container.find( '.signin-tip' ).html( '系统错误' ).show();
+                me.container.find( '.signin-tip' ).html( '系统错误' ).show();
             }
 
 

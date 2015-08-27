@@ -6,8 +6,8 @@
             $nav = 'activities';
         ?>
         @Include::common::head.inc.html
-        <link rel="stylesheet" href="@Static::css/activities.css" />
         <link rel="stylesheet" href="@Static::common::css/post.css" />
+        <link rel="stylesheet" href="@Static::css/activities.css" />
     </head>
     <body>
         <div id="idizcuz">
@@ -29,6 +29,7 @@
                     </div>
                 </div>
             </div>
+            @Include::common::foot.inc.html
         </div>
         <textarea class="templates" id="new-accounts-tpl">
             <% for( var i = 0, l = data.length; i < l; i += 1 ) { var item = data[i]; %>
@@ -78,10 +79,16 @@
             idizcuz.mount( 'posts', '@Package::Posts' );
             idizcuz.mount( 'accounts', '@Package::Accounts' );
 
-            idizcuz.mount( 'operate', '@Package::common::PostOperate', {} );
-            idizcuz.mount( 'comments', '@Package::common::Comments', {} );
+            idizcuz.mount( 'operate', '@Package::common::PostOperate', {
+                signin : +'<?php echo $account ? 1 : 0; ?>',
+                fullFunction : false
+            } );
+            idizcuz.mount( 'comments', '@Package::common::Comments', {
+                signin : +'<?php echo $account ? 1 : 0; ?>'
+            } );
             idizcuz.mount( 'share', '@Package::common::Share', {} );
             idizcuz.mount( 'copy', '@Package::common::Copy', {} );
         </script>
+        @Include::common::end.inc.html
     </body>
 </html>

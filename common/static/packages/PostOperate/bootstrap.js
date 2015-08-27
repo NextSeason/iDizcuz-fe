@@ -1,9 +1,9 @@
 J.Package( {
     initialize : function( options ) {
         this.container = options.container || $( '#idizcuz' );
-        this.accountId = +$( '#idizcuz' ).attr( 'data-account-id' );
+        this.signin = options.signin;
+        this.fullFunction = options.fullFunction;
         this.removePostDialog = $( '#remove-post-dialog' );
-
         this.bindEvent();
     },
     bindEvent : function() {
@@ -12,8 +12,8 @@ J.Package( {
             var action = $( this ).attr( 'data-action' );
             e.preventDefault();
 
-            if( !+me.accountId && action != 'share' ) {
-                me.redirect( 'signup' );
+            if( !+me.signin && action != 'share' ) {
+                me.redirect();
                 return false;
             }
             me[ action + 'Action' ] && me[ action + 'Action' ]( $( this ) );
@@ -26,8 +26,8 @@ J.Package( {
 
         this.container.on( 'click', '.report-submit', function( e ) {
             e.preventDefault();
-            if( !me.accountId ) {
-                me.redirect( 'signup' );
+            if( !me.signin ) {
+                me.redirect();
                 return false;
             }
             me.submitReport( $( this ) );
@@ -35,12 +35,18 @@ J.Package( {
 
         this.container.on( 'click', '.reply-to', function( e ) {
             e.preventDefault();
-            if( !me.accountId ) {
-                me.redirect( 'signin' );
-                return false;
-            }
+
             var postEl = me.getPostEl( $( this ) ),
                 postId = postEl.attr( 'data-post-id' );
+
+            if( !me.fullFunction ) {
+                window.open( '/post/' + postId );
+                return false;
+            }
+            if( !me.signin ) {
+                me.redirect();
+                return false;
+            }
 
             $( '.to-line' ).show();
             $( 'input.to' ).val( postId );
@@ -87,7 +93,7 @@ J.Package( {
 
             if( errno ) { 
                 if( errno == 3 ) {
-                    me.redirect( 'signup' );
+                    me.redirect();
                 }
                 return false; 
             }
@@ -246,7 +252,7 @@ J.Package( {
                 case 3 : 
                     tipEl.html( '您需要登录之后才可以进行举报' ).addClass( 'err' ); 
                     setTimeout( function() {
-                        me.redirect( 'signup' );
+                        me.redirect();
                     }, 1000 );
                     break;
                 case 14 : 
@@ -265,16 +271,8 @@ J.Package( {
     getPostId : function( postEl ) {
         return postEl.attr( 'data-post-id' );
     },
-    redirect : function( page ) {
-        switch( page ) {
-            case 'signup' :
-                location.href = '/signup?r=' + encodeURIComponent( location.href );
-                break;
-            case 'signin' :
-                location.href = '/signin?r=' + encodeURIComponent( location.href );
-                break;
-            default :
-                break;
-        }
+    
+    redirect : function() {
+        $( '#signin-dialog' ).show();
     }
 } );

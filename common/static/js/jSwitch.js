@@ -532,15 +532,12 @@ jSwitch.Loader = ( function() {
         var Package  = function() {
         };
 
-        /*
         var script = jSwitch.currentScript();
 
-        if( !script ) return false;
+        if( !script )
+            return ( jSwitch.PackagesMap[ jSwitch.mountQueue.shift() ] = jSwitch.createClass( Package, options, jSwitch ) );
 
         return ( jSwitch.PackagesMap[ script.getAttribute( 'data-source-name' ) ] = jSwitch.createClass( Package, options, jSwitch ) );
-        */
-
-        return ( jSwitch.PackagesMap[ jSwitch.mountQueue.shift() ] = jSwitch.createClass( Package, options, jSwitch ) );
     };
 
     

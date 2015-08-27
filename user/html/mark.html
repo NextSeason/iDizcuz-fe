@@ -6,6 +6,7 @@
         ?>
         @Include::common::head.inc.html
         <link rel="stylesheet" type="text/css" href="@Static::css/home.css" />
+        <link rel="stylesheet" type="text/css" href="@Static::common::css/post.css" />
     </head>
     <body>
         <div id="idizcuz" data-account-id="<?php echo $user['id']; ?>">
@@ -19,20 +20,48 @@
                         @Include::nav.inc.html
                         <div class="loading"></div>
                         <ul class="post-list"></ul>
-                        <div id="list-pagination" class="pagination"></div>
                     </div>
                 </div>
             </div>
             @Include::common::foot.inc.html
         </div>
-        @Include::posts.tpl.html
-        @Include::common::pagination.inc.html
+        <textarea class="templates" id="post-list-tpl">
+            <% if( !data.length ) { %>
+                <li>
+                    <p class="empty">
+                        暂时没有最新论述动态
+                    </p>
+                </li>
+            <% } else { %>
+                <% for( var i = 0, l = data.length; i < l; i += 1 ) { %>
+                    <% var post = data[i]; %>
+                    <li>
+                        @Include::common::post.tpl.html
+                    </li>
+                <% } %>
+            <% } %>
+        </textarea>
+        <textarea class="templates" id="comment-list-tpl">
+            <% for( var i = 0, l = data.length; i < l; i += 1 ) { %>
+                <li>
+                    @Include::common::comment.tpl.html
+                </li>
+            <% } %>
+        </textarea>
+        <script src="@Static::common::js/ZeroClipboard.js"></script>
+        <script src="@Static::common::js/qrcode.js"></script>
         <script>
-            var iDizcuz = new J();
-            iDizcuz.mount( 'posts', '@Package::Posts', {
-                url : '/user/interface/markedposts'
+            var idizcuz = new J();
+            idizcuz.mount( 'posts', '@Package::Posts', {
+                url : '/user/interface/markedposts',
+                userId : '<?php echo $user['id']; ?>'
             } );
-            iDizcuz.mount( 'follow', '@Package::Follow', {});
+
+            idizcuz.mount( 'operate', '@Package::common::PostOperate', {} );
+            idizcuz.mount( 'comments', '@Package::common::Comments', {} );
+            idizcuz.mount( 'share', '@Package::common::Share', {} );
+            idizcuz.mount( 'copy', '@Package::common::Copy', {} );
+            idizcuz.mount( 'follow', '@Package::Follow', {});
         </script>
         @Include::common::end.inc.html
     </body>

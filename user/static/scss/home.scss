@@ -18,72 +18,8 @@
         display : none;
     }
     .posts {
-        padding : 10px 0;
-        border-bottom : solid 1px #eee;
-        margin-bottom : 20px;
-        .data-line {
-            position : relative;
-            .operates {
-                margin-top : 35px;
-                a {
-                    font-size : 12px;
-                    color : #666;
-                    margin-right : 10px;
-                }
-            }
-            .vote {
-                a.btns {
-                    display : block;
-                    margin-bottom : 5px;
-                    font-size : 10px;
-                    &.disagree {
-                        background : #666;
-                        border-color : #666;
-                    }
-                }
-            }
-            .title {
-                margin-left : 10px;
-                h2 {
-                    line-height : 27px;
-                    a {
-                        color : #333;
-                        &:hover {
-                            color : $brandColor;
-                        }
-                    }
-                }
-                .uname {
-                    color : #999;
-                    line-height : 22px;
-                    margin-bottom : 5px;
-                    font-size: 12px;
-                    span {
-                        margin-left : 10px;
-                    }
-                }
-            }
-            .op-unmark {
-                i {
-                    color : $brandColor;
-                }
-            }
-        }
-        .topic-line {
-            margin-top : 20px;
-        }
-        .contents {
-            margin : 15px 0;
-            word-wrap : break-word;
-        }
-        .bottom-line {
-            color : #999;
-            font-size : 12px;
-            .mtime,
-            .comments {
-                margin-left : 5px;
-                color : #999;
-            }
+        .flags {
+            display : none;
         }
     }
     .empty {

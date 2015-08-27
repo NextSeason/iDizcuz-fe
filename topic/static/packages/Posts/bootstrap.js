@@ -29,12 +29,13 @@ J.Package( {
         $( '.post-list' ).html( '' );
 
         $( '.loading.list-bottom' ).show();
+        console.log( this.topic );
 
         $.ajax( {
             url : '/topic/interface/getposts',
             data : {
-                topic : this.topic.id,
-                point : point_id,
+                topic_id : this.topic.id,
+                point_id : point_id,
                 order : order,
                 start : start,
                 rn  : this.rn

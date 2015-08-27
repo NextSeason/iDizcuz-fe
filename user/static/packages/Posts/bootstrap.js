@@ -5,9 +5,11 @@ J.Package( {
         this.rn = 2;
         this.url = options.url;
         this.bindEvent();
+        this.cursor = 0;
         this.loading = false;
         this.load();
     },
+
     load : function() {
         var me = this;
         this.loading = true;

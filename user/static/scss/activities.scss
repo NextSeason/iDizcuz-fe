@@ -14,37 +14,34 @@
         }
     }
     .activity-list {
-        > li {
-            &:hover {
-                background : #FAFAFA;
+        > li.activities {
+            border-bottom : solid 1px #EEE;
+            padding : 20px 10px 10px;
+            .hline {
+                font-size : 12px;
+                color : #999;
             }
-            .activities {
-                border-bottom : solid 1px #EEE;
-                padding : 20px 10px 10px;
-                .hline {
-                    font-size : 12px;
-                    color : #999;
-                
-                }
-                .h-user-cards {
-                    border-bottom : 0;
-                }
-                .extra-comments {
-                    margin : 15px auto 0;
-                    width : 95%;
-                    padding : 10px;
-                    background : #FAFAFA;
-                    border : solid 1px #EEE;
-                    @include box-sizing( border-box );
-                }
-                .relation_post {
-                    margin : 0 auto;
-                    width : 95%;
-                    padding : 10px;
-                }
-                .posts {
-                    border-bottom : 0;
-                    margin-bottom : 0;
+            .h-user-cards {
+                border-bottom : 0;
+            }
+            .extra-comments {
+                margin : 15px auto 0;
+                width : 95%;
+                padding : 10px;
+                background : #FAFAFA;
+                border : solid 1px #EEE;
+                @include box-sizing( border-box );
+            }
+            .relation_post {
+                margin : 0 auto;
+                width : 95%;
+                padding : 10px;
+            }
+            .posts {
+                border-bottom : 0;
+                margin-bottom : 0;
+                .flags {
+                    display : none;
                 }
             }
         }
