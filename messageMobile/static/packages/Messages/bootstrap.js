@@ -38,7 +38,6 @@ J.Package( {
     bindEvent : function() {
         var me = this;
         $( '.message-list' ).on( 'click', '.messages', function( e ) {
-            e.preventDefault();
             var el = $( this ),
                 type = $( this ).attr( 'data-msg-type' ),
                 id = $( this ).attr( 'data-msg-id' ),

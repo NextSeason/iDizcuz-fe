@@ -1,7 +1,8 @@
 J.Package( {
     initialize : function( options ) {
         this.compiledTpl = J.template( $( '#account-list-tpl' ).val() );
-        this.account = $( '#idizcuz' ).attr( 'data-account-id' );
+        this.userId = options.userId;
+
         this.paginationCompiledTpl = J.template( $( '#post-pagination-tpl' ).val() );
         this.bindEvent();
 
@@ -19,7 +20,7 @@ J.Package( {
             start = ( pn - 1 ) * rn;
 
         var data = {
-            account : this.account,
+            account_id : this.userId,
             start : start,
             rn : rn,
             _t : +new Date

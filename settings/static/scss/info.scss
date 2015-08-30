@@ -3,26 +3,6 @@
 
 #idizcuz {
     .info-form {
-        .select-helper {
-            border : solid 1px #B9B9B9;
-            display : inline-block;
-            @include border-radius( 2px );
-            select {
-                border : 0;
-                min-width : 200px;
-                background : none;
-                padding : 10px;
-                height : 40px;
-                outline : 0;
-                cursor : pointer;
-                font-size : 13px;
-                margin : 0;
-            }
-            &:hover {
-                background : #FCFCFC;
-            }
-        }
-
         .parts {
             border-bottom : solid 1px #DDD;
             color : #666;

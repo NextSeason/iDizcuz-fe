@@ -6,25 +6,14 @@
         margin-top : 20px;
         li {
             border-bottom : solid 1px #EEE;
-            padding : 20px;
+            padding : 20px 0;
             &.empty {
                 text-align : center;
                 color : #999;
                 line-height : 80px;
             }
-            .remove {
-                font-size : 13px;
-                color : #999;
-            }
-            .flag {
-                color : $brandColor;
-                font-size : 10px;
-                margin-right : 10px;
-            }
-            .time {
-                color : #999;
-                margin-right : 20px;
-                font-size : 13px;
+            .top-line {
+                line-height : 40px;
             }
             .title-line {
                 font-size : 13px;

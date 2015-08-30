@@ -57,9 +57,12 @@
         <script>
             var iDizcuz = new J();
             iDizcuz.mount( 'accounts', '@Package::Accounts', {
-                page : '<?php echo $page; ?>'
+                page : '<?php echo $page; ?>',
+                userId : '<?php echo $user['id']; ?>'
             } );
-            iDizcuz.mount( 'follow', '@Package::Follow', {});
+            iDizcuz.mount( 'follow', '@Package::common::Follow', {
+                signin : +'<?php echo $account ? 1 : 0; ?>'
+            } );
         </script>
         @Include::common::end.inc.html
     </body>

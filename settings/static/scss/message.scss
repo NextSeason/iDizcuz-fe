@@ -1,0 +1,35 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .block {
+        padding : 40px 0;
+        border-bottom : solid 1px #EEE;
+    }
+    .s-tt {
+        float : left;
+        width : 200px;
+        font-weight : bold;
+        line-height : 40px;
+    }
+    .select-helper {
+        margin-right : 20px;
+    }
+    .line:first-child {
+        margin-bottom : 20px;
+    }
+    .tip-box {
+        position : fixed;
+        top : 0;
+        width : 100%;
+        display : none;
+        p {
+            padding : 0 30px;
+            background : $brandColor;
+            margin : 0 auto;
+            width : 100px;
+            text-align : center;
+            color : #FFF;
+        }
+    }
+}

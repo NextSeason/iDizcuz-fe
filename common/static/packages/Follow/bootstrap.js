@@ -1,16 +1,23 @@
 J.Package( {
     initialize : function( options ) {
+        this.signin = options.signin;
         this.bindEvent();
     },
 
     redirect : function() {
-        location.href = '/signin?r=' + encodeURIComponent( location.href );
+        $( '#signin-dialog' ).show();
     },
 
     bindEvent : function() {
         var me = this;
         $( '#idizcuz' ).on( 'click', 'a.follow', function( e ) {
             e.preventDefault();
+
+            if( !me.signin ) {
+                me.redirect();
+                return false;
+            }
+
             var btn = $( this ),
                 accountId = $( this ).attr( 'data-account-id' );
 

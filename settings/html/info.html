@@ -125,12 +125,12 @@
             </div>
             @Include::common::foot.inc.html
         </div>
+        <script>
+            var idizcuz = new J(); 
+            idizcuz.mount( 'Birth', '@Package::Birth', {} );
+            idizcuz.mount( 'Upload', '@Package::Upload', {} );
+            idizcuz.mount( 'UserInfo', '@Package::UserInfo', {} );
+        </script>
+        @Include::common::end.inc.html
     </body>
-    <script>
-        var idizcuz = new J(); 
-        idizcuz.mount( 'Birth', '@Package::Birth', {} );
-        idizcuz.mount( 'Upload', '@Package::Upload', {} );
-        idizcuz.mount( 'UserInfo', '@Package::UserInfo', {} );
-    </script>
-    @Include::common::end.inc.html
 </html>

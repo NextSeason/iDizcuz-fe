@@ -85,7 +85,7 @@ J.Package( {
                 topic_id : this.topic.id,
                 point_id : point_id,
                 title : title,
-                to : to,
+                post_id : to,
                 imagecode : imagecode,
                 'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
