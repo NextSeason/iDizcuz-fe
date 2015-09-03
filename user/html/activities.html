@@ -99,7 +99,9 @@
                 self : +'<?php echo $self ? 1 : 0; ?>',
                 accountId : +'<?php echo $user['id']; ?>'
             } );
-            idizcuz.mount( 'follow', '@Package::Follow', {});
+            idizcuz.mount( 'follow', '@Package::common::Follow', {
+                signin : +'<?php echo $account ? 1 : 0; ?>'
+            });
             idizcuz.mount( 'operate', '@Package::common::PostOperate', {
                 signin : +'<?php echo $account ? 1 : 0; ?>',
                 fullFunction : false

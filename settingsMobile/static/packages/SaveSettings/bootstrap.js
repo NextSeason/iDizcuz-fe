@@ -24,32 +24,32 @@ J.Package( {
         var me = this;
         $.ajax( {
             url : '/settings/interface/savesettings',
-            method : 'POST',
+            type : 'POST',
             data : {
                 k : key,
                 v : value,
-                'csrf-token' : $.cookie( 'CSRF-TOKEN' )
-            }
-        } ).done( function( response ) {
-            var errno = +response.errno;
+                'csrf-token' : $.fn.cookie( 'CSRF-TOKEN' )
+            },
+            success : function( response ) {
+                var errno = +response.errno;
 
-            if( !errno ) {
-                me.showTip( '保存成功' );
-                return;
+                if( !errno ) {
+                    me.showTip( '保存成功' );
+                    return;
+                }
+                me.showTip( '保存失败' ); 
+            },
+            error : function() {
+                me.showTip( '保存失败' ); 
             }
-            me.showTip( '保存失败' ); 
-
-        } ).fail( function( response ) {
-            me.showTip( '保存失败' ); 
         } );
 
     },
     showTip : function( txt ) {
-        $( '.tip-box p' ).html( txt );
-        $( '.tip-box' ).fadeIn();
+        $( '.boxes.tip' ).html( txt ).show();
 
         setTimeout( function() {
-            $( '.tip-box' ).fadeOut();
+            $( '.boxes.tip' ).hide();
         } , 1000 );
     }
 } );

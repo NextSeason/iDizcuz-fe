@@ -14,12 +14,8 @@
                 </div>
                 @Include::accountMobile::signin.inc.html
             <?php } else { ?>
-                <div class="boxes sub-nav">
-                    <ul>
-                        <li><a href="/settings" class="focus">个人信息</a></li>
-                        <li><a href="/settings/page/passwd">密码</a></li>
-                    </ul>
-                </div>
+                <?php $subpage = 'info'; ?>
+                @Include::nav.inc.html
                 <div class="boxes">
                     <form class="info-form" id="avatar-form">
                         <div class="parts">

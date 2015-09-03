@@ -61,7 +61,9 @@
             idizcuz.mount( 'comments', '@Package::common::Comments', {} );
             idizcuz.mount( 'share', '@Package::common::Share', {} );
             idizcuz.mount( 'copy', '@Package::common::Copy', {} );
-            idizcuz.mount( 'follow', '@Package::Follow', {});
+            idizcuz.mount( 'follow', '@Package::common::Follow', {
+                 signin : +'<?php echo $account ? 1 : 0; ?>'
+            });
         </script>
         @Include::common::end.inc.html
     </body>

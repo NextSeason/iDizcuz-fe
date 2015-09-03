@@ -14,12 +14,8 @@
                 </div>
                 @Include::accountMobile::signin.inc.html
             <?php } else { ?>
-                <div class="boxes sub-nav">
-                    <ul>
-                        <li><a href="/settings">个人信息</a></li>
-                        <li><a href="/settings/page/passwd" class="focus">密码</a></li>
-                    </ul>
-                </div>
+                <?php $subpage = 'passwd'; ?>
+                @Include::nav.inc.html
                 <div class="boxes">
                     <form class="passwd">
                         <input type="password" class="opasswd full" placeholder="当前密码" />
