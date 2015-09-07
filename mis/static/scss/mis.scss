@@ -2,30 +2,13 @@
 @import "variables";
 
 #idizcuz {
-    #top {
-        height : 40px;;
-        line-height : 40px;
-        background : $brandColor;
-        padding : 0 20px;
-        top : 0;
-        left : 0;
-        width : 100%;
-        border-bottom : solid 1px $darkBrandColor;
-        z-index : 10;
-        @include box-sizing( border-box );
-        .top-title {
-            font-size : 16px;
-            color : #FFF;
-            margin-left : 20px;
-        }
-    }
+    border-top : solid 3px $brandColor;
     .main {
         position : relative;
         margin-top : 40px;
         .sidebar {
             position : fixed;
-            padding-top : 40px;
-            top : 0;
+            top : 3px;
             bottom : 0;
             width : 180px;
             background : $brandColor;
@@ -48,8 +31,6 @@
             }
             li {
                 display : block;
-                a {
-                }
                 ul {
                     li {
                         a {

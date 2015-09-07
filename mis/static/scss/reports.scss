@@ -1,0 +1,39 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .report-list {
+        padding : 20px;
+        li {
+            margin-bottom : 15px;
+            .topline {
+                line-height : 40px;
+                background : #FAFAFA;
+                border-left : solid 3px $brandColor;
+                .op {
+                    margin : 0 10px;
+                }
+                .ctime {
+                    color : #999;
+                }
+                .post-title {
+                    padding-left : 20px;
+                    b {
+                        color : #000;
+                    }
+                    &:hover {
+                        text-decoration : none;
+                    }
+                    .deleted {
+                        font-size : 10px;
+                        color : #FFF;
+                        background : $brandColor;
+                        line-height : 16px;
+                        padding : 0 5px;
+                        display : inline-block;
+                    }
+                }
+            }
+        }
+    }
+}

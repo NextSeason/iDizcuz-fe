@@ -57,12 +57,6 @@
                         text-indent : 2em;
                     }
                 }
-                .adjacent {
-                    margin-top : 10px;
-                    li {
-                        line-height : 40px;
-                    }
-                }
                 .bridge {
                     margin-top : 20px;
                     font-size : 14px;
@@ -77,6 +71,25 @@
                         }
                     }
                 }
+            }
+            .related-part {
+                .hd {
+                    line-height : 30px;
+                    a.more {
+                        color : #666;
+                    }
+                }
+                li {
+                    line-height : 30px;
+                    span.time {
+                        margin-left : 10px;
+                        color : #999;
+                    }
+                    a {
+                        color : #333;
+                    }
+                }
+
             }
         }
     }

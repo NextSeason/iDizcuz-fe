@@ -3,7 +3,7 @@ J.Package( {
         this.bindEvent();
 
         this.defaultConf = {
-            title : encodeURIComponent( '每日论点•iDizcuz -- 试着去成为一个理性且有思想的人' ),
+            title : encodeURIComponent( '每日论点•iDizcuz -- 做理性且有思想的人' ),
             desc : '每日论点•iDizcuz -- 试着去成为一个理性且有思想的人',
             img : location.host + '/static/common/images/idizcuz.png',
             url : encodeURIComponent( location.href )
@@ -33,18 +33,20 @@ J.Package( {
     },
     getConfig : function( el ) {
         var config = J.extend( {}, this.defaultConf ),
-            c = el.attr( 'data-share-conf' ),
-            box;
+            box = el.closest( '.share-box' ),
+            matches,
+            attrs,
+            i = 0,
+            l;
 
-        if( c ) {
-            J.extend( config, J.parseJson( c ) );
-        }
+        if( !box.length ) return config;
 
-        box = el.closest( 'share-box' );
+        attrs = box.get(0).attributes;
 
-        if( box.length ) {
-            c = box.attr( 'data-share-conf' );
-            J.extend( config, J.parseJson( c ) );
+        for( l = attrs.length; i < l; i += 1 ) {
+            if( matches = attrs[i].name.match( /^data-share-([\w\d-_]+)/ ) ) {
+                config[ matches[1] ] = encodeURIComponent( attrs[i].value );
+            }
         }
 
         return config;

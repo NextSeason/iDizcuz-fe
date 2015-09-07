@@ -29,7 +29,6 @@ J.Package( {
         $( '.post-list' ).html( '' );
 
         $( '.loading.list-bottom' ).show();
-        console.log( this.topic );
 
         $.ajax( {
             url : '/topic/interface/getposts',
@@ -140,6 +139,7 @@ J.Package( {
 
     render : function( posts ) {
         var html = this.compiledTpl( { data : posts } );
+
         $( '.post-list' ).append( html );
     },
 
