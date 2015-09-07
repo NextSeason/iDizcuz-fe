@@ -2,49 +2,43 @@
 @import "variables";
 
 #idizcuz {
-    border-top : solid 3px $brandColor;
-    .main {
-        position : relative;
-        margin-top : 40px;
-        .sidebar {
-            position : fixed;
-            top : 3px;
-            bottom : 0;
-            width : 180px;
-            background : $brandColor;
-            overflow : auto;
-            a {
-                color : #FFF;
-                display : block;
-                height : 40px;
-                line-height : 40px;
-                padding-left : 15px;
-                border-bottom : solid 1px $darkBrandColor;
-                &:hover {
-                    text-decoration : none;
-                    background : $darkBrandColor;
-                }
-                &.focus {
-                    color : $brandColor;
-                    background : #FFF;
-                }
+    > .aside {
+        float : left;
+        margin : 0;
+        width : 180px;
+        background : $brandColor;
+        a {
+            color : #FFF;
+            display : block;
+            height : 40px;
+            line-height : 40px;
+            padding-left : 15px;
+            border-bottom : solid 1px $darkBrandColor;
+            &:hover {
+                text-decoration : none;
+                background : $darkBrandColor;
             }
-            li {
-                display : block;
-                ul {
-                    li {
-                        a {
-                            padding-left : 25px;
-                        }
+            &.focus {
+                color : $brandColor;
+                background : #FFF;
+            }
+        }
+        li {
+            display : block;
+            ul {
+                li {
+                    a {
+                        padding-left : 25px;
                     }
                 }
             }
-            i.flip {
-                @include transform( rotateY( 180deg ) );
-            }
         }
-        .core {
-            margin-left : 180px;
+        i.flip {
+            @include transform( rotateY( 180deg ) );
         }
+    }
+    .main {
+        position : relative;
+        margin-top : 40px;
     }
 }

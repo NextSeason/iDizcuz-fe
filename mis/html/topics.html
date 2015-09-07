@@ -8,11 +8,10 @@
     </head>
     <body>
         <div id="idizcuz">
+            @Include::sidebar.inc.html
             <div class="main">
-                @Include::sidebar.inc.html
-                <div class="core">
-                    <ul class="topics-list">
-                        <?php foreach( $topics as $topic ) { ?>
+                <ul class="topics-list">
+                    <?php foreach( $topics as $topic ) { ?>
                         <li class="topics" data-topic-id="<?php echo $topic['id']; ?>" id="topic-<?php echo $topic['id']; ?>">
                             <div class="inner">
                                 <div class="topline clearfix">
@@ -46,9 +45,8 @@
                                 </div>
                             </div>
                         </li>
-                        <?php } ?>
-                    </ul>
-                </div>
+                    <?php } ?>
+                </ul>
             </div>
         </div>
         <script>

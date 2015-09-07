@@ -10,6 +10,8 @@
                 line-height : 40px;
                 background : #FAFAFA;
                 border-left : solid 3px $brandColor;
+                padding-left : 20px;
+                font-size : 12px;
                 .op {
                     margin : 0 10px;
                 }
@@ -17,9 +19,9 @@
                     color : #999;
                 }
                 .post-title {
-                    padding-left : 20px;
+                    margin-right : 20px;
                     b {
-                        color : #000;
+                        color : #999;
                     }
                     &:hover {
                         text-decoration : none;
@@ -31,6 +33,17 @@
                         line-height : 16px;
                         padding : 0 5px;
                         display : inline-block;
+                    }
+                }
+                .account,
+                .target_account {
+                    color : #666;
+                    margin-right : 20px;
+                    b {
+                        color : #999;
+                    }
+                    &:hover {
+                        text-decoration : none;
                     }
                 }
             }
