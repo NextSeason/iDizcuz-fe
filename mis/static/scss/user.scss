@@ -1,0 +1,18 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    >.main {
+        padding : 20px;
+    }
+    form.search {
+        input[type=search] {
+            width : 100%;
+        }
+    }
+     .not-exists {
+        color : #999;
+        text-align : center;
+        margin-top : 50px;
+    }
+} 

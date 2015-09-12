@@ -42,7 +42,7 @@ J.Package( {
 
             $( this ).hide();
             $( 'form.forget .resend-btn' ).css( 'display', 'inline-block' );
-            me.restartTimer( $( 'form.forget .resend-btn' ) );
+            me.restartTimer();
         } );
 
         $( 'form.forget .resend-btn' ).on( 'click', function( e ) {
@@ -50,7 +50,7 @@ J.Package( {
             if( $( this ).hasClass( 'disabled' ) ) return false;
 
             me.sendVcode();
-            me.restartTimer( $( 'form.forget .resend-btn' ) );
+            me.restartTimer();
         } );
 
         $( 'form.forget .forget-btn' ).on( 'click', function( e ) {
@@ -102,11 +102,14 @@ J.Package( {
             me.restartTimer( '1s' );
         } );
     },
-    restartTimer : function( elem ) {
+    restartTimer : function( time ) {
         var interval = null,
+            elem = $( 'form.forget .resend-btn' ),
             timer = elem.find( '.timer' );
 
-        timer.html( '60s' );
+        time = time || '60s';
+
+        timer.html( time );
 
         elem.addClass( 'disabled' );
         

@@ -4,8 +4,62 @@
 #idizcuz {
     >.main {
         padding : 20px;
+        .parts {
+            margin-bottom : 10px;
+            border : solid 1px #EEE;
+            .topline {
+                background : #FAFAFA;
+                padding : 0 10px;
+                border-bottom : solid 1px #EEE;
+                line-height : 40px;
+            }
+            > div {
+                padding : 10px;
+            }
+        }
         .account-part,
         .target-account-part {
+            > div {
+                span {
+                    margin-right : 20px;
+                    font-size : 13px;
+                    color : #999;
+                    b {
+                        color : #333;
+                    }
+                }
+            }
+        }
+        .post-part {
+            .post-data {
+                padding : 15px 0;
+                span {
+                    margin-right : 20px;
+                    color : #999;
+                    font-size : 13px;
+                    b { color : #333; }
+                }
+            }
+        }
+        .operation-part {
+            border : 0;
+            padding : 10px;
+            .btn-box {
+                .btns {
+                    display : block;
+                    margin-bottom : 20px;
+                }
+            }
+            label {
+                cursor : pointer;
+                display : block;
+                font-size : 13px;
+                line-height : 30px;
+                color : #999;
+                &:hover {
+                    color : #000;
+                }
+            }
         }
     }
 }

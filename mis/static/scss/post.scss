@@ -1,0 +1,56 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    >.main {
+        padding : 20px;
+    }
+    form.search {
+        input[type=search] {
+            width : 100%;
+        }
+    }
+    .not-exists {
+        color : #999;
+        text-align : center;
+        margin-top : 50px;
+    }
+    .post {
+        border : solid 1px #EEE;
+        margin-top : 20px;
+        h2 {
+            background : #FAFAFA;
+            padding-left : 15px;
+            line-height : 40px;
+            font-size : 14px;
+        }
+        .post-data {
+            margin : 0 15px;
+            padding : 15px 0;
+            border-bottom : dashed 1px #EEE;
+            span {
+                margin-right : 20px;
+                color : #999;
+                font-size : 13px;
+                b { color : #333; }
+            }
+        }
+        .contents {
+            padding : 15px;
+        }
+    }
+    .operation-part {
+        margin-top : 20px;
+        .aside {
+            width : auto;
+        }
+        label {
+            display : block;
+            line-height : 30px;
+            color : #999;
+            &:hover {
+                color : #333;
+            }
+        }
+    }
+}

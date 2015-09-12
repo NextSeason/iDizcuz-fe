@@ -37,8 +37,13 @@
             @include transform( rotateY( 180deg ) );
         }
     }
-    .main {
+    > .main {
         position : relative;
         margin-top : 40px;
+    }
+    .empty {
+        line-height : 100px;
+        text-align : center;
+        color : #999;
     }
 }

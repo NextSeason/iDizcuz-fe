@@ -1,0 +1,18 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    .page-not-found {
+        width : 500px;
+        border : solid 1px #EEE;
+        padding : 20px;
+        margin : 50px auto;
+        h3 {
+            font-size : 20px;
+        }
+        p {
+            font-size : 14px;
+            margin-top : 5px;
+        }
+    }
+}
