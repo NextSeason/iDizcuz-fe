@@ -286,6 +286,7 @@ textarea {
     border : solid 1px #B9B9B9;
     display : inline-block;
     padding-left : 10px;
+    vertical-align : middle;
     @include border-radius( 0 );
     @include box-sizing( border-box );
     @include appearance( none );

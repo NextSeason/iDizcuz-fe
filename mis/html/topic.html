@@ -27,8 +27,8 @@
                     <div class="line clearfix">
                         <label>
                             <p class="s-title">类型：</p>
-                            <div class="styled-select">
-                                <?php $type = $topic['id'] != 0 ? $topic['data']['type'] : 0; ?>
+                            <?php $type = $topic['id'] != 0 ? $topic['data']['type'] : 0; ?>
+                            <div class="select-helper">
                                 <select class="type">
                                     <option value="2" <?php echo $type == 0 ? 'selected' : '' ?>>讨论类型</option>
                                     <option value="1" <?php echo $type == 1 ? 'selected' : '' ?>>辩论类型</option>
@@ -37,7 +37,7 @@
                         </label>
                         <label>
                             <p class="s-title">领域：</p>
-                            <div class="styled-select">
+                            <div class="select-helper">
                                 <select class="cid">
                                     <?php foreach( $categories as $k => $v ) { ?>
                                         <option value="<?php echo $k; ?>" <?php if( isset( $topic['data']['cid'] ) && $k == $topic['data']['cid'] ) { echo 'selected'; } ?>><?php echo $v; ?></option>

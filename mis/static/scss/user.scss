@@ -2,6 +2,10 @@
 @import "variables";
 
 #idizcuz {
+    .send-message {
+        display : block;
+        width : 160px;
+    }
     >.main {
         padding : 20px;
     }
@@ -14,5 +18,48 @@
         color : #999;
         text-align : center;
         margin-top : 50px;
+    }
+
+    .user {
+        margin-top : 20px;
+        > .aside {
+            width : auto;
+            float : left;
+            margin : 0 15px 0 0;
+        }
+        .info-boxes {
+            border : solid 1px #EEE;
+            margin-bottom : 20px;
+            .topline {
+                background : #FAFAFA;
+                line-height : 30px;
+                padding : 0 15px;
+                border-bottom : solid 1px #EEE;
+            }
+        }
+        .info-line {
+            font-size : 14px;
+            padding : 0 15px;
+            line-height : 30px;
+            span {
+                margin-right : 20px;
+                color : #999;
+                b {
+                    color : #333;
+                }
+            }
+        }
+    }
+
+    .ban-time-box {
+        padding-left : 15px;
+        label {
+            display : block;
+            line-height : 28px;
+            input[type=text] {
+                height : 26px;
+                line-height : 26px;
+            }
+        }
     }
 } 

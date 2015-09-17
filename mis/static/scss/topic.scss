@@ -51,30 +51,6 @@
                 input[type=text] {
                     width : 800px;
                 }
-                .styled-select {
-                    position : relative;
-                    display : inline-block;
-                    &:after {
-                        content : '\f0dd';
-                        font-family : FontAwesome;
-                        position : absolute;
-                        right : 10px;
-                        top : 10px;
-                        color : #666;
-                    }
-                }
-
-                select {
-                    display : inline-block;
-                    padding : 0 30px 0 10px;
-                    height : 40px;
-                    line-height : 40px;
-                    background : #FFF;
-                    border-radius : 2px;
-                    border : solid 1px #B9B9B9;
-                    @include appearance( none );
-                }
-
                 textarea {
                     width : 800px;
                     height : 400px;

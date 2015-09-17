@@ -86,6 +86,22 @@ body {
             width : 1220px;
             margin : 0 auto;
         }
+        &.ban-tip {
+            background : #F9F6CF;
+            border-bottom : solid 1px #EEE;
+            font-size : 14px;
+            line-height : 30px;
+            padding : 10px 0;
+            text-align : center;
+            p {
+                b {
+                    color : $brandColor;
+                }
+                a {
+                    color : #999;
+                }
+            }
+        }
         &.top {
             height : 59px;
             line-height : 59px;

@@ -1,0 +1,31 @@
+@import "compass/css3";
+@import "variables";
+
+#idizcuz {
+    >.main {
+        padding : 20px; 
+        .rename-record-list {
+            margin-top : 20px;
+            li {
+                margin-bottom : 15px;
+                border : solid 1px #EEE;
+                border-left : solid 3px $brandColor;
+                height : 40px;
+                line-height : 40px;
+                background : #FAFAFA;
+                padding : 0 10px;
+                a, span {
+                    margin : 0 10px;
+                }
+                .op {
+                    font-size : 12px;
+                    float : right;
+                }
+                .ctime {
+                    color : #999;
+                    font-size : 12px;
+                }
+            }
+        }
+    }
+}

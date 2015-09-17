@@ -2,8 +2,11 @@
 @import "variables";
 
 #idizcuz {
-    .report-list {
+    > .main {
         padding : 20px;
+    }
+    .report-list {
+        margin-top : 20px;
         li {
             margin-bottom : 15px;
             .topline {
@@ -12,6 +15,9 @@
                 border-left : solid 3px $brandColor;
                 padding-left : 20px;
                 font-size : 12px;
+                .status {
+                    margin-right : 20px;
+                }
                 .op {
                     margin : 0 10px;
                 }

@@ -29,6 +29,28 @@
                 padding-left : 20px;
                 width : 600px;
             }
+            input.uname {
+                width : 200px;
+                border : 0;
+                border-bottom : solid 1px #EEE;
+            }
+
+            .rename-tip {
+                font-size : 13px;
+                color : #999;
+            }
+
+            .uname {
+                line-height : 40px;
+            }
+
+            .uname-part {
+                line-height : 40px;
+            }
+
+            .uname-modify-part {
+                display : none;
+            }
 
             img.avatar {
                 float : left;
