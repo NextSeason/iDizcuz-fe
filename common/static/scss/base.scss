@@ -278,6 +278,7 @@ input[type=password],
 input[type=date],
 input[type=time],
 input[type=search],
+input[type=number],
 textarea {
     width : 300px;
     height : 40px;
@@ -294,8 +295,15 @@ textarea {
         outline : 0px;
         border-color : $brandColor;
     }   
+    &:disabled {
+        background : #FAFAFA;
+        color : #999;
+    }
     &.small {
         width : 100px;
+    }
+    &.long {
+        width : 600px;
     }
 }
 

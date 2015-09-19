@@ -45,17 +45,37 @@
     }
     .boxes.form {
         padding : 20px;
+        .block {
+            margin-bottom : 20px;
+        }
         .line {
             position : relative;
+            padding : 10px 20px;
+            border-left : solid 3px $brandColor;
+            margin-bottom : 20px;
             .item {
                 margin-right : 20px;
             }
-            .add {
+            .unit-op {
                 font-size : 20px;
-                position : absolute;
-                bottom : 10px;
+                margin-top : 38px; 
+                a {
+                    margin-right : 20px;
+                    &:hover {
+                        text-decoration : none;
+                    }
+                }
             }
         }
         
+    }
+    fieldset {
+        margin-bottom : 20px;
+        border : solid 1px #EEE;
+        padding : 20px;
+        display : inline-block;
+        legend {
+            padding : 0 10px;
+        }
     }
 }

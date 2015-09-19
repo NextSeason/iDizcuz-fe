@@ -9,29 +9,78 @@
         <div id="idizcuz">
             @Include::top.inc.html
             <div class="boxes crumb">
-                <span>PC端首页</span>
-                <span>&gt;</span>
-                <span>Banner轮播图</span>
+                <span>PC端首页</span> <span>•</span> <span>Banner轮播图</span>
             </div>
             <div class="boxes form">
                 <form>
-                    <div class="block">
-                        <div class="line clearfix copy-unit">
-                            <div class="item l">
-                                <p>图片地址：</p>
-                                <input type="text" placeholder="输入图片地址" />
+                    <?php $alias = 'pc-home-slides'; ?>
+                    @Include::alias.inc.html
+                    <div class="block content">
+                        <?php 
+                            $slides = $fragment['content']['slides'];
+                            foreach( $slides as $slide ) {
+                        ?>
+                            <div class="line clearfix unit">
+                                <div class="item l">
+                                    <p>图片地址：</p>
+                                    <input type="text" class="src" placeholder="输入图片地址" value="<?php echo htmlspecialchars( $slide['src'] ); ?>" />
+                                </div>
+                                <div class="item l">
+                                    <p>图片链接：</p>
+                                    <input type="text" class="link" placeholder="输入图片链接" value="<?php echo htmlspecialchars( $slide['link'] ); ?>" />
+                                </div>
+                                <div class="item l">
+                                    <p>图片title：</p>
+                                    <input type="text" class="title" placeholder="输入图片title" value="<?php echo htmlspecialchars( $slide['title'] ); ?>" />
+                                </div>
+                                <div class="unit-op l">
+                                    <a href="###" class="add-unit" data-unit-tpl="slide-unit-tpl">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                    <a href="###" class="del-unit">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="item l">
-                                <p>图片链接：</p>
-                                <input type="text" placeholder="输入图片链接" />
-                            </div>
-                            <a href="###" class="add">
-                                <i class="fa fa-plus"></i>
-                            </a>
-                        </div>
+                        <?php } ?>
                     </div>
+                    @Include::btns.inc.html
                 </form>
             </div>
+            <textarea class="templates" id="slide-unit-tpl">
+                <div class="line clearfix unit">
+                    <div class="item l">
+                        <p>图片地址：</p>
+                        <input type="text" class="src" placeholder="输入图片地址" />
+                    </div>
+                    <div class="item l">
+                        <p>图片链接：</p>
+                        <input type="text" class="link" placeholder="输入图片链接" />
+                    </div>
+                    <div class="item l">
+                        <p>图片title：</p>
+                        <input type="text" class="title" placeholder="输入图片title" />
+                    </div>
+                    <div class="unit-op l">
+                        <a href="###" class="add-unit" data-unit-tpl="slide-unit-tpl">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                        <a href="###" class="del-unit">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+            </textarea>
         </div>
+        <script>
+            var fms = new J();
+
+            fms.mount( 'fms', '@Package::FMS', {
+                getData : function( form ) {
+                    var res = {};
+                    return res;
+                }
+            } );
+        </script>
     </body>
 </html>

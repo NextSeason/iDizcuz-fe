@@ -547,7 +547,8 @@ jSwitch.Loader = ( function() {
         jSwitch.mountQueue.push( name );
 
         var instantPackage = function( Package ) {
-            var pkg = new Package( options ); 
+            var pkg = new Package( options ),
+                option; 
 
             pkg.parent = me;
             pkg.name = name;
@@ -563,6 +564,10 @@ jSwitch.Loader = ( function() {
             pkg.dispatchEvent( 'mount', {
                 dispatcher : this
             } );
+
+            for( option in options ) {
+                pkg[ option ] = options[ option ];
+            }
 
             pkg.initialize && pkg.initialize( options );
             pkg.loadSources && pkg.loadSources( pkg.sources );
