@@ -150,7 +150,7 @@ module.exports = function( grunt ) {
             include : {
                 options : {
                     patterns : [ {
-                        match : /@Include::([\w\.\/]+)(?:::([\w\.\/]+))?/g,
+                        match : /@Include::([\w\.\/\-\_]+)(?:::([\w\.\/\-\_]+))?/g,
                         replacement : function() {
                             /**
                              * @Include::MODULE::SRC - @Include::common::head.inc.html - <?php include TPL_PATH . '/common/head.inc.html'; ?>

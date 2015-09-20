@@ -23,6 +23,7 @@ J.Package( {
 
         this.container.on( 'submit', 'form', function( e ) {
             e.preventDefault();
+            if( !window.confirm( '确定保存内容？' ) ) return false;
             me.save( $( this ) );
         } );
     },
@@ -35,6 +36,8 @@ J.Package( {
             alert( '数据错误' );
             return false;
         }
+
+        console.log( 'sent data', data );
 
         $.ajax( {
             url : '/fms/interface/save',
@@ -62,6 +65,8 @@ J.Package( {
     val : function( el, type ) {
         var value = $.trim( el.val() );
 
+        if( !value.length ) return '';
+
         switch( type ) {
             case 'link' : 
                 if( !/^https?:\/\/.*/.test( value ) ) {
@@ -73,6 +78,5 @@ J.Package( {
                 return value;
                 break;
         }
-
     }
 } );
