@@ -1,38 +1,29 @@
 J.Package( {
     initialize : function( options ) {
-        this.blocks = options.blocks;
-
         this.compliedTpl = J.template( $( '#hot-posts-tpl' ).val() );
-
         this.action();
     },
     action : function() {
-        var i = 0,
-            l = this.blocks.length;
-
-        for( ; i < l; i += 1 ) {
-            this.load( this.blocks[i] );
-        }
+        this.load();
     },
-    load : function( params ) {
+    load : function() {
         var me = this;
         $.ajax( {
             url : '/home/interface/hotposts',
             data : {
-                topic_id : params.topic_id,
-                rn : params.rn
+                topic_id : this.topic_id,
+                rn : this.rn
             }
         } ).done( function( response ) {
             var errno = +response.errno;
-
             if( !errno ) {
-                me.render( params.container, response.data.posts );
+                me.render( response.data.posts );
             }
         } );
     },
-    render : function( container, data ) {
+    render : function( data ) {
         var html = this.compliedTpl( { data : this.formatData( data ) } );
-        container.html( html );
+        $( '.hot-post-list-' + this.topic_id ).html( html );
     },
     formatData : function( data ) {
         var i = 0,
@@ -44,7 +35,6 @@ J.Package( {
                 data[i].shortTitle += '...';
             }
         }
-
         return data;
     }
 } );

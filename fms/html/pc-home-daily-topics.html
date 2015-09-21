@@ -17,6 +17,7 @@
                     @Include::alias.inc.html
                     <div class="block content">
                         <?php 
+                            $fragment = \FMS\Api::getFragmentByAlias( $alias );
                             $topics = $fragment['content']['topics'];
                             foreach( $topics as $topic ) {
                         ?>

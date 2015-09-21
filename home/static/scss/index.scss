@@ -288,71 +288,69 @@
 
     .boxes.focus-box {
         margin-top : 15px;
-        .topic-area {
-            .topics {
-                position : relative;
-                margin-top : 15px;
-                padding : 10px;
-                border : solid 1px #EEE;
-                @include box-sizing( border-box );
-                h3 {
-                    .seal {
-                        vertical-align : 1px;
+        .blocks {
+            margin-top : 15px;
+        }
+        .topics {
+            position : relative;
+            margin-top : 15px;
+            padding : 10px 10px 30px;
+            border : solid 1px #EEE;
+            @include box-sizing( border-box );
+            h3 {
+                .seal {
+                    vertical-align : 1px;
+                }
+                a {
+                    color : #333;
+                    &:hover {
+                        text-decoration : none;
                     }
-                    a {
-                        color : #333;
-                        &:hover {
-                            text-decoration : none;
-                        }
-                    }
-                }
-                .data-line {
-                }
-                .desc {
-                    margin-top : 10px;
-                    line-height : 1.5em;
-                    p {
-                        text-indent : 2em;
-                    }
-                }
-                .point-list {
-                    .points {
-                        line-height : 26px;
-                        border-left : solid 3px $brandColor;
-                        margin-top : 15px;
-                        padding-left : 10px;
-                        .flags {
-                            font-size : 16px;
-                            font-style : italic;
-                            margin-right : 3px;
-                            &.flag-1 {
-                                color : #E9733C;
-                            }
-                            &.flag-2 {
-                                color : #3BA1E0;
-                            }
-                            &.flag-3 {
-                                color : $brandColor;
-                            }
-                        }
-                    }
-                }
-                .chart {
-                    height : 240px;
-                    width : 300px;
-                }
-                .chart-legend {
-                    text-align : center;
-                    font-size : 12px;
-                }
-                .view {
-                    position : absolute;
-                    bottom : 10px;
-                    font-size : 13px;
                 }
             }
+            .desc {
+                margin-top : 10px;
+                line-height : 1.5em;
+                p {
+                    text-indent : 2em;
+                }
+            }
+            .point-list {
+                .points {
+                    line-height : 26px;
+                    border-left : solid 3px $brandColor;
+                    margin-top : 15px;
+                    padding-left : 10px;
+                    .flags {
+                        font-size : 16px;
+                        font-style : italic;
+                        margin-right : 3px;
+                        &.flag-1 {
+                            color : #E9733C;
+                        }
+                        &.flag-2 {
+                            color : #3BA1E0;
+                        }
+                        &.flag-3 {
+                            color : $brandColor;
+                        }
+                    }
+                }
+            }
+            .chart {
+                height : 240px;
+                width : 300px;
+            }
+            .chart-legend {
+                text-align : center;
+                font-size : 12px;
+            }
+            .view {
+                position : absolute;
+                bottom : 10px;
+                font-size : 13px;
+            }
         }
-
     }
     .boxes.topic-box {
         margin-top : 15px;
@@ -386,12 +384,10 @@
                 }
             }
         }
-
     }
     ul.post-list {
-        margin-top : 15px;
         li {
-            height : 65px;
+            height : 55px;
             h4 {
                 a {
                     line-height : 30px;
@@ -508,6 +504,5 @@
             .topics {
             }
         }
-        
     }
 }

@@ -13,6 +13,9 @@
             &.logo {
                 font-size : 24px;
                 font-weight : bold;
+                &:hover {
+                    text-decoration : none;
+                }
             }
             &.list {
                 font-size : 1.5em;
@@ -25,6 +28,7 @@
     .boxes.list {
         padding : 20px;
         .blocks {
+            margin-bottom : 20px;
             > .aside {
                 text-align : right;
                 float : left;

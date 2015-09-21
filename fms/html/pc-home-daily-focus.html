@@ -17,6 +17,7 @@
                     @Include::alias.inc.html
                     <div class="block content">
                         <?php 
+                            $fragment = \FMS\Api::getFragmentByAlias( $alias );
                             $content = $fragment['content'];
                             $debate = $content['debate'];
                             $discuss = $content['discuss'];
@@ -24,6 +25,10 @@
                         <fieldset class="debate">
                             <legend> 辩论话题 </legend>
                             <div class="clearfix line">
+                                <div class="item l">
+                                    <p>话题ID：</p>
+                                    <input type="text" class="topic_id small" value="<?php echo $debate['topic_id']; ?>" placeholder="话题ID" />
+                                </div>
                                 <div class="item l">
                                     <p>话题标题：</p>
                                     <input type="text" class="title long" value="<?php echo htmlspecialchars( $debate['title'] ); ?>" placeholder="请输入辩论话题标题" />
@@ -58,12 +63,16 @@
                             <legend> 讨论话题 </legend>
                             <div class="clearfix line">
                                 <div class="item l">
+                                    <p>话题ID：</p>
+                                    <input type="text" class="topic_id small" value="<?php echo $discuss['topic_id']; ?>" placeholder="话题ID" />
+                                </div>
+                                <div class="item l">
                                     <p>话题标题：</p>
                                     <input type="text" class="title long" value="<?php echo htmlspecialchars( $discuss['title'] ); ?>" placeholder="请输入辩论话题标题" />
                                 </div>
                                 <div class="item l">
                                     <p>话题链接：</p>
-                                    <input type="text" class="url" value="<?php echo htmlspecialchars( $discuss['title'] ); ?>" placeholder="eg. http://www.idizcuz.com/topic/285738248" />
+                                    <input type="text" class="url" value="<?php echo htmlspecialchars( $discuss['url'] ); ?>" placeholder="eg. http://www.idizcuz.com/topic/285738248" />
                                 </div>
                                 <div class="item l">
                                     <p>热门论述展示数：</p>
@@ -112,6 +121,7 @@
                     res.debate = {
                         title : this.val( debate.find( 'input.title' ) ),
                         url : this.val( debate.find( 'input.url' ), 'link' ),
+                        topic_id : this.val( debate.find( 'input.topic_id' ) ),
                         post_num : this.val( debate.find( 'input.post_num' ) ),
                         points : []
                     };
@@ -125,6 +135,7 @@
                         title : this.val( discuss.find( 'input.title' ) ),
                         desc : this.val( discuss.find( 'textarea.desc' ) ),
                         url : this.val( discuss.find( 'input.url' ), 'link' ),
+                        topic_id : this.val( discuss.find( 'input.topic_id' ) ),
                         post_num : this.val( discuss.find( 'input.post_num' ) )
                     };
 

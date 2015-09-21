@@ -17,6 +17,7 @@
                     @Include::alias.inc.html
                     <div class="block content">
                         <?php 
+                            $fragment = \FMS\Api::getFragmentByAlias( $alias );
                             $slides = $fragment['content']['slides'];
                             foreach( $slides as $slide ) {
                         ?>
