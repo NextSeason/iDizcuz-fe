@@ -15,9 +15,12 @@
 
             <div class="boxes body clearfix">
                 <div class="inner">
-                    <div class="aside"F>
-                        <h2>最近加入</h2>
-                        <ul class="new-account-list"></ul>
+                    <div class="aside">
+                        <?php if( $account ) { ?>
+                            @Include::common::userpages.inc.html
+                        <?php } else { ?>
+                            @Include::common::signin.inc.html
+                        <?php } ?>
                     </div>
                     <div class="main main-part">
                         <ul class="new-post-list"></ul>
@@ -77,7 +80,6 @@
         <script>
             var idizcuz = new J();
             idizcuz.mount( 'posts', '@Package::Posts' );
-            idizcuz.mount( 'accounts', '@Package::Accounts' );
 
             idizcuz.mount( 'operate', '@Package::common::PostOperate', {
                 signin : +'<?php echo $account ? 1 : 0; ?>',

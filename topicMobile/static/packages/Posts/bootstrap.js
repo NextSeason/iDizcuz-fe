@@ -18,7 +18,7 @@ J.Package( {
         // how many posts been displayed in one time
         this.slice = 1;
 
-        this.rn = 2;
+        this.rn = 20;
 
         this.pn = 1;
 
@@ -40,8 +40,8 @@ J.Package( {
         $.ajax( {
             url : '/topic/interface/getposts',
             data : {
-                topic : this.topic,
-                point : point_id,
+                topic_id : this.topic,
+                point_id : point_id,
                 order : order,
                 start : start,
                 rn : this.rn

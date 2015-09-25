@@ -159,6 +159,9 @@ p {
         line-height : 40px;
         font-size : 16px;
     }
+    &.fullsize {
+        width : 100%;
+    }
 
     &.dark {
         background : $normalBackgroundColor;

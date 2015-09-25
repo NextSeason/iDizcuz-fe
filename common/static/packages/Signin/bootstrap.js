@@ -1,34 +1,28 @@
 J.Package( {
     initialize : function() {
-        this.container = $( '#signin-dialog' );
-        this.form = this.container.find( 'form.global-signin' );
+        this.container = $( '.sign-box' );
+        this.submiting = false;
         this.bindEvent();
     },
     bindEvent : function() {
         var me = this;
-        this.form.on( 'submit', function( e ) {
+        this.container.find( 'form.signin' ).on( 'submit', function( e ) {
             e.preventDefault();
-            me.signin();
-        } );
 
-        this.container.find( '.close' ).on( 'click', function( e ) {
-            e.preventDefault();
-            me.container.hide();
+            if( this.submiting ) return false;
+
+            me.signin();
         } );
     },
     signin : function() {
-        var me = this;
-        var email = this.form.find( 'input.email' ).val(),
-            passwd = this.form.find( 'input.passwd' ).val(),
-            remember = +this.form.find( 'input.remember' ).get(0).checked;
+        var me = this,
+            email = this.container.find( 'form.signin input.email' ).val(),
+            passwd = this.container.find( 'form.signin input.passwd' ).val(),
+            remember = +this.container.find( 'form.signin input.remember' ).get(0).checked;
 
-        if( !/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test( email ) ) {
-            return false;
-        }
+        if( !/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test( email ) || !passwd.length ) return false;
 
-        if( !passwd.length ) {
-            return false;
-        }
+        this.submiting = true;
 
         $.ajax( {
             url : '/account/interface/signin',
@@ -40,22 +34,29 @@ J.Package( {
                 'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
-            var errno = +response.errno;
+            var errno = +response.errno,
+                tip = me.container.find( '.signin-tip' );
+
+            me.submiting = false;
 
             if( !errno ) {
                 location.reload();
                 return false;
             }
-
-            if( errno == 7 ) {
-                me.container.find( '.signin-tip' ).html( '用户帐号或密码错误' ).show();
-            } else if( errno == 6 ) {
-                me.container.find( '.signin-tip' ).html( '用户帐号不存在' ).show();
-            } else {
-                me.container.find( '.signin-tip' ).html( '系统错误' ).show();
+            switch( errno ) {
+                case 7 :
+                    tip.html( '用户名或密码错误' ).show();
+                    break;
+                case 6 :
+                    tip.html( '用户名不存在' ).show();
+                    break;
+                default :
+                    tip.html( '系统错误' ).show();
+                    break;
             }
-
-
+        } ).fail( function() {
+            tip.html( '系统错误' ).show();
+            me.submiting = false;
         } );
     }
 } );

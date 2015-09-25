@@ -5,8 +5,7 @@ J.Package( {
         this.navContainer = $( '.slide-nav' );
         this.nav = this.createNav();
         this.timeout = null;
-        this.bindEvent();
-        this.loop();
+        this.bindEvent().loop();
     },
     createNav : function() {
         var i = 0,
@@ -19,7 +18,6 @@ J.Package( {
         }
 
         node = $( html );
-
         node.eq( 0 ).addClass( 'focus' );
         this.navContainer.append( node );
         return node;
@@ -27,21 +25,20 @@ J.Package( {
     loop : function() {
         var me = this;
         this.timeout = setTimeout( function() {
-            me.to( me.current + 1 );
-            me.loop();
+            me.to( me.current + 1 ).loop();
         }, 5000 );
     },
     to : function( i ) {
         console.log( i );
         if( i >= this.list.length ) {
             this.to( 0 );
-            return false;
+            return this;
         }
-        this.list.eq( this.current ).css( 'opacity', 0 );
+        this.list.eq( this.current ).css( 'opacity', 0 ).css( 'z-index', 1 );
         this.current = i;
-        this.list.eq( i ).css( 'opacity', 1 );
-        console.log( 'nav', this.nav );
+        this.list.eq( i ).css( 'opacity', 1 ).css( 'z-index', 100 );
         this.nav.removeClass( 'focus' ).eq(i).addClass( 'focus' );
+        return this;
     },
     bindEvent : function() {
         var me = this;
@@ -57,5 +54,6 @@ J.Package( {
             var i = $( this ).attr( 'data-index' );
             me.to( i );
         } );
+        return this;
     }
 } );

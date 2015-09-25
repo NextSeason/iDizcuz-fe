@@ -53,38 +53,7 @@
                                 </div>
                             </div>
                         <?php } else { ?>
-                            <a href="/signup" class="btns join-btn">加入每日论点 • iDizcuz</a>
-                            <div class="sign-box">
-                                <form class="signin">
-                                    <span class="signin-tip">用户名或密码错误！</span>
-                                    <p class="tt">帐号登录</p>
-                                    <div class="line">
-                                        <input type="text" class="email" placeholder="邮箱">
-                                    </div>
-                                    <div class="line">
-                                        <input type="password" class="passwd" placeholder="密码">
-                                    </div>
-                                    <div class="line">
-                                        <p class="tip"></p>
-                                    </div>
-                                    <div class="line">
-                                        <label>
-                                            <input type="checkbox" class="remember" />
-                                            <span>记住我</span>
-                                        </label> 
-                                        <span class="sp">|</span>
-                                        <a href="/forget?r=http://www.idizcuz.com" class="redirect forget">忘记密码？</a>
-                                        <span class="sp">|</span>
-                                        <a href="/signup?r=http://www.idizcuz.com" class="redirect">注册</a>
-                                    </div>
-                                    <div class="line">
-                                        <input type="submit" class="btns larger signin-btn" value="登录">
-                                    </div>
-                                </form>
-                                <script>
-                                    new J().mount( 'Signin', '@Package::Signin', {} );
-                                </script>
-                            </div>
+                            @Include::common::signin.inc.html
                         <?php } ?>
                     </div>
                     <div class="main clearfix" >
@@ -103,12 +72,15 @@
                         <div class="middle-area main">
                             <div class="slide-area">
                                 <ul class="slide-list">
+                                    <?php 
+                                        $fragment = \FMS\Api::getFragmentByAlias( 'pc-home-slides' );
+                                        $slides = $fragment['content']['slides'];
+                                        foreach( $slides as $slide ) {
+                                    ?>
                                     <li>
-                                        <a href="###" style="background-image:url(http://img.baidu.com/img/iknow/wenku/aaaa704x272-2.jpg)"></a>
+                                        <a href="<?php echo $slide['link']; ?>" target="_blank" title="<?php echo htmlspecialchars( $slide['title'] ); ?>" style="background-image:url(<?php echo $slide['src']; ?>)"></a>
                                     </li>
-                                    <li>
-                                        <a href="###" style="background-image:url(http://img.baidu.com/img/iknow/wenku/xuanshang_704x272.jpg)"></a>
-                                    </li>
+                                    <?php } ?>
                                 </ul>
                                 <ul class="slide-nav"></ul>
                             </div>
@@ -234,13 +206,20 @@
                     <div class="main topic-area">
                         <h2 class="hd">今日话题</h2>
                         <ul class="clearfix">
-                            <li class="topics">
-                                <a href="###" class="cate btns small dark">经济</a>
-                                <h3><span class="seal seal-2"></span> <a href="###">经济学的一个话题，我们一起来讨论</a></h3>
-                                <div class="desc">
-                                    <p>近期，各种青少年犯罪的新闻和视频被曝出，其中很多手段恶劣到让我们难以想象。有人认为这种现象只是随着互联网和媒体的越来越发达，更多的相关事件被暴光在众。</p>
-                                </div>
-                            </li>
+                            <?php 
+                                $fragment = \FMS\Api::getFragmentByAlias( 'pc-home-daily-topics' );
+                                $topics = $fragment['content']['topics'];
+                                $categories = \Local\Utils::loadConf( 'categories', 'list' );
+                                foreach( $topics as $topic ) {
+                            ?>
+                                <li class="topics">
+                                    <a href="/list/<?php echo $topic['cid']; ?>" target="_blank" class="cate btns small dark"><?php echo $categories[$topic['cid']]; ?></a>
+                                    <h3><span class="seal seal-<?php echo $topic['type']; ?>"></span> <a href="<?php echo $topic['url']; ?>" target="_blank"><?php echo htmlspecialchars( $topic['title'] ); ?></a></h3>
+                                    <div class="desc">
+                                        <p><?php echo htmlspecialchars( $topic['desc'] ); ?></p>
+                                    </div>
+                                </li>
+                            <?php } ?>
                         </ul>
 
                     </div>

@@ -22,8 +22,9 @@
                             <?php if( isset( $topic ) ) { ?>
                                 <a href="###" class="btns large show-editor">发表我的论述</a>
                             <?php } ?>
+                            @Include::common::userpages.inc.html
                         <?php } else { ?>
-                            <a href="/account/page/signup" class="btns large signup">加入每日论点 • iDizcuz</a>
+                            @Include::common::signin.inc.html
                         <?php } ?>
                     </div>
                     <div class="topic-area main" data-topic-id="<?php echo $topic[ 'id' ]; ?>">

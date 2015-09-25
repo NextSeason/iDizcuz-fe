@@ -13,7 +13,12 @@
             <div class="boxes body">
                 <div class="inner clearfix">
                     <div class="aside">
-                        <a href="###" class="btns large show-editor">查看所在论述</a>
+                        <a href="/topic/<?php echo $topic['id']; ?>" class="btns large fullsize">查看所在论述</a>
+                        <?php if( $account ) { ?>
+                            @Include::common::userpages.inc.html
+                        <?php } else { ?>
+                            @Include::common::signin.inc.html
+                        <?php } ?>
                     </div>
                     <div class="main">
                         <div class="article">

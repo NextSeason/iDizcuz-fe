@@ -16,6 +16,7 @@ J.Package( {
         } );
 
         this.container.on( 'click', '.del-unit', function( e ) {
+            e.preventDefault();
             var lines = $( this ).closest( '.block' ).find( '.unit' );
             if( lines.length == 1 ) return false;
             $( this ).closest( '.unit' ).remove();

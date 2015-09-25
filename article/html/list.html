@@ -12,7 +12,14 @@
             @Include::common::top.inc.html
             <div class="boxes body">
                 <div class="inner">
-                    <div class="aside"></div>
+                    <div class="aside">
+                        <?php if( $account ) { ?>
+                            <a href="/topic/<?php echo $topic['id']; ?>" class="btns large fullsize">查看所在论述</a>
+                            @Include::common::userpages.inc.html
+                        <?php } else { ?>
+                            @Include::common::signin.inc.html
+                        <?php } ?>
+                    </div>
                     <div class="main">
                         <?php if( !empty( $topic ) ) { ?>
                             <div class="topic-area">
