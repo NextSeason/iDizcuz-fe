@@ -333,10 +333,12 @@ body {
     .rich-text {
         word-wrap : break-word;
         word-break : break-all;
+        h1, h2, h3,
         b {
             font-weight : bold!important;
+            color : #000;
         }
-        img {
+        img, video, embed, iframe {
             max-width : 100%; 
             max-width : 965px;
             margin : 10px 0;

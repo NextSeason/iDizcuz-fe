@@ -5,6 +5,7 @@
         .hd {
             padding : 5px;
             background : #FAFAFA;
+            border-bottom : solid 1px #EEE;
             h1 {
                 font-size : 17px;
                 line-height : 1.5em;
@@ -27,6 +28,9 @@
             p {
                 text-indent : 2em;
                 margin : 5px 0;
+                img {
+                    margin-left : -2em;
+                }
             }
             h1, h2, h3 {
                 font-weight : bold!important;

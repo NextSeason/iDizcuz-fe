@@ -152,6 +152,8 @@ J.Package( {
                     me.setWarn( '验证码不正确' );
                     me.refreshImageCode();
                     break;
+                case 8 :
+                    me.setWarn( '您的帐号已经被封禁，暂时无法发布论述' );
                 case 1 :
                 default :
                     me.setWarn( '系统错误，请稍候再试' );

@@ -134,10 +134,13 @@ html, body {
         b {
             font-weight : bold!important;
         }
-        img {
+        img, video, embed, iframe {
             max-width : 100%; 
-            margin : 10px 0;
+            margin : 10px 0 0 -2em;
         }   
+        iframe, object, videw {
+            max-height : 160px;
+        }
         ol {
             li {
                 line-height : 1.5em;

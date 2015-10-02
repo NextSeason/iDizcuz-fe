@@ -13,6 +13,9 @@
         margin-top : 10px;
         padding : 10px 5px;
         border-bottom : dashed 1px #EEE;
+        .articles {
+            margin-bottom : 10px;
+        }
         .aside {
             margin : 0 10px 0 0;
             width : 70px;
@@ -32,6 +35,9 @@
         h2 {
             font-size : 14px;
             line-height : 1.4em;
+            a {
+                color : #333;
+            }
         }
         .detail {
             color : #999;

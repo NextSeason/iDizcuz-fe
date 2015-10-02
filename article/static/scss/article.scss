@@ -47,14 +47,18 @@
                     padding : 10px 20px;
                     color : #666;
                     border : dashed 1px #EEE;
-                    line-height : 1.5em;
+                    line-height : 1.8em;
                 }
                 .content {
                     margin-top : 15px;
                     padding : 5px 5px 20px;
                     border-bottom : dashed 1px #EEE;
-                    p {
+                    h1,h2,h3,p {
+                        margin-bottom : 10px;
                         text-indent : 2em;
+                    }
+                    p img {
+                        margin-left : -2em;
                     }
                 }
                 .bridge {
