@@ -5,7 +5,40 @@ J.Package( {
         this.fullFunction = options.fullFunction;
         this.removePostDialog = $( '#remove-post-dialog' );
         this.bindEvent();
+        this.createTip();
     },
+
+    createTip : function() {
+        this.tip = $( [
+            '<div class="bubbles small right">',
+                '<div class="triangle"><div class="triangle"></div></div>',
+                '<div class="inner"><p class="text"></p></div>',
+            '</div>'
+        ].join( '' ) );
+
+        this.tip.css( 'position' , 'absolute' );
+        this.hideTip();
+        $( document.body ).append( this.tip );
+    },
+
+    showTip : function( el, txt ) {
+        var me = this,
+            position = el.offset(),
+            w = el.width();
+
+        this.tip.find( '.text' ).html( txt );
+
+        this.tip.css( 'top', position.top - 4 ).css( 'left', position.left + w + 15 );
+
+        setTimeout( function() {
+            me.hideTip();
+        }, 1500 );
+    },
+
+    hideTip : function() {
+        this.tip.css( 'left', -999 ).css( 'top', -999 );
+    },
+
     bindEvent : function() {
         var me = this;
         this.container.on( 'click', '.op-btn', function( e ) {
@@ -73,9 +106,16 @@ J.Package( {
         } );
     },
     agreeAction : function( el ) {
-        var postEl = this.getPostEl( el ),
+        var me = this,
+            postEl = this.getPostEl( el ),
             postId = postEl.attr( 'data-post-id' ),
-            opinion = el.attr( 'data-intent' );
+            opinion = +el.attr( 'data-intent' ),
+            opinionTxt = opinion ? '支持' : '反对';
+
+        if( +postEl.attr( 'data-is-own' ) ) {
+            this.showTip( el, '您不可以' + opinionTxt + '自己的论述' );
+            return false;
+        }
 
         $.ajax( {
             url : '/topic/interface/vote',
@@ -92,8 +132,16 @@ J.Package( {
                 o;
 
             if( errno ) { 
-                if( errno == 3 ) {
-                    me.redirect();
+                switch( errno ) {
+                    case 12 :
+                        me.showTip( el, '您已经' + opinionTxt + '过这条论述' );
+                        break;
+                    case 3 :
+                        me.redirect();
+                        break;
+                    default : 
+                        me.showTip( el, '系统错误，请稍候再试' );
+                        break;
                 }
                 return false; 
             }

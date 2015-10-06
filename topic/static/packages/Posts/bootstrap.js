@@ -8,8 +8,8 @@ J.Package( {
         this.order = 0;
         this.loading = false;
         this.index = 0;
-        this.rn = 10;
-        this.slice = 5;
+        this.rn = 100;
+        this.slice = 20;
         this.pn = 1;
         this.total = 0;
 

@@ -2,7 +2,7 @@ J.Package( {
     initialize : function( options ) {
         this.userId = options.userId;
         this.compiledTpl = J.template( $( '#post-list-tpl' ).val() );
-        this.rn = 2;
+        this.rn = 20;
         this.url = options.url;
         this.bindEvent();
         this.cursor = 0;

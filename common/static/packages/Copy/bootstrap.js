@@ -2,16 +2,31 @@ J.Package( {
     initialize : function( options ) {
         this.container = options.container || $( '#idizcuz' );
         this.createHelper();
+        this.createTip();
         this.bindEvent();
+        this.target = null;
         this.data;
         this.client = null;
         this.ZeroClipboardContainerId = 'zeroclipboard-html-bridge-' + J.guid();
         this.createClient();
     },
 
+    createTip : function() {
+        this.tip = $( [
+            '<div class="bubbles small right">',
+                '<div class="triangle"><div class="triangle"></div></div>',
+                '<div class="inner"><p class="text">复制成功</p></div>',
+            '</div>'
+        ].join( '' ) );
+
+        this.tip.css( 'position' , 'absolute' );
+        this.hideTip();
+        $( document.body ).append( this.tip );
+    },
+
     createHelper : function() {
         var helper = $( '<a href="javascript:void(0)" class="btns">复制链接</a>' );
-        helper.css( 'position', 'absolute' ).css( 'top', '-999px' ).css( 'left', '-999px' ).css( 'outline', 0 );
+        helper.css( 'position', 'absolute' ).css( 'top', -999 ).css( 'left', -999 ).css( 'outline', 0 ).css( 'opacity', 0 );
         $( 'body' ).append( helper );
         this.helper = helper;
     },
@@ -19,6 +34,8 @@ J.Package( {
     bindEvent : function() {
         var me = this;
         this.container.on( 'mouseenter', '.copy-link', function( e ) {
+            me.target = e.target;
+
             var pos = $( this ).offset(),
                 link = $( this ).parent().find( '.link' ),
                 href = link.attr( 'href' ),
@@ -54,7 +71,24 @@ J.Package( {
                      */
                     $( '#' + me.ZeroClipboardContainerId ).css( 'left', -999 ).css( 'top', -999 );
                 }, 100 );
+
+                me.showTip();
             } );
         } );
+    },
+    showTip : function() {
+        if( !this.target ) return false;
+        var me = this,
+            position = $( this.target ).offset(),
+            w = $( this.target ).width();
+        this.tip.css( 'top', position.top ).css( 'left', position.left + w + 15 );
+
+        setTimeout( function() {
+            me.hideTip();
+        }, 1000 );
+    },
+
+    hideTip : function() {
+        this.tip.css( 'left', -999 ).css( 'top', -999 );
     }
 } );

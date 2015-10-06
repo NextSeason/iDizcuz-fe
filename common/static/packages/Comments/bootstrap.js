@@ -162,6 +162,7 @@ J.Package( {
 
             data = {
                 id : res.comment_id,
+                own : 1,
                 account_id : res.account.id,
                 reply_account_id : accountId,
                 reply_comment_id : commentId,

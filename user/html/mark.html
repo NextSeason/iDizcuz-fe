@@ -58,8 +58,13 @@
                 userId : '<?php echo $user['id']; ?>'
             } );
 
-            idizcuz.mount( 'operate', '@Package::common::PostOperate', {} );
-            idizcuz.mount( 'comments', '@Package::common::Comments', {} );
+            idizcuz.mount( 'operate', '@Package::common::PostOperate', {
+                signin : +'<?php echo $account ? 1 : 0; ?>',
+                fullFunction : false
+            } );
+            idizcuz.mount( 'comments', '@Package::common::Comments', {
+                signin : +'<?php echo $account ? 1 : 0; ?>'
+            } );
             idizcuz.mount( 'share', '@Package::common::Share', {} );
             idizcuz.mount( 'copy', '@Package::common::Copy', {} );
             idizcuz.mount( 'follow', '@Package::common::Follow', {

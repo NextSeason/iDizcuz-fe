@@ -198,6 +198,10 @@ p {
 .bubbles {
     position : relative;
     border : solid 1px #EEE;
+    background : #FFF;
+    &.small {
+        display : inline-block;
+    }
     .close {
         position : absolute;
         color : #999;
@@ -212,16 +216,40 @@ p {
         position : absolute;
         border : solid 10px transparent;
         border-bottom-color : #EEE;
+        width : 0;
+        height : 0;
+        font-size : 0;
         top : -21px;
-        @include transition( left ease-in-out .5s );
         .triangle {
             border-bottom-color : #FFF;
-            bottom : -11px;
+            top : -8px;
             right : -10px;
+        }
+    }
+    &.right {
+        .triangle {
+            border : solid 10px transparent;
+            border-right-color : #EEE;
+            top : 5px;
+            left : -21px;
+            .triangle {
+                border-right-color : #FFF;
+                top : -10px;
+                left : -8px;
+            }
         }
     }
     .inner {
         padding : 10px;
+    }
+    &.small {
+        .inner {
+            padding : 0 10px;
+            line-height : 30px;
+            p {
+                font-size : 13px;
+            }
+        }
     }
 }
 
