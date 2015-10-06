@@ -222,14 +222,18 @@
             &.reply-form {
                 display : none;
             }
-            input.comment {
-                display : block;
+            div.comment {
                 width : 100%;
+                line-height : 30px;
+                min-height : 30px;
+                background : #FFF;
+                border : solid 1px #EEE;
+                padding : 0 10px;
+                outline : 0;
+                @include box-sizing( border-box );
             }
             input.submit {
                 width : 80px; 
-                height : 40px;
-                line-height : 40px;
             }
         }
     }

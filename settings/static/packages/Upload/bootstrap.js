@@ -7,6 +7,9 @@ J.Package( {
             h : 240
         };
 
+        this.canvasWidth = 240;
+        this.canvasHeight = 240;
+
         this.dragging = false;
         this.minSize = {};
         this.maxSize = {};
@@ -27,7 +30,8 @@ J.Package( {
 
     createCanvas : function() {
         var canvas = document.createElement( 'canvas' );
-        canvas.width = canvas.height = 240;
+        canvas.width = this.canvasWidth;
+        canvas.height = this.canvasHeight;
         this.canvasContext = ( this.canvas = canvas ).getContext( '2d' );
     },
 
@@ -97,6 +101,8 @@ J.Package( {
             size = this.imgSize;
 
         image.src = this.img.attr( 'src' ),
+
+        this.canvasContext.clearRect( 0, 0, this.canvasWidth, this.canvasHeight );
 
         image.addEventListener( 'load', function() {
             me.canvasContext.save();

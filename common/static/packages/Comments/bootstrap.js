@@ -53,6 +53,8 @@ J.Package( {
 
         this.container.on( 'submit', '.comment-form', function( e ) {
             e.preventDefault();
+
+            if( $( this ).attr( 'data-submiting' ) == 'true' ) return false;
             me.submit( $( this ) );
         } );
 
@@ -122,10 +124,12 @@ J.Package( {
             postId = postEl.attr( 'data-post-id' ),
             accountId = +el.attr( 'data-account-id' ),
             commentId = el.attr( 'data-comment-id' ),
-            content = el.find( 'input.comment' ).val();
+            content = el.find( '.comment' ).html().replace( '<div>', "\n<div>" );
 
         if( !content.length ) return false;
         if( !commentId ) commentId = 0;
+
+        el.attr( 'data-submiting', 'true' );
 
         $.ajax( {
             url : '/topic/interface/comment',
@@ -140,6 +144,8 @@ J.Package( {
             var errno = +response.errno,
                 data,
                 res;
+
+            el.attr( 'data-submiting', 'false' );
         
             if( errno ) {
                 switch( errno ) {
@@ -159,7 +165,7 @@ J.Package( {
                 account_id : res.account.id,
                 reply_account_id : accountId,
                 reply_comment_id : commentId,
-                content : content,
+                content : res.comment,
                 ctime : '刚刚',
                 account : {
                     id : res.account.id,
@@ -176,10 +182,11 @@ J.Package( {
 
             var html = me.compiledTpl( { data : [ data ] } );
             postEl.find( '.new-comment-list' ).append( html );
-            el.find( '.comment' ).val( '' );
+            el.find( '.comment' ).html( '' );
             accountId && el.hide();
 
         } ).fail( function() {
+            el.attr( 'data-submiting', 'false' );
             alert( '系统错误，请稍候再试' ); 
         } );
 

@@ -41,7 +41,7 @@ J.Package( {
         var html = this.compiledTpl( { data : data } ),
             l = data.length;
 
-        this.cursor = data[ l - 1 ].id;
+        l && ( this.cursor = data[ l - 1 ].id );
 
         $( '.activity-list' ).append( html );
 

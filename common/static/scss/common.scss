@@ -200,12 +200,20 @@ body {
                     }
                     li {
                         line-height : 59px;
-                        width : 150px;
                         background : #FFF;
+                        min-width : 150px;
                         .avatar {
                             width : 24px;
                             height : 24px;
                             vertical-align : middle;
+                        }
+                        .uname {
+                            display : inline-block;
+                            text-overflow : ellipsis;
+                            white-space : nowrap;
+                            overflow : hidden;
+                            vertical-align : middle;
+                            max-width : 120px;
                         }
                         i.unread-msg-remind {
                             display : inline-block;
@@ -222,7 +230,9 @@ body {
                         }
                         a {
                             display : block;
-                            padding-left : 10px;
+                            padding : 0 10px;
+                            height : 59px;
+                            overflow : hidden;
                             &:hover {
                                 text-decoration : none;
                             }
@@ -457,8 +467,8 @@ body {
         }
     }
     .info-box {
-        padding : 3px 0;
         margin-left : 20px;
+        line-height : 18px;
         .uname {
             font-size : 16px;
             color : #333;

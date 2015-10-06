@@ -35,6 +35,11 @@
                 border-bottom : solid 1px #EEE;
             }
 
+            .rename-submit-tip {
+                margin-left : 5px;
+                color : $brandColor;
+            }
+
             .rename-tip {
                 font-size : 13px;
                 color : #999;
@@ -49,6 +54,9 @@
             }
 
             .uname-modify-part {
+                display : none;
+            }
+            .rename-submited {
                 display : none;
             }
 
@@ -154,6 +162,8 @@
                     width : 180px; 
                     cursor : pointer;
                     outline : 0;
+                    margin : 0;
+                    padding : 0;
                 }
             }
         }

@@ -1,12 +1,19 @@
 J.Package( {
     initialize : function( options ) {
         this.container = options.container || $( '#idizcuz' );
+        this.createHelper();
         this.bindEvent();
-        this.helper = $( '#copy-btn' );
         this.data;
         this.client = null;
         this.ZeroClipboardContainerId = 'zeroclipboard-html-bridge-' + J.guid();
         this.createClient();
+    },
+
+    createHelper : function() {
+        var helper = $( '<a href="javascript:void(0)" class="btns">复制链接</a>' );
+        helper.css( 'position', 'absolute' ).css( 'top', '-999px' ).css( 'left', '-999px' ).css( 'outline', 0 );
+        $( 'body' ).append( helper );
+        this.helper = helper;
     },
 
     bindEvent : function() {
@@ -24,7 +31,12 @@ J.Package( {
 
     createClient : function() {
         var me = this;
-        this.client = new ZeroClipboard( $( '#copy-btn' ) );
+
+        ZeroClipboard.config( {
+            containerId : this.ZeroClipboardContainerId
+        } );
+
+        this.client = new ZeroClipboard( this.helper );
 
         this.client.on( "ready", function( readyEvent ) {
             me.client.on( "copy", function( e ) {
