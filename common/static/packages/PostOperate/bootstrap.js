@@ -82,7 +82,7 @@ J.Package( {
 
             $( '.to-line' ).show();
             $( 'input.to' ).val( postId );
-            $( '.to-title' ).html( postEl.find( 'h2' ).html() );
+            $( '.to-title' ).html( postEl.find( 'h2 a' ).html() );
 
             showEditorDialog();
 

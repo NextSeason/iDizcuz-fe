@@ -120,6 +120,18 @@ J.Package( {
         uploadDialog.hide();
     },
 
+    zoom : function() {
+        var val = $( '#upload-dialog input.resize-bar' ).val(),
+            scale = val / 100 * 2 * this.minScale + this.minScale;
+
+        this.resize( scale );
+
+        var x = this.lastPosition.x - ( scale - this.lastScale ) * this.imgSize.w / 2,
+            y = this.lastPosition.y - ( scale - this.lastScale ) * this.imgSize.h / 2;
+            
+        this.reposition( x, y );
+    },
+
     bindEvent : function() {
         var me = this,
             btn = $( '.real-file-btn' ),
@@ -137,15 +149,7 @@ J.Package( {
         } );
 
         uploadDialog.find( 'input.resize-bar' ).on( 'input change', function( e ) {
-            var val = $( this ).val(),
-                scale = val / 100 * 2 * me.minScale + me.minScale;
-
-            me.resize( scale );
-
-            var x = me.lastPosition.x - ( scale - me.lastScale ) * me.imgSize.w / 2,
-                y = me.lastPosition.y - ( scale - me.lastScale ) * me.imgSize.h / 2;
-            
-            me.reposition( x, y );
+            me.zoom();
         } );
 
         uploadDialog.find( '.cancel' ).on( 'click', function( e ) {
@@ -174,6 +178,22 @@ J.Package( {
             };
         } );
 
+        uploadDialog.find( '.zoom-in' ).on( 'click', function( e ) {
+            e.preventDefault();
+            var val = +uploadDialog.find( 'input.resize-bar' ).val();
+            val = Math.min( val + 10, 100 );
+            uploadDialog.find( 'input.resize-bar' ).val( val );
+            me.zoom();
+        } );
+
+        uploadDialog.find( '.zoom-out' ).on( 'click', function( e ) {
+            e.preventDefault();
+            var val = +uploadDialog.find( 'input.resize-bar' ).val();
+            val = Math.max( val - 10, 0 );
+            uploadDialog.find( 'input.resize-bar' ).val( val );
+            me.zoom();
+        } );
+
         uploadDialog.on( 'mousemove', function( e ) {
             if( !me.dragging ) return;
             var left = e.clientX - me.dragPoint.x + me.lastPosition.x,
@@ -194,6 +214,7 @@ J.Package( {
                 me.dragging = false;
             }
         } );
+
     },
 
     readFile : function( file ) {
@@ -202,59 +223,39 @@ J.Package( {
 
         reader.onloadend = function( e ) {
             var res = e.target.result,
-                w, h,
-                minWidth, minHeight,
-                img = $( '<img src=' + res + ' />' );
+                w, h, minWidth, minHeight;
 
-            me.img = img;
+            me.img = $( '<img src=' + res + ' />' );
 
-            $( '#upload-dialog .img-area .inner' ).html( '' ).append( img );
+            me.img.on( 'load', function( e ) {
+                $( '#upload-dialog .img-area .inner' ).html( '' ).append( me.img );
 
-            w = img.width();
-            h = img.height();
+                w = me.img.width();
+                h = me.img.height();
+                me.imgSize = { w : w, h : h  };
 
-            me.imgSize = {
-                w : w,
-                h : h 
-            };
-
-            if( w < me.boxSize.w && h < me.boxSize.h ) {
-                me.minSize = {
-                    w : w,
-                    h : h
-                }
-            } else {
-                if( w == h ) {
-                    me.minSize = {
-                        w : me.boxSize.w,
-                        h : me.boxSize.h
-                    };
-                } else if( w > h ) {
-                    minWidth = me.boxSize.w;
-                    minHeight = minWidth * h / w;
-                    me.minSize = {
-                        w : minWidth,
-                        h : minHeight
-                    };
+                if( w < me.boxSize.w && h < me.boxSize.h ) {
+                    me.minSize = { w : w, h : h }
                 } else {
-                    minHeight = me.boxSize.h;
-                    minWidth = w / h * minHeight;
-                    me.minSize = {
-                        w : minWidth,
-                        h : minHeight
+                    if( w == h ) {
+                        me.minSize = { w : me.boxSize.w, h : me.boxSize.h };
+                    } else if( w > h ) {
+                        minWidth = me.boxSize.w;
+                        minHeight = minWidth * h / w;
+                        me.minSize = { w : minWidth, h : minHeight };
+                    } else {
+                        minHeight = me.boxSize.h;
+                        minWidth = w / h * minHeight;
+                        me.minSize = { w : minWidth, h : minHeight }
                     }
                 }
-            }
 
-            me.maxSize = {
-                w : me.minSize.w * 2,
-                h : me.minSize.h * 2
-            }
+                me.maxSize = { w : me.minSize.w * 2, h : me.minSize.h * 2 }
+                me.minScale = me.scale = me.minSize.w / me.imgSize.w;
 
-            me.minScale = me.scale = me.minSize.w / me.imgSize.w;
-
-            me.center();
-            me.resize( me.scale );
+                me.center();
+                me.resize( me.scale );
+            } );
         };
 
         reader.readAsDataURL( file );

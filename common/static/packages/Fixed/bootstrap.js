@@ -9,7 +9,7 @@ J.Package( {
 
     bindEvent : function() {
         var me = this;
-        $( window ).on( 'scroll', function( e ) {
+        $( window ).on( 'scroll load', function( e ) {
             if( $( window ).scrollTop() - me.top >= me.dis ) {
                 me.fixed();
             } else {

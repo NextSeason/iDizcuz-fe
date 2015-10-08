@@ -333,8 +333,11 @@
         .to-line {
             display : none;
             a.to-title {
-                max-width : 600px;
+                max-width : 500px;
                 height : 40px;
+                text-overflow : ellipsis;
+                white-space : nowrap;
+                vertical-align : middle;
                 overflow : hidden;
             }
         }
@@ -479,7 +482,9 @@
                     width : 500px; /* 500px in 1024 */
                 }
             }
-            
+            .to-title {
+                max-width : 280px;
+            }
         }
     }
     #editor-dialog {
@@ -492,6 +497,9 @@
                 margin : 20px auto;
                 input.title {
                     width : 600px;
+                }
+                .to-title {
+                    max-width : 400px;
                 }
             }
         }

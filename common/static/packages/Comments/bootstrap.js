@@ -16,8 +16,9 @@ J.Package( {
         this.container.on( 'click', '.comments', function( e ) {
             e.preventDefault();
             var el = me.getPostEl( $( this ) );
-            el.find( '.comment-box' ).show();
-            !+me.getCursor( el ) && me.load( $( this ) );
+            el.find( '.comment-box' ).toggle();
+            if( !+$( this ).attr( 'data-loaded' ) ) me.load( $( this ) );
+            $( this ).attr( 'data-loaded', 1 );
         } );
 
         this.container.on( 'click', 'a.reply', function( e ) {

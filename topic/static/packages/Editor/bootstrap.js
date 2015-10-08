@@ -8,14 +8,15 @@ J.Package( {
 
         this.editor = null;
         this.topic = options.topic;
-        this.tpl = $( '#new-post-tpl' ).val();
+        this.tpl = $( '#post-list-tpl' ).val();
 
         this.createEditor();
         this.bindEvent();
     },
     createEditor : function() {
-        this.editor = UM.getEditor( 'editor' );
-
+        this.editor = UM.getEditor( 'editor', {
+            topOffset : 50
+        } );
     },
 
     setWarn : function( text ) {
@@ -101,10 +102,13 @@ J.Package( {
                 data = {
                     id : response.data.id,
                     title : title,
-                    point_id : point_id,
+                    point_id : point_id || 0,
                     content : content,
                     to : 0,
-                    ctime : '刚刚'
+                    ctime : '刚刚',
+                    account : me.account,
+                    topic : me.topic,
+                    own : 1
                 };
 
                 if( to != 0 ) {
@@ -114,17 +118,13 @@ J.Package( {
                     };
                 }
 
-                node = $( compiled( { data : data } ) );
-
-                new QRCode( node.find( '.qrcode' ).get( 0 ), {
-                    text : node.find( '.share-post-link' ).attr( 'href' ),
-                    width : 110,
-                    height : 110
-                } );
+                node = $( compiled( { data : [ data ] } ) );
 
                 hideEditorDialog();
                 $( '.post-list' ).append( node );
-                window.scrollTo( 0, node.position().top );
+                $( 'html, body' ).animate( { scrollTop : node.position().top - 60 }, 'slow', function() {
+                    node.find( '.op-share' ).click();
+                } );
                 me.editor.setContent( '' );
                 $( 'input.title' ).val( '' );
                 node.css( 'opacity', 1 );

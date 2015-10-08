@@ -21,7 +21,7 @@
                 </div>
                 <div class="boxes topic">
                     <a href="/topic/<?php echo $topic['id']; ?>" class="title">
-                        题：<?php echo $topic['title']; ?>
+                        <b class="gruy-light">话题：</b><?php echo $topic['title']; ?>
                     </a>
                 </div>
                 <?php if( $topic['data']['type'] == 1 ) { ?>
@@ -45,7 +45,7 @@
                 <?php if( isset( $post ) && $post != 0 ) { ?>
                     <div class="boxes to">
                         <a href="/post/<?php $post['id']; ?>" class="title">
-                            针对论述：<?php echo htmlspecialchars( $post['title'] ); ?>
+                            <b class="gruy-light">针对论述：</b><?php echo htmlspecialchars( $post['title'] ); ?>
                         </a>
                         <a href="###" class="remove">删除</a>
                     </div>

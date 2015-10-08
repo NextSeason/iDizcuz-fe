@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        @Include::commonMobile::head.inc.html
+        <link rel="stylesheet" href="@Static::css/error.css" />
+    </head>
+    <body>
+        <div id="idizcuz">
+            @Include::commonMobile::top.inc.html
+            @Include::commonMobile::nav.inc.html
+            <div class="boxes">
+                <div class="page-not-found">
+                    <b class="code">404</b> 
+                    <p class="txt">页面不存在</p>
+                    <p>
+                        <a href="/">回到首页</a>
+                        <span>-</span>
+                        <a href="/list">访问动态页面</a>
+                    </p>
+                </div>
+            </div>
+            @Include::commonMobile::foot.inc.html
+        </div>
+        @Include::commonMobile::end.inc.html
+    </body>
+</html>
