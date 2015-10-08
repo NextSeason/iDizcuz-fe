@@ -83,16 +83,16 @@
 
     jSwitch.prototype.dispatchEvent = function( evt, params ) {
         var me = this;
-
         var type;
 
-        if( !this.__listeners ) return;
+        this.__listeners || ( this.__listeners = {} );
 
         jSwitch.isString( evt ) && ( evt = new jSwitch.Event( evt ) );
 
         type = jSwitch.extend( evt, params || {}, true ).type;
+        this.__listeners[ type ] || ( this.__listeners[ type ] = [] );
 
-        this.__listeners[ type ].each( function( handler, i ) {
+        this.__listeners[ type ].forEach( function( handler, i ) {
             handler.call( me, evt );
         } );
 

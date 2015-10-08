@@ -29,7 +29,7 @@ J.Package( {
             me.loading = false;
             if( !errno ) {
                 posts = response.data.posts;
-                me.cursor = posts[ posts.length - 1 ].id;
+                posts.length && ( me.cursor = posts[ posts.length - 1 ].id );
                 me.render( posts );
                 $( '.loading' ).hide();
             }

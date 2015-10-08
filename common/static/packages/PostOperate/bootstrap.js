@@ -3,7 +3,6 @@ J.Package( {
         this.container = options.container || $( '#idizcuz' );
         this.signin = options.signin;
         this.fullFunction = options.fullFunction;
-        this.removePostDialog = $( '#remove-post-dialog' );
         this.bindEvent();
         this.createTip();
     },
@@ -91,18 +90,18 @@ J.Package( {
 
         this.container.on( 'click', '.remove-post', function( e ) {
             e.preventDefault();
-            me.removePostDialog.show().find( 'input.post-id' ).val( me.getPostEl( $( this ) ).attr( 'data-post-id' ) );
+            $( this ).closest( '.remove-box' ).find( '.remove-tip' ).show();
         } );
 
-        this.removePostDialog.find( '.cancel' ).on( 'click', function( e ) {
+        this.container.on( 'click', '.cancel-remove-post', function( e ) {
             e.preventDefault();
-            me.hideRemovePostDialog();
+            $( this ).closest( '.remove-box' ).find( '.remove-tip' ).hide();
         } );
 
-        this.removePostDialog.find( '.confirm' ).on( 'click', function( e ) {
+        this.container.on( 'click', '.confirm-remove-post', function( e ) {
             e.preventDefault();
-            var id = me.removePostDialog.find( 'input.post-id' ).val();
-            me.removePost( id );
+            me.removePost( $( this ) );
+            $( this ).closest( '.remove-box' ).find( '.remove-tip' ).hide();
         } );
     },
     agreeAction : function( el ) {
@@ -227,39 +226,37 @@ J.Package( {
     hideBubble : function( el ) {
         this.getPostEl( el ).find( '.op-bubbles' ).hide();
     },
-    removePost : function( id ) {
-        var me = this;
+
+    removePost : function( el ) {
+        var me = this,
+            postEl = this.getPostEl( el )
+            postId = this.getPostId( postEl );
 
         $.ajax( {
             url : '/topic/interface/removepost',
             method : 'POST',
             data : {
-                id : id,
+                post_id : postId,
                 'csrf-token' : $.cookie( 'CSRF-TOKEN' )
             }
         } ).done( function( response ) {
             var errno = +response.errno;
 
             if( errno > 0 ) {
-                me.removePostDialog.find( '.tip' ).hide();
-                me.removePostDialog.find( '.fail' ).show();
+                postEl.find( '.remove-submit-tip' ).show().find( '.text' ).html( '操作失败' );
+                setTimeout( function() {
+                    postEl.find( '.remove-submit-tip' ).hide();
+                }, 1500 );
                 return false;
             }
 
-            me.removePostDialog.find( '.tip, .fail' ).hide();
+            postEl.find( '.remove-submit-tip' ).show().find( '.text' ).html( '操作成功' );
+            setTimeout( function() {
+                postEl.find( '.remove-submit-tip' ).hide();
+            }, 1500 );
 
-            me.hideRemovePostDialog();
-            $( '#post-' + id ).fadeOut( 'slow', function() {
-                $( this ).remove();
-            } );
+            postEl.fadeOut( 'slow' );
         } );
-    },
-
-    hideRemovePostDialog : function() {
-        this.removePostDialog.find( '.fail' ).hide();
-        this.removePostDialog.find( '.tip' ).show();
-        this.removePostDialog.find( 'input.post-id' ).val( '' );
-        this.removePostDialog.hide();
     },
 
     submitReport : function( el ) {

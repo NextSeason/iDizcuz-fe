@@ -152,12 +152,6 @@
                     display : none;
                 }
             }
-            .sidebar {
-                .show-editor,
-                .signup {
-                    width : 100%;
-                }
-            }
         }
     }
     
@@ -192,6 +186,39 @@
         }
     }
 }
+.side-nav-bar {
+    .bubbles {
+        position : absolute;
+        z-index : 1000;
+        display : none;
+        top : 0;
+        width : 95px;
+        right : 60px;
+        height : 50px;
+        > .triangle {
+            top : 12px;
+        }
+        p { 
+            line-height : 50px;
+            text-align : center;
+        }
+    }
+    .item {
+        &.write-post {
+            a {
+                i {
+                    font-size : 24px;
+                    line-height : 50px;
+                }
+            }
+        }
+        &:hover {
+            .bubbles {
+                display : block;
+            }
+        }
+    }
+}
 #remove-post-dialog {
     > .inner {
         height : 190px;
@@ -221,21 +248,21 @@
             input.title {
                 width : 700px;
             }
-            .edui-container {
-                width : auto!important;
-            }
             #editor {
                 height : 370px!important;
-                width : 1040px!important; /* 900px in 1024 */
                 @include box-sizing( border-box );
+            }
+            .edui-container {
+                width : 100%!important;
             }
         }
     }
 }
 #editor-inflow-box {
+    width : 983px!important;
     margin-top : 20px;
     .edui-container {
-        width : 983px!important;
+        width : 100%!important;
     }
 }
 #editor-area {
@@ -306,7 +333,7 @@
         .to-line {
             display : none;
             a.to-title {
-                mix-width : 600px;
+                max-width : 600px;
                 height : 40px;
                 overflow : hidden;
             }
@@ -316,7 +343,7 @@
     .textbox {
         margin-top : 20px;
         #editor {
-            width : 100%;
+            width : 100%!important;
         }
         .not-login-editor {
             border : solid 1px #d4d4d4;
@@ -441,9 +468,7 @@
         }
     }
     #editor-inflow-box {
-        .edui-container {
-            width : 763px!important;
-        }
+        width : 763px!important;
         #editor-area {
             .post-warn {
                 width : 350px;
@@ -468,13 +493,6 @@
                 input.title {
                     width : 600px;
                 }
-                .edui-container {
-                    width : auto!important;
-                }
-                #editor {
-                    height : 370px!important;
-                    width : 940px!important; /* 900px in 1024 */
-                }
             }
         }
     }
@@ -482,9 +500,7 @@
 /* style in ipad portrait */
 @media (max-device-width: 768px) and (orientation: portrait) {
     #editor-inflow-box {
-        .edui-container {
-            width : 760px!important;
-        }
+        width : 760px!important;
         #editor-area {
             .post-warn {
                 width : 330px;
@@ -503,10 +519,8 @@
                 }
                 #editor {
                     height : 570px!important;
-                    width : 660px!important; /* 900px in 1024 */
                 }
             }
         }
     }
-
 }

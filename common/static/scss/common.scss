@@ -9,6 +9,36 @@ body {
     min-height : 100%;
 }
 
+.side-nav-bar {
+    display : none;
+    position : fixed;
+    bottom : 10px;
+    .item {
+        position : relative;
+        a {
+            margin-bottom : 1px;
+            display : block;
+            width : 50px;
+            height : 50px;
+            border : solid 1px #EEE;
+            background : #FFF;
+            text-align : center;
+            line-height : 50px;
+            font-size : 0;
+            i {
+                font-size : 42px;
+                color : #999;
+            }
+            &:hover {
+                background : #FAFAFA;
+                i {
+                    color : $brandColor;
+                }
+            }
+        }
+    }
+}
+
 .account-aside-nav {
     line-height : 30px;
     li {
@@ -276,11 +306,19 @@ body {
             height : 50px;
             line-height : 50px;
             background : $brandColor;
+            @include box-sizing( border-box );
             .inner {
                 background : $brandColor;
             }
             ul li {
                 float : left;
+                &.logo {
+                    display : none;
+                    a {
+                        font-size : 18px;
+                        padding-left : 0;
+                    }
+                }
                 a {
                     color : #FFF;
                     display : block;

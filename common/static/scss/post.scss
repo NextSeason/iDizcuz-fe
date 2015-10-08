@@ -40,6 +40,12 @@
             h2 {
                 line-height : 27px;
                 a {
+                    max-width : 800px; 
+                    text-overflow : ellipsis;
+                    white-space : nowrap;
+                    vertical-align : middle;
+                    overflow : hidden;
+                    display : block;
                     color : #333;
                     &:hover {
                         color : $brandColor;
@@ -167,9 +173,52 @@
         font-size : 12px;
         .mtime,
         .comments,
-        .remove-post {
-            margin-left : 5px;
-            color : #999;
+        .remove-box {
+            display : inline-block;
+            position : relative;
+            .bubbles {
+                display : none;
+                position : absolute;
+                z-index : 100;
+                left : 60px;
+                width : 100px;
+                top : -9px;
+            }
+            .remove-post {
+                margin-left : 5px;
+                color : #999;
+                width : 100px;
+            }
+            .remove-tip {
+                top : -20px;
+                width : 280px;
+                background : #FAFAFA;
+                display : none;
+                > .triangle {
+                    top : 16px;
+                    .triangle {
+                        border-right-color : #FAFAFA;
+                    }
+                }
+                .title {
+                    font-size : 14px;
+                    color : #333;
+                }
+                ul li p {
+                    font-size : 12px;
+                }
+            }
+            .remove-submit-tip {
+                p {
+                    color : $brandColor;
+                }
+            }
+        }
+        .reply-to {
+            i.fa {
+                font-size : 18px;
+                vertical-align : middle;
+            }
         }
     }
     .comment-box {
@@ -247,6 +296,19 @@
             }
             .share {
                 display : block;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1280px) {
+    #idizcuz {
+        .posts {
+            .data-line {
+                .title {
+                    a {
+                        max-width : 600px;
+                    }
+                }
             }
         }
     }

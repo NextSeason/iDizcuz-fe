@@ -29,15 +29,15 @@ J.Package( {
             date = defaultDate.substr( 8, 2 );
 
         this.yearSelectEl.find( 'option' ).each( function() {
-            $( this ).val() == year && $( this ).attr( 'selected', true );
+            +$( this ).val() == year && $( this ).prop( 'selected', true );
         } );
 
         this.monthSelectEl.find( 'option' ).each( function() {
-            +$( this ).val() == +month && $( this ).attr( 'selected', true );
+            +$( this ).val() == +month && $( this ).prop( 'selected', true );
         } );
 
         this.dateSelectEl.find( 'option' ).each( function() {
-            +$( this ).val() == +date && $( this ).attr( 'selected', true );
+            +$( this ).val() == +date && $( this ).prop( 'selected', true );
         } );
 
     },

@@ -117,13 +117,13 @@ p {
     user-select : none;
     text-align : center;
     vertical-align : middle;
-    background : $brandColor;
+    background-color : $brandColor;
     color : $normalButtonColor;
     border : solid 1px $brandColor;
     padding : 0;
     outline : 0;
     &:hover {
-        background : $highlightBrandColor;
+        background-color : $highlightBrandColor;
         color : $normalButtonColor;
         text-decoration : none;
     }
@@ -133,6 +133,7 @@ p {
     @include box-sizing( border-box );
     @include appearance( none );
     @include border-radius( 0 );
+    @include transition( background-color,color ease-in-out .3s );
     &.small {
         width : 60px;
         height : 24px;
@@ -164,32 +165,32 @@ p {
     }
 
     &.dark {
-        background : $normalBackgroundColor;
+        background-color : $normalBackgroundColor;
         color : $normalColorGray;
         border-color : #EEE;
         &:hover,
         &:active {
-            background : $normalBackgroundGray;
+            background-color : $normalBackgroundGray;
         }
     }
 
     &.warn {
-        background : $normalRed;
+        background-color : $normalRed;
         border-color : $normalRed;
         color : $normalRed;
         &:hover {
-            background : $normalBackgroundColor;
+            background-color : $normalBackgroundColor;
             color : $highlightRed;
             border-color : $highlightRed;
         }
         &:active {
             color : $normalBackgroundColor;
-            background : $highlightRed;
+            background-color : $highlightRed;
             border-color : $highlightRed;
         }
     }
     &.disabled {
-        background : $disabledBackgroundColor;
+        background-color : $disabledBackgroundColor;
         border-color : $disabledBackgroundColor;
         color : $disabledColor;
     }
@@ -199,6 +200,7 @@ p {
     position : relative;
     border : solid 1px #EEE;
     background : #FFF;
+    @include box-sizing( border-box );
     &.small {
         display : inline-block;
     }
@@ -236,6 +238,19 @@ p {
                 border-right-color : #FFF;
                 top : -10px;
                 left : -8px;
+            }
+        }
+    }
+    &.left {
+        .triangle {
+            border : solid 10px transparent;
+            border-left-color : #EEE;
+            top : 5px;
+            right : -20px;
+            .triangle {
+                border-left-color : #FFF;
+                top : -10px;
+                right : -8px;
             }
         }
     }

@@ -2,7 +2,7 @@ J.Package( {
     initialize : function( options ) {
         if( !document.getElementById( 'editor' ) ) return false;
 
-        this.placeholder = '在此输入您想发表的内容',
+        this.placeholder = '在此输入您想发布的内容',
         this.timeout1 = null;
         this.timeout2 = null;
 
@@ -15,6 +15,7 @@ J.Package( {
     },
     createEditor : function() {
         this.editor = UM.getEditor( 'editor' );
+
     },
 
     setWarn : function( text ) {
@@ -174,6 +175,10 @@ J.Package( {
             if( contentTxt == me.placeholder ) {
                 editor.setContent( '' ); 
             }
+        } );
+
+        editor.addListener( 'afterfullscreenchange', function() {
+            console.log( 'afterfullscreenchange', arguments );
         } );
 
         editor.addListener( 'beforepaste', function( name, data ) {

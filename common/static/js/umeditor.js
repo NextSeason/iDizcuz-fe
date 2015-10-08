@@ -8818,12 +8818,6 @@ UM.ui.define('colorpicker', {
                     mouseenter: 'addClass',
                     mouseleave: 'removeClass'
                 };
-                if ($.IE6) {
-                    this.root().delegate( '.'+itemClassName,  'mouseenter mouseleave', function( evt ){
-                        $(this)[ fn[ evt.type ] ]( HOVER_CLASS );
-                    }).one('afterhide', function(){
-                    });
-                }
             },
             /**
              * 选择给定索引的项
@@ -9501,9 +9495,6 @@ UM.ui.define('separator', {
                     zIndex:editor.getOpt('zIndex')
                 });
 
-                //ie6下缓存图片
-                UM.browser.ie && UM.browser.version === 6 && document.execCommand("BackgroundImageCache", false, true);
-
                 editor.render(id);
 
 
@@ -9735,8 +9726,6 @@ UM.registerUI('bold italic redo undo underline insertorderedlist insertunordered
             var options = this.editor.options,
                 height = /%$/.test(options.initialFrameHeight) ?  '100%' : (options.initialFrameHeight - this.getStyleValue("padding-top")- this.getStyleValue("padding-bottom") - this.getStyleValue('border-width'));
 
-            $.IE6 && this.getEditorHolder().style.setExpression('height', 'this.scrollHeight <= ' + height + ' ? "' + height + 'px" : "auto"');
-
             //还原容器状态
             this.revertContainerStatus();
 
@@ -9787,7 +9776,7 @@ UM.registerUI('bold italic redo undo underline insertorderedlist insertunordered
             $( editor.container ).css( {
                 width: width + 'px',
                 height: height + 'px',
-                position: !$.IE6 ? 'fixed' : 'absolute',
+                position: 'fixed',
                 top: bound.top,
                 left: bound.left,
                 margin: 0,
@@ -9951,31 +9940,10 @@ UM.registerUI('bold italic redo undo underline insertorderedlist insertunordered
 
         },
         getBound: function () {
-
-            var tags = {
-                    html: true,
-                    body: true
-                },
-                result = {
-                    top: 0,
-                    left: 0
-                },
-                offsetParent = null;
-
-            if ( !$.IE6 ) {
-                return result;
-            }
-
-            offsetParent = this.editor.container.offsetParent;
-
-            if( offsetParent && !tags[ offsetParent.nodeName.toLowerCase() ] ) {
-                tags = offsetParent.getBoundingClientRect();
-                result.top = -tags.top;
-                result.left = -tags.left;
-            }
-
-            return result;
-
+            return {
+                top : 0,
+                left : 0
+            };
         },
         getStyleValue: function (attr) {
             return parseInt(domUtils.getComputedStyle( this.getEditorHolder() ,attr));
@@ -10311,17 +10279,10 @@ UM.registerUI('autofloat',function(){
             toolbarBox.style.width = toolbarBox.offsetWidth + 'px';
             toolbarBox.style.zIndex = me.options.zIndex * 1 + 1;
             toolbarBox.parentNode.insertBefore(placeHolder, toolbarBox);
-            if (LteIE6 || (quirks && browser.ie)) {
-                if(toolbarBox.style.position != 'absolute'){
-                    toolbarBox.style.position = 'absolute';
-                }
-                toolbarBox.style.top = (document.body.scrollTop||document.documentElement.scrollTop) - orgTop + topOffset  + 'px';
-            } else {
-                if(toolbarBox.style.position != 'fixed'){
-                    toolbarBox.style.position = 'fixed';
-                    toolbarBox.style.top = topOffset +"px";
-                    ((origalFloat == 'absolute' || origalFloat == 'relative') && parseFloat(origalLeft)) && (toolbarBox.style.left = toobarBoxPos.x + 'px');
-                }
+            if(toolbarBox.style.position != 'fixed'){
+                toolbarBox.style.position = 'fixed';
+                toolbarBox.style.top = topOffset +"px";
+                ((origalFloat == 'absolute' || origalFloat == 'relative') && parseFloat(origalLeft)) && (toolbarBox.style.left = toobarBoxPos.x + 'px');
             }
         }
         function unsetFloating(){
@@ -10359,9 +10320,6 @@ UM.registerUI('autofloat',function(){
             });
             bakCssText = toolbarBox.style.cssText;
             placeHolder.style.height = toolbarBox.offsetHeight + 'px';
-            if(LteIE6){
-                fixIE6FixedPos();
-            }
 
             $(window).on('scroll resize',updateFloating);
             me.addListener('keydown', defer_updateFloating);
