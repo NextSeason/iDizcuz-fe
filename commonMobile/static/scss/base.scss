@@ -211,6 +211,10 @@ input[type=time] {
         font-size : 16px;
     }
 
+    &.fullsize {
+        width : 100%;
+    }
+
     &.dark {
         background : $normalBackgroundColor;
         color : $normalColorGray;

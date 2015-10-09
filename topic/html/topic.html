@@ -433,14 +433,14 @@
                 }
             } );
 
-            idizcuz.mount( 'showeditbtnfixed', '@Package::common::Fixed', {
+            $( '.show-editor.need-fixed' ).length && idizcuz.mount( 'showeditbtnfixed', '@Package::common::Fixed', {
                 el : $( '.show-editor.need-fixed' ),
                 dis : 5,
                 onfixed : function() {
-                    this.el.addClass( 'dark' );
+                    this.el.addClass( 'fixed' );
                 },
                 onunfixed : function() {
-                    this.el.removeClass( 'dark' );
+                    this.el.removeClass( 'fixed' );
                 }
             } );
 

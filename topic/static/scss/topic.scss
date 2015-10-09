@@ -4,6 +4,11 @@
 #idizcuz {
     .boxes {
         &.body {
+            .need-fixed {
+                &.fixed {
+                    border-color : #FAFAFA;
+                }
+            }
             .topic-area {
                 .empty {
                     line-height : 80px;
