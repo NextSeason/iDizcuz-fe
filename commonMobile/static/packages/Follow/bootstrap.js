@@ -5,9 +5,10 @@ J.Package( {
         this.bindEvent();
     },
 
-    tosignin : function() {
-        this.warn( '您需要登录才能进行操作' );
-        window.scrollTo( 0, 0 );
+    tosignin : function( el ) {
+        this.tip( el, '您需要登录才能进行操作', function() {
+            window.scrollTo( 0, 0 );
+        } );
     },
 
     bindEvent : function() {
@@ -21,7 +22,7 @@ J.Package( {
             if( !accountId ) return false;
 
             if( !me.signin ) {
-                me.tosignin();
+                me.tosignin( btn );
                 return false;
             }
 
@@ -47,28 +48,28 @@ J.Package( {
 
                     switch( errno ) {
                         case 3 :
-                            me.tosignin();
+                            me.tosignin( btn );
                             break;
                         default :
-                            me.warn( '未知错误，请刷新页面重试' );
+                            me.tip( btn, '未知错误，请刷新页面重试' );
                             break;
                     }
                 },
                 error : function() {
-                    me.warn( '操作失败，请确认您的网络状况正常' );
+                    me.tip( btn, '操作失败，网络状况异常' );
                 }
             } );
         } );
     },
-    warn : function( txt ) {
-        var dialog = $( '.tip-dialog' ),
-            tip = dialog.find( '.tip' );
+    tip : function( el, txt, callback ) {
+        var box = el.closest( '.follow-btn-box' ),
+            bubble = box.find( '.bubbles' );
 
-        tip.html( txt );
-        dialog.show();
+        bubble.show().find( '.txt' ).html( txt );
 
         setTimeout( function() {
-             dialog.hide();
+            bubble.hide();
+            callback();
         }, 1500 );
     }
 } );

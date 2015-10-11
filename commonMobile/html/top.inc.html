@@ -1,3 +1,8 @@
+<script>
+    J.Data.set( 'account', {
+        signin : !!+'<?php echo $account ? 1 : 0; ?>' 
+    } );
+</script>
 <div class="top boxes">
     <?php if( $account ) { ?>
         <div class="account">

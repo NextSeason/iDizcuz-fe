@@ -3,6 +3,7 @@
     <head>
         @Include::commonMobile::head.inc.html
         <link rel="stylesheet" href="@Static::css/user.css" />
+        <link rel="stylesheet" href="@Static::commonMobile::css/post.css" />
     </head>
     <body>
         <div id="idizcuz">
@@ -17,12 +18,9 @@
                 <ul class="activity-list"></ul>
                 <div class="btns load-more">点击加载更多</div>
             </div>
-            <div class="dialog tip-dialog">
-                <div class="wrap">
-                    <div class="inner">
-                        <p class="brand tip"></p>
-                    </div>
-                </div>
+            <div class="boxes bottom-fixed-bar">
+                <a href="http://www.idizcuz.com" class="logo l">每日论点 • iDizcuz</a>
+                <a href="###" class="item scroll-top"><i class="fa fa-eject"></i></a>
             </div>
             @Include::commonMobile::foot.inc.html
         </div>
@@ -57,15 +55,26 @@
                         <div class="extra">
                             <% if( type == 0 || type == 1 || type == 2 ) { %>
                                 <% var post = item.extra; %>
-                                @Include::commonMobile::post.inc.html
+                                <% if( !post ) { %>
+                                    <p class="empty">此论述不存在或已经被删除</p>
+                                <% } else { %>
+                                    @Include::commonMobile::post.inc.html
+                                <% } %>
                             <% } else if( type == 3 ) {%>
                                 <% var comment = item.extra; %>
                                 <div class="extra-comments">
-                                    <p>评论内容：<%-comment.content %></p>
+                                    <p>
+                                        <b class="gruy-title">评论内容：</b>
+                                        <i class="fa fa-quote-left fa-quotes"></i> 
+                                        <%-comment.content %>
+                                        <i class="fa fa-quote-right fa-quotes"></i> 
+                                    </p>
                                 </div>
-                                <div class="relation_post">
-                                    <p>论述：<a href="/post/<%=comment.post.id %>"><%-comment.post.title %></a></p>
-                                </div>
+                                <% if( comment.post ) { %>
+                                    <div class="relation_post">
+                                        <p><b class="gruy-title">论述：</b><a href="/post/<%=comment.post.id %>"><%-comment.post.title %></a></p>
+                                    </div>
+                                <% } %>
                             <% } else if( type == 4 || type == 5 ) {%>
                                 <% var card = item.extra; %>
                                 @Include::commonMobile::hcard.inc.html
@@ -96,6 +105,9 @@
             } );
             idizcuz.mount( 'follow', '@Package::commonMobile::Follow', {
                 signin : +'<?php echo $account ? 1 : 0; ?>'
+            } );
+            idizcuz.mount( 'bottomfixedbar', '@Package::commonMobile::BottomFixedBar', {
+                start : 500 
             } );
         </script>
         @Include::commonMobile::end.inc.html

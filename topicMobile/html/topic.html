@@ -3,6 +3,7 @@
     <head>
         @Include::commonMobile::head.inc.html
         <link rel="stylesheet" href="@Static::css/topic.css" />
+        <link rel="stylesheet" href="@Static::commonMobile::css/post.css" />
     </head>
     <body>
         <div id="idizcuz">
@@ -113,8 +114,8 @@
             </div>
             <div class="boxes bottom-fixed-bar">
                 <a href="http://www.idizcuz.com" class="logo l">每日论点 • iDizcuz</a>
-                <a href="/write?topic_id=<?php echo $topic['id']; ?>" class="btns dark small">发布论述</a>
-                <a href="###" class="btns dark small scroll-top">回到顶部</a>
+                <a href="/write?topic_id=<?php echo $topic['id']; ?>" class="item write"><i class="fa fa-pencil-square-o"></i></a>
+                <a href="###" class="item scroll-top"><i class="fa fa-eject"></i></a>
             </div>
             @Include::commonMobile::foot.inc.html
         </div>
@@ -147,7 +148,9 @@
                 points : <?php echo $points ? json_encode( $points ) : 'null'; ?>
             } );
 
-            idizcuz.mount( 'bottomfixedbar', '@Package::BottomFixedBar', {} );
+            idizcuz.mount( 'bottomfixedbar', '@Package::commonMobile::BottomFixedBar', {
+                start : $( '.boxes.sub-nav' ).offset().top
+            } );
             idizcuz.mount( 'operate', '@Package::commonMobile::PostOperate', {
                 signin : +'<?php echo $signin; ?>'
             } );

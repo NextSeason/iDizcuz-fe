@@ -27,14 +27,16 @@ J.Package( {
 
             if( !me.signin && +$( this ).attr( 'data-need-signin' ) ) {
                 e.preventDefault();
-                me.warn( '您需要登录才可以操作' );
-                window.scrollTo( 0, 0 );
+
+                me.tip( $( this ), '您需要登录才可以操作', function() {
+                    window.scrollTo( 0, 0 );
+                } );
                 return false;
             }
 
             if( !J.isUndefined( me[ action + 'Action' ] ) ) {
-                me[ action + 'Action' ]( $( this ) );
                 $( this ).attr( 'data-active', 1 );
+                me[ action + 'Action' ]( $( this ) );
             }
         } );
     },
@@ -73,15 +75,21 @@ J.Package( {
             },
             error : function() {
                 me.unactive( el );
-                me.warn( '操作失败，请确保您的网络状况正常' );
+                me.tip( '操作失败，请检查网络状况' );
             }
         } );
     },
     voteAction : function( el ) {
         var me = this,
-            post = this.getPostEl( el ),
-            postId = this.getPostId( post ),
-            opinion = el.attr( 'data-intent' );
+            postEl = this.getPostEl( el ),
+            postId = this.getPostId( postEl ),
+            opinion = +el.attr( 'data-intent' );
+
+        if( +postEl.attr( 'data-is-own' ) ) {
+            this.tip( el, '您不可以' + ( opinion ? '支持' : '反对' ) + '自己的论述' );
+            this.unactive( el );
+            return;
+        }
 
         $.ajax( {
             url : '/topic/interface/vote',
@@ -99,9 +107,18 @@ J.Package( {
 
                 me.unactive( el );
                 if( errno ) {
-                    if( errno == 3 ) {
-                        me.warn( '您需要登录才可以操作' );
-                        window.scrollTo( 0, 0 );
+                    switch( errno ) {
+                        case 3 :
+                            me.tip( el, '您需要登录才可以操作', function() {
+                                window.scrollTo( 0, 0 );
+                            } );
+                            break;
+                        case 12 :
+                            me.tip( el, '您已评价过这条论述' );
+                            break;
+                        default :
+                            me.tip( el, '操作失败，请稍候再试' );
+                            break;
                     }
                     return false;
                 }
@@ -116,17 +133,16 @@ J.Package( {
     },
     unactive : function( el ) {
         el.attr( 'data-active', 0 );
-
     },
-    warn : function( txt ) {
-        var me = this,
-            tip = this.dialog.find( '.tip' );
 
-        tip.html( txt );
-        this.dialog.show();
+    tip : function( target, txt, callback ) {
+        var tip = target.closest( '.op-item' ).find( '.bubbles' );
+
+        tip.show().find( '.txt' ).html( txt );
 
         setTimeout( function() {
-             me.dialog.hide();
+            tip.hide();
+            callback && callback();
         }, 1500 );
     }
 } );

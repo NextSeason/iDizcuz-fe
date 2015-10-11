@@ -1,31 +1,34 @@
 J.Package( {
     initialize : function() {
-        this.container || ( this.container = $( '.sign-box' ) );
+        this.container = $( '#signin-dialog' ); 
         this.submiting = false;
         this.bindEvent();
     },
     bindEvent : function() {
         var me = this;
-        this.container.find( 'form.signin' ).on( 'submit', function( e ) {
+        this.container.find( 'form.global-signin' ).on( 'submit', function( e ) {
             e.preventDefault();
-
             if( this.submiting ) return false;
-
             me.signin();
+        } );
+
+        this.container.find( '.close' ).on( 'click', function( e ) {
+            e.preventDefault();
+            me.container.hide();
         } );
     },
     signin : function() {
         var me = this,
-            email = this.container.find( 'form.signin input.email' ).val(),
-            passwd = this.container.find( 'form.signin input.passwd' ).val(),
-            remember = +this.container.find( 'form.signin input.remember' ).get(0).checked;
+            email = this.container.find( 'form.global-signin input.email' ).val(),
+            passwd = this.container.find( 'form.global-signin input.passwd' ).val(),
+            remember = +this.container.find( 'form.global-signin input.remember' ).get(0).checked;
 
         if( !/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test( email ) || !passwd.length ) return false;
 
-        if( passwd.length < 6 || passwd.length > 20 ) { 
+        if( passwd.length < 6 || passwd.length > 20 ) {
             me.container.find( '.signin-tip' ).html( '用户名或密码错误' ).show();
             return false;
-         }
+        }
 
         this.submiting = true;
 

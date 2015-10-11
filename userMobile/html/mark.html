@@ -3,6 +3,7 @@
     <head>
         @Include::commonMobile::head.inc.html
         <link rel="stylesheet" href="@Static::css/user.css" />
+        <link rel="stylesheet" href="@Static::commonMobile::css/post.css" />
     </head>
     <body>
         <div id="idizcuz">
@@ -17,12 +18,9 @@
                 <ul class="post-list"></ul>
                 <div class="btns load-more">点击加载更多</div>
             </div>
-            <div class="dialog tip-dialog">
-                <div class="wrap">
-                    <div class="inner">
-                        <p class="brand tip"></p>
-                    </div>
-                </div>
+            <div class="boxes bottom-fixed-bar">
+                <a href="http://www.idizcuz.com" class="logo l">每日论点 • iDizcuz</a>
+                <a href="###" class="item scroll-top"><i class="fa fa-eject"></i></a>
             </div>
             @Include::commonMobile::foot.inc.html
         </div>
@@ -57,6 +55,9 @@
             } );
             idizcuz.mount( 'comments', '@Package::commonMobile::Comments', {
                 signin : +'<?php echo $signin ?>'
+            } );
+            idizcuz.mount( 'bottomfixedbar', '@Package::commonMobile::BottomFixedBar', {
+                start : 500 
             } );
         </script>
         @Include::commonMobile::end.inc.html

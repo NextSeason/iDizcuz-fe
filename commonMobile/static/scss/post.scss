@@ -1,0 +1,161 @@
+@import "variables";
+.posts {
+    padding : 10px 5px;
+    border-bottom : dashed 1px #EEE;
+    > .aside {
+        width : auto;
+        margin-left : 5px;
+        .op-item {
+            position : relative;
+            .op-btn {
+                width : 50px;
+                display : block;
+                font-size : 12px;
+                margin-bottom : 5px;
+                &.agree,
+                &.disagree {
+                    line-height : 16px;
+                    height : 36px;
+                }
+                &.disagree {
+                    color : #FFF;
+                    background : #666;
+                    border-color : #666;
+                }
+                b, span {
+                    display : block;
+                }
+            }
+            .bubbles {
+                position : absolute;
+                display : none;
+                top : 0;
+                right : 60px;
+                min-width : 180px;
+                > .triangle {
+                    top : 6px;
+                }
+                .inner {
+                    p {
+                        line-height : 34px;
+                    }
+                }
+                &.mark-bubbles {
+                    > .triangle {
+                        top : 4px;
+                    }
+                    p {
+                        line-height : 28px;
+                    }
+                }
+            }
+
+        }
+    }
+    > .main {
+        h2 {
+            line-height : 1.4em;
+            margin-bottom : 5px;
+            a {
+                color : #333;
+            }
+        }
+        .info {
+            color : #666;
+            font-size : 12px;
+            div {
+                margin : 3px 0;
+                line-height : 1.7em;
+            }
+            .aside {
+                float : left;
+                width : auto;
+                margin : 0;
+            }
+        }
+        .bottom-line {
+            margin-top : 5px;
+            .comments {
+                font-size : 12px;
+            }
+        }
+    }
+    .comment-box {
+        display : none;
+        .load-more {
+            font-size : 12px;
+            line-height : 40px;
+            height : 40px;
+            display : none;
+        }
+        .not-signin {
+            text-align : center;
+            border : solid 1px #EEE;
+            line-height : 60px;
+            margin-top : 10px;
+            font-size : 12px;
+            .sp {
+                color : #999;
+                font-size : 10px;
+                vertical-align : 1px;
+            }
+        }
+        li.empty {
+            line-height : 40px;
+            color : #999;
+            padding-left : 10px;
+        }
+        .btns-line {
+            margin-top : 5px;
+            text-align : right;
+            .clear {
+                margin-right : 10px;
+                font-size : 12px;
+            }
+        }
+        textarea {
+            width : 100%;
+            height : 60px;
+            border : solid 1px #EEE;
+            outline : 0;
+            &:focus {
+                background : #FFF;
+                border-color : #CCC;
+            }
+        }
+        .hide{
+            background : #FAFAFA;
+        }
+        .comment-form {
+            margin-top : 10px;
+        }
+        .new-comment-list, 
+        .comment-list {
+            border : solid 1px #EEE;
+            margin-top : 10px;
+            .comment-item {
+                background : #FAFAFA;
+                border-bottom : solid 1px #EEE;
+                padding : 10px;
+                &:last-child {
+                    border : 0;
+                }
+                .comment-text {
+                    margin : 10px 0;
+                }
+                .op-line {
+                    font-size : 12px;
+                    color : #999;
+                    a {
+                        font-size : 12px;
+                        margin-left : 5px;
+                    }
+                }
+                .comment-form {
+                    margin-top : 10px;
+                    display : none;
+                }
+            }
+        }
+    }
+}

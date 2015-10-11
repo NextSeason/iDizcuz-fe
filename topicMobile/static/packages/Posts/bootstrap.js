@@ -16,9 +16,9 @@ J.Package( {
         this.index = 0;
         
         // how many posts been displayed in one time
-        this.slice = 1;
+        this.slice = 20;
 
-        this.rn = 20;
+        this.rn = 100;
 
         this.pn = 1;
 

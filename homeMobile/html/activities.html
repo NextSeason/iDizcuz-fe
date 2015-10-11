@@ -2,6 +2,7 @@
 <html>
     <head>
         @Include::commonMobile::head.inc.html
+        <link rel="stylesheet" href="@Static::commonMobile::css/post.css" />
     </head>
     <body>
         <?php $nav = 'activities'; ?>
@@ -22,6 +23,10 @@
                         <p class="brand tip"></p>
                     </div>
                 </div>
+            </div>
+            <div class="boxes bottom-fixed-bar">
+                <a href="http://www.idizcuz.com" class="logo l">每日论点 • iDizcuz</a>
+                <a href="###" class="item scroll-top"><i class="fa fa-eject"></i></a>
             </div>
             @Include::commonMobile::foot.inc.html
         </div>
@@ -52,6 +57,11 @@
             idizcuz.mount( 'comments', '@Package::commonMobile::Comments', {
                 signin : +'<?php echo $account ? 1 : 0; ?>'
             } );
+
+            idizcuz.mount( 'bottomfixedbar', '@Package::commonMobile::BottomFixedBar', {
+                start : 500
+            } );
+
         </script>
         @Include::commonMobile::end.inc.html
     </body>

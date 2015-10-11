@@ -634,3 +634,35 @@ jSwitch.Loader = ( function() {
             dispatcher : this
         } );
     };
+
+jSwitch.Data = ( function() {
+    var data = {};
+    return {
+        get : function( name ) {
+            var list = [], 
+                obj = data,
+                i = 0;
+ 
+            list = name.split( '.' );
+
+            for( l = list.length - 1; i < l; i += 1) {
+                if( typeof ( obj = obj[ list[ i ] ] ) === 'undefined' ) return false;
+            }   
+            return typeof obj[ list[ i ] ] !== 'undefined' ? obj[ list[ i ] ] : null;
+        },  
+
+        set : function( name, value ) {
+            var list = [], 
+                obj = data,
+                i = 0,
+                l;  
+ 
+            list = name.split('.');
+            for(l = list.length - 1; i < l; i += 1) {
+                if( typeof ( obj = obj[ list[ i ] ] ) === 'undefined' ) return this;
+            }   
+            obj[ list[ i ] ] = value;
+            return this;
+        }
+    };
+} )();

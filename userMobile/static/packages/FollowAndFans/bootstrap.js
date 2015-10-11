@@ -25,7 +25,7 @@ J.Package( {
         $.ajax( {
             url : '/user/interface/' + ( this.page == 'follow' ? 'getfollows' : 'getfans' ),
             data : {
-                account : this.userId,
+                account_id : this.userId,
                 cursor : this.cursor,
                 rn : this.rn,
                 _t : +new Date

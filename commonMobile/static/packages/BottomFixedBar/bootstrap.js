@@ -4,11 +4,12 @@ J.Package( {
         this.showing = false;
     },
     bindEvent : function() {
-        var me = this;
+        var me = this,
+            start = this.start || 0;;
 
-        $( window ).on( 'scroll load', function() {
+        $( window ).on( 'scroll load pageshow', function() {
 
-            if( $( window ).scrollTop() > $( '.boxes.sub-nav' ).offset().top ) {
+            if( $( window ).scrollTop() > start ) {
                 me.showing || me.show();    
             } else {
                 me.showing && me.hide();
