@@ -2,8 +2,6 @@ J.Package( {
     initialize : function( options ) {
         this.cursor = 0;
         this.rn = 20;
-        this.self = !!options.self;
-        this.userId = options.userId; 
         this.compiledTpl = J.template( $( '#activity-list-tpl' ).val() );
         this.load();
         this.bindEvent();
@@ -29,7 +27,6 @@ J.Package( {
         }
         $.ajax( {
             url : '/activities/interface/getactivities',
-            method : 'GET',
             data : data,
             success : function( response ) {
                 var errno = +response.errno;

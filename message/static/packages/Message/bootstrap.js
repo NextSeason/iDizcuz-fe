@@ -8,16 +8,16 @@ J.Package( {
     },
 
     load : function() {
-        var me = this,
-            data = {
-                cursor : this.cursor,
-                _t : +new Date
-            };
+        var me = this;
+
         this.loading = true 
 
         $.ajax( {
             url : 'message/interface/getmessages',
-            data : data
+            data : {
+                cursor : this.cursor,
+                _t : +new Date
+            }
         } ).done( function( response ) {
             var errno = +response.errno,
                 messages,
