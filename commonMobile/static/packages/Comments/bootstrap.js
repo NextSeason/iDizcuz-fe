@@ -60,6 +60,8 @@ J.Package( {
                 if( !errno ) {
                     me.render( postEl, response.data.comments );
                 }
+            },
+            error : function() {
             }
         } );
     },

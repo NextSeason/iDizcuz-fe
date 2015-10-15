@@ -31,21 +31,23 @@ J.Package( {
                 rn : this.rn,
                 cid : this.cid,
                 _t : +new Date
-            } 
-        } ).done( function( response ) {
-            var errno = +response.errno,
-                topics, l;
+            },
+            success : function( response ) {
+                var errno = +response.errno,
+                    topics, l;
 
-            me.loading = false;
+                me.loading = false;
                 
-            if( !errno ) {
-                l = ( topics = response.data.topics ).length;
-                l < me.rn ? $( '.load-more' ).hide() : $( '.load-more' ).show();
-                l && ( me.cursor = topics[ l - 1 ].id );
-                me.render( response.data.topics );
+                if( !errno ) {
+                    l = ( topics = response.data.topics ).length;
+                    l < me.rn ? $( '.load-more' ).hide() : $( '.load-more' ).show();
+                    l && ( me.cursor = topics[ l - 1 ].id );
+                    me.render( response.data.topics );
+                }
+            },
+            error : function() {
+                me.loading = false;
             }
-        } ).fail( function() {
-            me.loading = false;
         } );
     },
     render : function( data ) {
