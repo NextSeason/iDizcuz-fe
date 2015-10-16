@@ -4,7 +4,7 @@ J.Package( {
 
         this.defaultConf = {
             title : encodeURIComponent( '每日论点•iDizcuz -- 做理性且有思想的人' ),
-            desc : '每日论点•iDizcuz -- 试着去成为一个理性且有思想的人',
+            desc : '每日论点•iDizcuz -- 做理性且有思想的人',
             img : location.host + '/static/common/images/id0.png',
             url : encodeURIComponent( location.href )
         };

@@ -331,19 +331,20 @@ html, body {
         width : 100%;
         left : 0;
         right : 0;
-        bottom : 0;
+        bottom : -200px;
         background : #FFF; 
+        border-top : solid 1px #999;
         box-sizing : border-box;
         -webkit-box-sizing : border-box;
+        transition : bottom .6s ease-in-out;
+        -webkit-transition : bottom .6s ease-in-out;
         .title {
             line-height : 1.7em;
             padding : 5px;
-            border : solid 1px #EEE;
-            border-bottom-width : 1px;
+            border-bottom : solid 1px #EEE;
             color : #666;
             background : #FAFAFA;
             text-align : center;
-            box-shadow : 0 -2px 3px #999;
         }
         li {
             float : left;

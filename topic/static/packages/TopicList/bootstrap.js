@@ -16,11 +16,6 @@ J.Package( {
     },
     load : function() {
         var me = this;
-        var data = {
-            cursor : this.cursor,
-            rn : this.rn,
-            cid : this.cid 
-        };
 
         this.loading = true;
 
