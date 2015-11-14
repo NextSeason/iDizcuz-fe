@@ -106,6 +106,9 @@
                         background : #EEE;
                         position : absolute;
                         opacity : 0;
+                        border : solid 1px #EEE;
+                        border-top : 0;
+                        @include box-sizing( border-box );
                         &:first-child {
                             opacity : 1;
                         }

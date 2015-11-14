@@ -25,6 +25,7 @@
                                     </span>
                                     <h3>
                                         <span class="seal seal-<?php echo $topic['data']['type']; ?>"></span>
+                                        <span class="gruy-light">ID:<?php echo $topic['id']; ?></span>&nbsp;
                                         <?php echo $topic['title']; ?>
                                         <?php if( $topic['data']['status'] == 1 ) { ?>
                                             <a href="/topic/<?php echo $topic['id']; ?>" target="_blank">[查看]</a>

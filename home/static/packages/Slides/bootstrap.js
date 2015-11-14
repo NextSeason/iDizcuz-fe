@@ -29,7 +29,6 @@ J.Package( {
         }, 5000 );
     },
     to : function( i ) {
-        console.log( i );
         if( i >= this.list.length ) {
             this.to( 0 );
             return this;

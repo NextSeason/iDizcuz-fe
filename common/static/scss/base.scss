@@ -1,7 +1,7 @@
-@import "compass/reset";
 @import "compass/css3";
 @import "variables";
 
+@import "compass/reset";
 html {
     -webkit-text-size-adjust : 100%;
     text-size-adjust : 100%;
@@ -101,6 +101,10 @@ p {
 
 .brand {
     color : $brandColor;
+}
+
+.gruy-light {
+    color : #999;
 }
 
 /** buttons start  **/
